@@ -89,7 +89,7 @@ var gameState = {
                 tower.tint = 0x32332
             } else {
                 // console.log('can afford', tower.name)
-                tower.inputenabled = true;
+                tower.inputEnabled = true;
                 tower.tint = 16777215
             }
         }
@@ -106,7 +106,7 @@ var gameState = {
 // Decrement coins
 // Start attacking enemies (implement radius?)
 
-// String utility for proper formatting
+// String utility for proper formatting 
 String.prototype.toProperCase = function () {
     return this.replace(/\w\S*/g, function (txt) {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
