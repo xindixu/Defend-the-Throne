@@ -1,34 +1,35 @@
-String.prototype.toProperCase = function () {
-    return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-};
+/*
+ * Defend the Throne
+ * Ian Mobbs, Jerry Lam, Xindi Xu
+ * CS 329E Game Dev
+ */
 
-var game = new Phaser.Game(1000, 600, Phaser.AUTO, ''),
-    lives = 100,
-    coins = 150,
-    wave = 1;
+var game = new Phaser.Game(1000, 600, Phaser.AUTO, ''), // Phaser game instances
+    lives = 100, // Lives given to user
+    coins = 150, // Starting coins for user
+    wave = 1, // Current wave of monsters
+    towerSprites; // Manage tower store
 
-var towerSprites;
-
+// Game state manager
 var gameState = {
-    preload: function() {
-
+    preload: function () {
         // All image loading
         game.load.pack('images', 'js/assets.json', null, this);
 
         // Map and sidebar for game functionality
-        game.load.image('map','../assets/map.jpg');
+        game.load.image('map', '../assets/map.jpg');
         game.load.image('sidebar', '../assets/sidebar.png');
-        
+
 
         // Tower and enemy sprite information
         game.load.json('towers', 'js/towers.json');
         game.load.json('enemies', 'js/enemies.json');
     },
-    create: function() {
+    create: function () {
         // Add game interface
         game.add.sprite(0, 0, 'map')
         game.add.sprite(800, 0, 'sidebar')
-        
+
         // Tower sprites
         var towers = game.cache.getJSON('towers');
         towerSprites = game.add.group();
@@ -56,7 +57,7 @@ var gameState = {
             game.add.text(towerSprite.x + 75, towerSprite.y + 25, "Cost: " + tower.cost.toString(), towerStyle)
 
             // Add sprite to group
-            towerSprites.add(towerSprite);            
+            towerSprites.add(towerSprite);
             console.log(towerSprites);
         }
 
@@ -64,17 +65,17 @@ var gameState = {
         game.add.text(805, 510,
             'Wave: ' + wave.toString() + '\n' +
             'Coins: ' + coins.toString() + '\n' +
-            'Lives: ' + lives.toString(),
-            {
+            'Lives: ' + lives.toString(), {
                 font: '15px Arial',
             }
         )
-        
+
         // Add in one monster to test enemy sprite creation
         var t1 = game.add.sprite(0, 0, 'troll');
 
     },
-    update: function() {
+    update: function () {
+        // Update the tower store
         for (tIndex in towerSprites.children) {
             let tower = towerSprites.children[tIndex];
             if (coins < tower.cost) {
@@ -84,11 +85,20 @@ var gameState = {
             } else {
                 // console.log('can afford', tower.name)
                 tower.inputenabled = true,
-                tower.tint = 16777215
+                    tower.tint = 16777215
             }
         }
-    },
+    }
 }
 
+// String utility for proper stuff
+String.prototype.toProperCase = function () {
+    return this.replace(/\w\S*/g, function (txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    });
+};
+
+
+// Add and start the game
 game.state.add('gameState', gameState)
 game.state.start('gameState')
