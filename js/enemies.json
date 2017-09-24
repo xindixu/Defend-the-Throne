@@ -1,8 +1,7 @@
 [
     {
         "name": "troll",
-        "sprite": "../assets/troll.png",
-        "coins": 100,
+        "coinsDropped": 10,
         "health": 30
     }
 ]

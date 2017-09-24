@@ -5,14 +5,19 @@ var game = new Phaser.Game(1000, 600, Phaser.AUTO, ''),
 
 var gameState = {
     preload: function() {
+
+        // All image loading
+        game.load.pack('images', 'assetpack.json', null, this);
+
         // Map and sidebar for game functionality
-        game.load.image('map','../assets/map.jpg')
-        game.load.image('sidebar', '../assets/sidebar.png')
+        game.load.image('map','../assets/map.jpg');
+        game.load.image('sidebar', '../assets/sidebar.png');
         
-        //Tower sprites
+
+        // Tower sprite information
         game.load.json('towers', 'js/towers.json');
 
-        // Enemy sprites
+        // Enemy sprite information
         game.load.json('enemies', 'js/enemies.json');
     },
     create: function() {
@@ -22,12 +27,11 @@ var gameState = {
         
         // Tower sprites
         var towers = game.cache.getJSON('towers');
-        console.log(towers);
         for (tIndex in towers) {
             // Load the tower and the game image
             let tower = towers[tIndex];
-            game.load.image(tower.name, tower.sprite)
-            
+            // game.load.image(tower.name, tower.sprite)
+
             // Create the sprite for the towers and enable drag and drop
             var towerSprite = game.add.sprite(800, 40 + tIndex * 75, tower.name);
             towerSprite.inputEnabled = true;
@@ -40,8 +44,7 @@ var gameState = {
         for (eIndex in enemies) {
             // Include enemy and sprite in animation
             let enemy = enemies[eIndex];
-            game.load.image(enemy.name, enemy.sprite)
-            game.add.sprite(enemy.name, enemy.sprite)
+            // game.load.image(enemy.name, enemy.sprite)
         }
 
         // Add game information
@@ -57,7 +60,7 @@ var gameState = {
         var t1 = game.add.sprite(0, 0, 'troll');
 
     },
-    update: function() {}
+    update: function() {},
 }
 
 game.state.add('gameState', gameState)
