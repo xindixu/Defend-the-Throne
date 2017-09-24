@@ -1,0 +1,16 @@
+{ 
+    "images": [
+        {
+            "type": "image",
+            "key": "nest",
+            "url": "../assets/nest.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "troll",
+            "url": "../assets/troll.png",
+            "overwrite": false
+        }
+    ]
+}
