@@ -1,0 +1,8 @@
+[
+    {
+        "name": "troll",
+        "sprite": "../assets/troll.png",
+        "coins": 100,
+        "health": 30
+    }
+]

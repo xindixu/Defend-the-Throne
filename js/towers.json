@@ -1,0 +1,8 @@
+[
+    {
+        "name": "nest",
+        "sprite": "../assets/nest.png",
+        "coins": 100,
+        "damage": 10
+    }
+]
