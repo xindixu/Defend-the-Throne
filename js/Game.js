@@ -89,8 +89,8 @@ var gameState = {
                 tower.tint = 0x32332
             } else {
                 // console.log('can afford', tower.name)
-                tower.inputenabled = true,
-                    tower.tint = 16777215
+                tower.inputenabled = true;
+                tower.tint = 16777215
             }
         }
         gameText.text = 'Wave: ' + wave.toString() + '\n' +
