@@ -6,9 +6,15 @@
 
 var game = new Phaser.Game(1000, 600, Phaser.AUTO, ''), // Phaser game instances
     lives = 100, // Lives given to user
-    coins = 150, // Starting coins for user
+    coins = 195, // Starting coins for user
     wave = 1, // Current wave of monsters
-    towerSprites; // Manage tower store
+    towerSprites, // Manage tower store
+    builtTowers, // Manage user towers
+    gameText; // Show user game information
+
+setInterval(function() {
+    coins += 1
+}, 1000)
 
 // Game state manager
 var gameState = {
@@ -36,7 +42,6 @@ var gameState = {
         for (tIndex in towers) {
             // Load the tower and the game image
             let tower = towers[tIndex];
-            // game.load.image(tower.name, tower.sprite)
 
             // Create the sprite for the towers
             var towerSprite = game.add.sprite(800, 40 + tIndex * 75, tower.name);
@@ -62,7 +67,7 @@ var gameState = {
         }
 
         // Add game information
-        game.add.text(805, 510,
+        gameText = game.add.text(805, 510,
             'Wave: ' + wave.toString() + '\n' +
             'Coins: ' + coins.toString() + '\n' +
             'Lives: ' + lives.toString(), {
@@ -88,10 +93,20 @@ var gameState = {
                     tower.tint = 16777215
             }
         }
+        gameText.text = 'Wave: ' + wave.toString() + '\n' +
+        'Coins: ' + coins.toString() + '\n' +
+        'Lives: ' + lives.toString()
     }
 }
 
-// String utility for proper stuff
+// Tower creation utility
+// When creating a tower.....
+// Create a new tower and select it
+// When drag has stopped, place the tower
+// Decrement coins
+// Start attacking enemies (implement radius?)
+
+// String utility for proper formatting
 String.prototype.toProperCase = function () {
     return this.replace(/\w\S*/g, function (txt) {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
