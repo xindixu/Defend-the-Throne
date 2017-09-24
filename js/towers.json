@@ -1,7 +1,12 @@
 [
     {
         "name": "nest",
-        "coins": 100,
+        "cost": 100,
         "damage": 10
+    },
+    {
+        "name": "bomb",
+        "cost": 200,
+        "damage": 15
     }
 ]

@@ -3,13 +3,19 @@
         {
             "type": "image",
             "key": "nest",
-            "url": "../assets/nest.png",
+            "url": "assets/nest.png",
             "overwrite": false
         },
         {
             "type": "image",
             "key": "troll",
-            "url": "../assets/troll.png",
+            "url": "assets/troll.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "bomb",
+            "url": "assets/bomb.png",
             "overwrite": false
         }
     ]
