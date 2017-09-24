@@ -37,20 +37,27 @@ var gameState = {
             let tower = towers[tIndex];
             // game.load.image(tower.name, tower.sprite)
 
-            // Create the sprite for the towers and enable drag and drop
+            // Create the sprite for the towers
             var towerSprite = game.add.sprite(800, 40 + tIndex * 75, tower.name);
+
+            // Add tower cost to the sprite object
             towerSprite.cost = tower.cost
+
+            // Enable drag and drop on the towers
             towerSprite.inputEnabled = true;
             towerSprite.input.enableDrag();
             towerSprite.input.enableSnap(32, 32, true, true);
-            towerSprites.add(towerSprite);
 
-            // Add information about the tower
+            // Add information about the tower to the sidebar
             towerStyle = {
                 font: "20px Arial"
             }
             game.add.text(towerSprite.x + 75, towerSprite.y, tower.name.toProperCase(), towerStyle)
             game.add.text(towerSprite.x + 75, towerSprite.y + 25, "Cost: " + tower.cost.toString(), towerStyle)
+
+            // Add sprite to group
+            towerSprites.add(towerSprite);            
+            console.log(towerSprites);
         }
 
         // Add game information
@@ -68,17 +75,16 @@ var gameState = {
 
     },
     update: function() {
-        console.log(towerSprites.children)
         for (tIndex in towerSprites.children) {
             let tower = towerSprites.children[tIndex];
-            if (coins > tower.cost) {
+            if (coins < tower.cost) {
                 // console.log('can\'t afford', tower.name)
                 tower.inputEnabled = false;
                 tower.tint = 0x32332
             } else {
                 // console.log('can afford', tower.name)
                 tower.inputenabled = true,
-                tower.tint = null
+                tower.tint = 16777215
             }
         }
     },
