@@ -17,6 +17,13 @@ setInterval(function() {
     coins += 1
 }, 1000)
 
+setInterval(function() {
+    if (enemies.length > 0) { 
+        let e = enemies.pop();
+        e.start();
+    }
+}, 1000)
+
 // Game state manager
 var gameState = {
     preload: function () {
@@ -88,17 +95,17 @@ var gameState = {
         )
 
         // Add in one monster to test enemy sprite creation
-        var t1 = game.add.sprite(0, 0, 'troll');
+        // var t1 = game.add.sprite(0, 0, 'troll');
 
     },
     update: function () {
         // Update all enemies
 
-        for (eIndex in enemies) {
-            var enemy = enemies[eIndex];
-            // console.log(enemy);
-            enemy.update();
-        }
+        // for (eIndex in enemies) {
+        //     var enemy = enemies[eIndex];
+        //     // console.log(enemy);
+        //     enemy.update();
+        // }
 
         // Update the tower store
         for (tIndex in towerSprites.children) {
@@ -133,6 +140,7 @@ class Enemy {
         this.alive = true;
         
         this.enemy = game.add.sprite(0, 0, enemy.name);
+        // this.enemy.alpha = 0;
         this.enemy.anchor.set(0.5, 0.5);
         
         game.physics.enable(this.enemy);
@@ -153,9 +161,10 @@ class Enemy {
         return false;
     }
 
-    update() {
+    start() {
+        // this.enemy.alpha = 1000000;
         this.enemy.body.velocity.x = 100;
-        this.enemy.animations.play('idle');    
+        this.enemy.animations.play('idle');
     }
 }
 
