@@ -1,0 +1,11 @@
+[
+    {
+        "wave": 1,
+        "enemies": [
+            {
+                "name": "troll",
+                "amount": 5
+            }
+        ]
+    }
+]

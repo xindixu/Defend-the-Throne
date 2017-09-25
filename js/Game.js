@@ -7,7 +7,8 @@
 var game = new Phaser.Game(1000, 600, Phaser.AUTO, ''), // Phaser game instances
     lives = 10, // Lives given to user
     coins = 195, // Starting coins for user
-    wave = 1, // Current wave of monsters
+    currentWave = 1, // Current wave of monsters
+    enemies = [], // List of enemies to update
     towerSprites, // Manage tower store
     builtTowers, // Manage user towers
     gameText; // Show user game information
@@ -26,6 +27,8 @@ var gameState = {
         game.load.image('map', '../assets/map.jpg');
         game.load.image('sidebar', '../assets/sidebar.png');
 
+        // Wave information
+        game.load.json('waves', 'js/waves.json');
 
         // Tower and enemy sprite information
         game.load.json('towers', 'js/towers.json');
@@ -63,12 +66,21 @@ var gameState = {
 
             // Add sprite to group
             towerSprites.add(towerSprite);
-            console.log(towerSprites);
+            // console.log(towerSprites);
+        }
+
+        var waves = game.cache.getJSON('waves'),
+            waveObject = waves[currentWave - 1];
+        console.log("WAVE:",waveObject);        
+        for (enemy in waveObject.enemies) {
+            for (var enemyNum = 0; enemyNum < waveObject.enemies[enemy].amount; enemyNum++) {
+                enemies.push(new Enemy(enemy.name));
+            }
         }
 
         // Add game information
         gameText = game.add.text(805, 510,
-            'Wave: ' + wave.toString() + '\n' +
+            'Wave: ' + currentWave.toString() + '\n' +
             'Coins: ' + coins.toString() + '\n' +
             'Lives: ' + lives.toString(), {
                 font: '15px Arial',
@@ -80,6 +92,14 @@ var gameState = {
 
     },
     update: function () {
+        // Update all enemies
+
+        for (eIndex in enemies) {
+            var enemy = enemies[eIndex];
+            // console.log(enemy);
+            enemy.update();
+        }
+
         // Update the tower store
         for (tIndex in towerSprites.children) {
             let tower = towerSprites.children[tIndex];
@@ -93,9 +113,49 @@ var gameState = {
                 tower.tint = 16777215
             }
         }
-        gameText.text = 'Wave: ' + wave.toString() + '\n' +
+        gameText.text = 'Wave: ' + currentWave.toString() + '\n' +
         'Coins: ' + coins.toString() + '\n' +
         'Lives: ' + lives.toString()
+    }
+}
+
+// Enemy class
+class Enemy {
+    constructor(type) {
+
+        var enemies = game.cache.getJSON('enemies')
+        enemies.filter(function(e) {
+            e.name == type;
+        })
+        var enemy = enemies[0];
+
+        this.health = enemy.health;
+        this.alive = true;
+        
+        this.enemy = game.add.sprite(0, 0, enemy.name);
+        this.enemy.anchor.set(0.5, 0.5);
+        
+        game.physics.enable(this.enemy);
+        this.enemy.body.immovable = false;
+        this.enemy.body.collideWorldBounds = true;
+        this.enemy.body.bounce.setTo(1,1);
+        
+        // this.enemy.animations.add('idle',[0,1,2,3],10,true);
+    }
+    damage(damageAmount) {
+        this.health -= damageAmount;
+        
+        if (this.health <= 0) {
+            this.alive = false;
+            this.tank.kill();
+            return true;
+        }
+        return false;
+    }
+
+    update() {
+        this.enemy.body.velocity.x = 100;
+        this.enemy.animations.play('idle');    
     }
 }
 
