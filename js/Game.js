@@ -5,7 +5,7 @@
  */
 
 var game = new Phaser.Game(1000, 600, Phaser.AUTO, ''), // Phaser game instances
-    lives = 100, // Lives given to user
+    lives = 10, // Lives given to user
     coins = 195, // Starting coins for user
     wave = 1, // Current wave of monsters
     towerSprites, // Manage tower store
