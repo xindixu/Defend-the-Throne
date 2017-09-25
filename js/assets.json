@@ -17,6 +17,12 @@
             "key": "bomb",
             "url": "assets/bomb.png",
             "overwrite": false
+        },
+        {
+            "type": "spritesheet",
+            "key": "baddie",
+            "url": "assets/baddie.png",
+            "overwrite": false
         }
     ]
 }
