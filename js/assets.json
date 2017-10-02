@@ -3,39 +3,26 @@
         {
             "type": "image",
             "key": "nest",
-            "url": "assets/tower/nest.png",
+            "url": "assets/nest.png",
             "overwrite": false
         },
         {
             "type": "image",
             "key": "troll",
-            "url": "assets/enemy/troll.png",
+            "url": "assets/troll.png",
             "overwrite": false
         },
         {
             "type": "image",
             "key": "bomb",
-            "url": "assets/tower/bomb.png",
+            "url": "assets/bomb.png",
             "overwrite": false
         },
         {
             "type": "spritesheet",
-            "key": "spearKing",
-            "url": "assets/enemy/SpearKingSpriteSheet.png",
-            "overwrite": false
-        },
-        {
-            "type": "spritesheet",
-            "key": "shieldKnight",
-            "url": "assets/enemy/ShieldKnightSpriteSheet.png",
-            "overwrite": false
-        },
-        {
-            "type": "image",
-            "key": "rock",
-            "url": "assets/tower/rock.png",
+            "key": "baddie",
+            "url": "assets/baddie.png",
             "overwrite": false
         }
-        
     ]
 }
