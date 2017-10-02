@@ -9,18 +9,23 @@ var game = new Phaser.Game(1000, 600, Phaser.AUTO, ''), // Phaser game instances
     coins = 195, // Starting coins for user
     currentWave = 1, // Current wave of monsters
     enemies = [], // List of enemies to update
+    towers = [], // List of towers to update
     towerSprites, // Manage tower store
     builtTowers, // Manage user towers
     gameText; // Show user game information
 
-setInterval(function() {
+// Give user a coin every second
+setInterval(function () {
     coins += 1
 }, 1000)
 
-setInterval(function() {
-    if (enemies.length > 0) { 
-        let e = enemies.pop();
+// Used to distribute enemies in wave
+enemyIndex = 0
+setInterval(function () {
+    if (enemyIndex < enemies.length) {
+        let e = enemies[enemyIndex];
         e.start();
+        enemyIndex += 1
     }
 }, 1000)
 
@@ -55,6 +60,8 @@ var gameState = {
 
             // Create the sprite for the towers
             var towerSprite = game.add.sprite(800, 40 + tIndex * 75, tower.name);
+            towerSprite.defaultX = 800
+            towerSprite.defaultY = 40 + tIndex * 75
 
             // Add tower cost to the sprite object
             towerSprite.cost = tower.cost
@@ -63,6 +70,7 @@ var gameState = {
             towerSprite.inputEnabled = true;
             towerSprite.input.enableDrag();
             towerSprite.input.enableSnap(32, 32, true, true);
+            towerSprite.events.onDragStop.add(placeTower, this)
 
             // Add information about the tower to the sidebar
             towerStyle = {
@@ -73,14 +81,14 @@ var gameState = {
 
             // Add sprite to group
             towerSprites.add(towerSprite);
-            // console.log(towerSprites);
         }
-
+        // Load wave details
         var waves = game.cache.getJSON('waves'),
             waveObject = waves[currentWave - 1];
-        console.log("WAVE:",waveObject);        
-        for (enemy in waveObject.enemies) {
-            for (var enemyNum = 0; enemyNum < waveObject.enemies[enemy].amount; enemyNum++) {
+        // Add enemies from wave into enemy list
+        for (eIndex in waveObject.enemies) {
+            let enemy = waveObject.enemies[eIndex];
+            for (var enemyNum = 0; enemyNum < waveObject.enemies[eIndex].amount; enemyNum++) {
                 enemies.push(new Enemy(enemy.name));
             }
         }
@@ -93,87 +101,134 @@ var gameState = {
                 font: '15px Arial',
             }
         )
-
-        // Add in one monster to test enemy sprite creation
-        // var t1 = game.add.sprite(0, 0, 'troll');
-
     },
-    update: function () {
-        // Update all enemies
 
-        // for (eIndex in enemies) {
-        //     var enemy = enemies[eIndex];
-        //     // console.log(enemy);
-        //     enemy.update();
-        // }
+    update: function () {
+        // Check to see if enemy in tower range
+        for (tIndex in towers) {
+            // Check all towers
+            let tower = towers[tIndex];
+            for (eIndex in enemies) {
+                // Check all enemies
+                let enemy = enemies[eIndex];
+
+                // Change tint of enemy for distance visualization
+                if (tower.checkEnemy(enemy)) {
+                    enemy.sprite.tint = 0xd32f2f
+                } else {
+                    enemy.sprite.tint = 0xffffff
+                }
+            }
+        }
 
         // Update the tower store
         for (tIndex in towerSprites.children) {
             let tower = towerSprites.children[tIndex];
+            // Can't afford this tower
             if (coins < tower.cost) {
-                // console.log('can\'t afford', tower.name)
                 tower.inputEnabled = false;
                 tower.tint = 0x32332
+            // Can afford this tower
             } else {
-                // console.log('can afford', tower.name)
                 tower.inputEnabled = true;
                 tower.tint = 16777215
             }
         }
+        
+        // Update game text
         gameText.text = 'Wave: ' + currentWave.toString() + '\n' +
-        'Coins: ' + coins.toString() + '\n' +
-        'Lives: ' + lives.toString()
+            'Coins: ' + coins.toString() + '\n' +
+            'Lives: ' + lives.toString()
     }
 }
 
 // Enemy class
 class Enemy {
+    // Instantiate enemy with given type
     constructor(type) {
-
+        // Get details of enemy type provided
         var enemies = game.cache.getJSON('enemies')
-        enemies.filter(function(e) {
-            e.name == type;
+        enemies = enemies.filter(function (e) {
+            return e.name == type;
         })
         var enemy = enemies[0];
 
+        // Add information to object
         this.health = enemy.health;
         this.alive = true;
         
-        this.enemy = game.add.sprite(0, 0, enemy.name);
-        // this.enemy.alpha = 0;
-        this.enemy.anchor.set(0.5, 0.5);
-        
-        game.physics.enable(this.enemy);
-        this.enemy.body.immovable = false;
-        this.enemy.body.collideWorldBounds = true;
-        this.enemy.body.bounce.setTo(1,1);
-        
-        // this.enemy.animations.add('idle',[0,1,2,3],10,true);
-    }
-    damage(damageAmount) {
-        this.health -= damageAmount;
-        
-        if (this.health <= 0) {
-            this.alive = false;
-            this.tank.kill();
-            return true;
-        }
-        return false;
+        // Add sprite to object
+        this.sprite = game.add.sprite(0, 0, enemy.name);
+        this.sprite.anchor.set(0.5, 0.5);
+
+        // Add physics to object
+        game.physics.enable(this.sprite);
+        this.sprite.body.immovable = false;
+        this.sprite.body.collideWorldBounds = true;
+        this.sprite.body.bounce.setTo(1, 1);
     }
 
+    // Damage enemy
+    damage(damageAmount) {
+        this.health -= damageAmount
+        if (this.health <= 0) {
+            this.alive = false;
+            this.sprite.destroy();
+        }
+    }
+
+    // Start moving enemy
     start() {
-        // this.enemy.alpha = 1000000;
-        this.enemy.body.velocity.x = 100;
-        this.enemy.animations.play('idle');
+        this.sprite.body.velocity.x = 100;
+        this.sprite.animations.play('idle');
     }
 }
 
-// Tower creation utility
-// When creating a tower.....
-// Create a new tower and select it
-// When drag has stopped, place the tower
-// Decrement coins
-// Start attacking enemies (implement radius?)
+// Tower class
+class Tower {
+    // Instantiate tower using given type and location drop
+    constructor(type, x, y) {
+        // Get details of tower type provided
+        var towers = game.cache.getJSON('towers')
+        towers = towers.filter(function (t) {
+            return t.name == type;
+        })
+        var tower = towers[0];
+        
+        // Load details from tower information and create sprite
+        this.damage = tower.damage;
+        this.sprite = game.add.sprite(x, y, tower.name);
+    }
+
+    // Checks if enemy is in shooting radius
+    checkEnemy(enemy) {
+        // Get distance to enemy
+        let eX = enemy.sprite.x,
+            eY = enemy.sprite.y,
+            distance = Phaser.Math.distance(this.sprite.x, this.sprite.y, eX, eY);
+        
+        // Return if distance in radius
+        if (distance <= 150) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+// Places tower and resets store
+function placeTower(towerSprite) {
+    // Place tower
+    var newTower = new Tower(towerSprite.key, towerSprite.x, towerSprite.y);
+    towers.push(newTower)
+
+    // Reset store sprite location
+    towerSprite.x = towerSprite.defaultX
+    towerSprite.y = towerSprite.defaultY
+
+    // Decrement coins
+    coins -= towerSprite.cost
+}
 
 // String utility for proper formatting 
 String.prototype.toProperCase = function () {
@@ -181,7 +236,6 @@ String.prototype.toProperCase = function () {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
 };
-
 
 // Add and start the game
 game.state.add('gameState', gameState)
