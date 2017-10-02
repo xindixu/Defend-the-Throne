@@ -9,6 +9,7 @@ var game = new Phaser.Game(1000, 600, Phaser.AUTO, ''), // Phaser game instances
     coins = 195, // Starting coins for user
     currentWave = 1, // Current wave of monsters
     enemies = [], // List of enemies to update
+    towers = [], // List of towers to update
     towerSprites, // Manage tower store
     builtTowers, // Manage user towers
     gameText; // Show user game information
@@ -17,10 +18,12 @@ setInterval(function() {
     coins += 1
 }, 1000)
 
+enemyIndex = 0
 setInterval(function() {
-    if (enemies.length > 0) { 
-        let e = enemies.pop();
+    if (enemyIndex < enemies.length) { 
+        let e = enemies[enemyIndex];
         e.start();
+        enemyIndex += 1
     }
 }, 1000)
 
@@ -55,7 +58,9 @@ var gameState = {
 
             // Create the sprite for the towers
             var towerSprite = game.add.sprite(800, 40 + tIndex * 75, tower.name);
-
+            towerSprite.defaultX = 800
+            towerSprite.defaultY = 40 + tIndex * 75
+            
             // Add tower cost to the sprite object
             towerSprite.cost = tower.cost
 
@@ -63,6 +68,7 @@ var gameState = {
             towerSprite.inputEnabled = true;
             towerSprite.input.enableDrag();
             towerSprite.input.enableSnap(32, 32, true, true);
+            towerSprite.events.onDragStop.add(placeTower, this)
 
             // Add information about the tower to the sidebar
             towerStyle = {
@@ -99,13 +105,22 @@ var gameState = {
 
     },
     update: function () {
-        // Update all enemies
+        // Check to see if enemy in tower range
+        for (tIndex in towers) {
+            // Check all towers
+            let tower = towers[tIndex];
+            for (eIndex in enemies) {
+                // Check all enemies
+                let enemy = enemies[eIndex];
 
-        // for (eIndex in enemies) {
-        //     var enemy = enemies[eIndex];
-        //     // console.log(enemy);
-        //     enemy.update();
-        // }
+                // Change tint of enemy for distance visualization
+                if (tower.checkEnemy(enemy)) {
+                    enemy.sprite.tint = 0xd32f2f
+                } else {
+                    enemy.sprite.tint = 0xffffff
+                }
+            }
+        }
 
         // Update the tower store
         for (tIndex in towerSprites.children) {
@@ -139,17 +154,18 @@ class Enemy {
         this.health = enemy.health;
         this.alive = true;
         
-        this.enemy = game.add.sprite(0, 0, enemy.name);
+        this.sprite = game.add.sprite(0, 0, enemy.name);
         // this.enemy.alpha = 0;
-        this.enemy.anchor.set(0.5, 0.5);
+        this.sprite.anchor.set(0.5, 0.5);
         
-        game.physics.enable(this.enemy);
-        this.enemy.body.immovable = false;
-        this.enemy.body.collideWorldBounds = true;
-        this.enemy.body.bounce.setTo(1,1);
+        game.physics.enable(this.sprite);
+        this.sprite.body.immovable = false;
+        this.sprite.body.collideWorldBounds = true;
+        this.sprite.body.bounce.setTo(1,1);
         
         // this.enemy.animations.add('idle',[0,1,2,3],10,true);
     }
+
     damage(damageAmount) {
         this.health -= damageAmount;
         
@@ -163,9 +179,46 @@ class Enemy {
 
     start() {
         // this.enemy.alpha = 1000000;
-        this.enemy.body.velocity.x = 100;
-        this.enemy.animations.play('idle');
+        this.sprite.body.velocity.x = 100;
+        this.sprite.animations.play('idle');
     }
+}
+
+class Tower {
+    constructor(type, x, y) {
+        var towers = game.cache.getJSON('towers')
+        towers.filter(function(t) {
+            t.name == type;
+        })
+        var tower = towers[0];
+
+        this.damage = tower.damage;
+        this.sprite = game.add.sprite(x, y, tower.name);
+    }
+
+    checkEnemy(enemy) {
+        let eX = enemy.sprite.x,
+            eY = enemy.sprite.y,
+            distance = Phaser.Math.distance(this.sprite.x, this.sprite.y, eX, eY);
+        if (distance <= 200) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
+function placeTower(towerSprite) {
+    // Place tower
+    var newTower = new Tower(towerSprite.name, towerSprite.x, towerSprite.y);
+    towers.push(newTower)
+    
+    // Reset store sprite location
+    towerSprite.x = towerSprite.defaultX,
+    towerSprite.y = towerSprite.defaultY
+    
+    // Decrement coins
+    coins -= towerSprite.cost
 }
 
 // Tower creation utility
