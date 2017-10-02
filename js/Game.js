@@ -2,6 +2,7 @@
  * Defend the Throne
  * Ian Mobbs, Jerry Lam, Xindi Xu
  * CS 329E Game Dev
+ * Last completed - Sprint 1
  */
 
 var game = new Phaser.Game(1000, 600, Phaser.AUTO, ''), // Phaser game instances
