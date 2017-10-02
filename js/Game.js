@@ -6,7 +6,7 @@
 
 var game = new Phaser.Game(1000, 600, Phaser.AUTO, ''), // Phaser game instances
     lives = 10, // Lives given to user
-    coins = 195, // Starting coins for user
+    coins = 290, // Starting coins for user
     currentWave = 1, // Current wave of monsters
     enemies = [], // List of enemies to update
     towers = [], // List of towers to update
@@ -35,6 +35,10 @@ var gameState = {
         // All image loading
         game.load.pack('images', 'js/assets.json', null, this);
 
+        game.load.tilemap('field1','assets/bg/dirtpathTS.json',null,Phaser.Tilemap.TILED_JSON);
+        game.load.image('grass','assets/bg/grass.png');
+        game.load.image('road','assets/bg/road.png');
+        
         // Map and sidebar for game functionality
         game.load.image('map', '../assets/map.jpg');
         game.load.image('sidebar', '../assets/sidebar.png');
@@ -45,11 +49,39 @@ var gameState = {
         // Tower and enemy sprite information
         game.load.json('towers', 'js/towers.json');
         game.load.json('enemies', 'js/enemies.json');
+        
+        
+        game.load.image('rock', 'assets/rock.png');
+        
     },
+
+    
     create: function () {
+        
+        game.physics.startSystem(Phaser.Physics.ARCADE);
+        // Add game input
+        game.input.mouse.capture = true;
+        
         // Add game interface
-        game.add.sprite(0, 0, 'map')
+        map = game.add.tilemap('field1');
+        map.addTilesetImage('grass');
+        map.addTilesetImage('road');
+        grass = map.createLayer('grass');
+        dirtPath = map.createLayer('road');
+        // Add game interface
+      
         game.add.sprite(800, 0, 'sidebar')
+        // path for enemy
+        bmd = game.add.bitmapData(game.width,game.height);
+        var points = {
+            'x': [0, 200, 120, 456, 640],
+            'y': [0, 300, 120, 156, 480]};
+        
+        for(var i = 0; i < 1; i += 1){
+            var px = game.math.linearInterpolation(points.x,i);
+            var py = game.math.linearInterpolation(points.y,i);
+            bmd.rect(px,py,3,3,'rgba(245,0,0,1)');
+        };
 
         // Tower sprites
         var towers = game.cache.getJSON('towers');
@@ -108,6 +140,7 @@ var gameState = {
         for (tIndex in towers) {
             // Check all towers
             let tower = towers[tIndex];
+            tower.fire(enemies[0].enemy);
             for (eIndex in enemies) {
                 // Check all enemies
                 let enemy = enemies[eIndex];
@@ -115,10 +148,12 @@ var gameState = {
                 // Change tint of enemy for distance visualization
                 if (tower.checkEnemy(enemy)) {
                     enemy.sprite.tint = 0xd32f2f
+                    enemy.damage(7);
                 } else {
                     enemy.sprite.tint = 0xffffff
                 }
             }
+            
         }
 
         // Update the tower store
@@ -154,7 +189,7 @@ class Enemy {
         var enemy = enemies[0];
 
         // Add information to object
-        this.health = enemy.health;
+        this.health = 10;
         this.alive = true;
         
         // Add sprite to object
@@ -198,10 +233,29 @@ class Tower {
         // Load details from tower information and create sprite
         this.damage = tower.damage;
         this.sprite = game.add.sprite(x, y, tower.name);
+        
+        
+        
+        // it should change as the type changes
+        this.bullets = game.add.weapon(30,'rock');
+
+        this.bullets.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
+        this.bullets.bulletSpeed = 800;
+        this.bullets.fireRate = 1000;
+        this.bullets.trackSprite(this.tower, 0, 0);
+
     }
 
+    fire(enemy){
+       
+        this.bullets.fire(); 
+        
+    }
     // Checks if enemy is in shooting radius
+
     checkEnemy(enemy) {
+        
+        
         // Get distance to enemy
         let eX = enemy.sprite.x,
             eY = enemy.sprite.y,

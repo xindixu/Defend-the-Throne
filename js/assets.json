@@ -19,6 +19,12 @@
             "overwrite": false
         },
         {
+            "type": "image",
+            "key": "rock",
+            "url": "assets/rock.png",
+            "overwrite": false
+        },
+        {
             "type": "spritesheet",
             "key": "baddie",
             "url": "assets/baddie.png",
