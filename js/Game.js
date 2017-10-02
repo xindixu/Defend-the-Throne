@@ -85,8 +85,10 @@ var gameState = {
         var waves = game.cache.getJSON('waves'),
             waveObject = waves[currentWave - 1];
         console.log("WAVE:",waveObject);        
-        for (enemy in waveObject.enemies) {
-            for (var enemyNum = 0; enemyNum < waveObject.enemies[enemy].amount; enemyNum++) {
+        for (eIndex in waveObject.enemies) {
+            let enemy = waveObject.enemies[eIndex];
+            for (var enemyNum = 0; enemyNum < waveObject.enemies[eIndex].amount; enemyNum++) {
+                console.log("EEEEE", enemy)
                 enemies.push(new Enemy(enemy.name));
             }
         }
@@ -146,10 +148,12 @@ class Enemy {
     constructor(type) {
 
         var enemies = game.cache.getJSON('enemies')
-        enemies.filter(function(e) {
-            e.name == type;
+        enemies = enemies.filter(function(e) {
+            return e.name == type;
         })
         var enemy = enemies[0];
+        console.log("TYPE", type)
+        console.log("ENEMIES", enemies)
 
         this.health = enemy.health;
         this.alive = true;
@@ -187,9 +191,11 @@ class Enemy {
 class Tower {
     constructor(type, x, y) {
         var towers = game.cache.getJSON('towers')
-        towers.filter(function(t) {
-            t.name == type;
+        towers = towers.filter(function(t) {
+            return t.name == type;
         })
+        console.log("TYPE", type)
+        console.log("TOWERS", towers)
         var tower = towers[0];
 
         this.damage = tower.damage;
@@ -210,7 +216,7 @@ class Tower {
 
 function placeTower(towerSprite) {
     // Place tower
-    var newTower = new Tower(towerSprite.name, towerSprite.x, towerSprite.y);
+    var newTower = new Tower(towerSprite.key, towerSprite.x, towerSprite.y);
     towers.push(newTower)
     
     // Reset store sprite location
