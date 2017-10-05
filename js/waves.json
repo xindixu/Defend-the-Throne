@@ -3,7 +3,7 @@
         "wave": 1,
         "enemies": [
             {
-                "name": "troll",
+                "name": "baddies",
                 "amount": 5
             }
         ]

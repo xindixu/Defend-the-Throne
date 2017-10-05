@@ -141,7 +141,6 @@ var gameState = {
         for (tIndex in towers) {
             // Check all towers
             let tower = towers[tIndex];
-            tower.fire(enemies[0].enemy);
             for (eIndex in enemies) {
                 // Check all enemies
                 let enemy = enemies[eIndex];
@@ -149,6 +148,7 @@ var gameState = {
                 // Change tint of enemy for distance visualization
                 if (tower.checkEnemy(enemy)) {
                     enemy.sprite.tint = 0xd32f2f
+                    tower.fire(enemy);
                     enemy.damage(7);
                 } else {
                     enemy.sprite.tint = 0xffffff
@@ -188,6 +188,7 @@ class Enemy {
             return e.name == type;
         })
         var enemy = enemies[0];
+        
 
         // Add information to object
         this.health = 10;
@@ -234,7 +235,7 @@ class Tower {
         // Load details from tower information and create sprite
         this.damage = tower.damage;
         this.sprite = game.add.sprite(x, y, tower.name);
-        
+        this.position = Phaser.Point(x,y);
         
         
         // it should change as the type changes
@@ -243,12 +244,12 @@ class Tower {
         this.bullets.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
         this.bullets.bulletSpeed = 800;
         this.bullets.fireRate = 1000;
-        this.bullets.trackSprite(this.tower, 0, 0);
+        this.bullets.trackSprite(this.sprite);
 
     }
 
     fire(enemy){
-       
+        this.bullets.fireAngle = game.math.angleBetween(this.sprite.x, this.sprite.y, enemy.sprite.x, enemy.sprite.y) * 180 / game.math.PI;
         this.bullets.fire(); 
         
     }
