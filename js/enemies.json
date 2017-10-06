@@ -1,7 +1,20 @@
 [
     {
-        "name": "baddies",
+        "name": "spearKnight",
         "coinsDropped": 10,
-        "health": 30
+        "health": 30,
+        "animation": true
+    },
+    {
+        "name": "shieldKnight",
+        "coinsDropped": 10,
+        "health": 30,
+        "animation": true
+    },
+    {
+        "name": "rofl",
+        "coinsDropped": 10,
+        "health": 30,
+        "animation": false
     }
 ]

@@ -1,11 +1,11 @@
 [
     {
-        "name": "nest",
+        "name": "lightTower1",
         "cost": 100,
         "damage": 10
     },
     {
-        "name": "bomb",
+        "name": "outpost1",
         "cost": 200,
         "damage": 15
     }

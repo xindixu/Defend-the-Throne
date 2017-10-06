@@ -3,9 +3,24 @@
         "wave": 1,
         "enemies": [
             {
-                "name": "baddies",
+                "name": "spearKnight",
                 "amount": 5
+            },
+            {
+                "name": "shieldKnight",
+                "amount": 10
             }
         ]
+    },
+    
+    {
+        "wave": 1,
+        "enemies":[
+            {
+                "name": "spearKnight",
+                "amount": 10
+            }
+        ]
+        
     }
 ]

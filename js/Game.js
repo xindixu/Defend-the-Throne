@@ -41,8 +41,7 @@ var gameState = {
         game.load.image('road','assets/bg/road.png');
         
         // Map and sidebar for game functionality
-        game.load.image('map', '../assets/map.jpg');
-        game.load.image('sidebar', '../assets/sidebar.png');
+        game.load.image('sidebar', 'assets/sidebar.png');
 
         // Wave information
         game.load.json('waves', 'js/waves.json');
@@ -51,8 +50,6 @@ var gameState = {
         game.load.json('towers', 'js/towers.json');
         game.load.json('enemies', 'js/enemies.json');
         
-        
-        game.load.image('rock', 'assets/rock.png');
         
     },
 
@@ -203,6 +200,7 @@ class Enemy {
         this.sprite.body.immovable = false;
         this.sprite.body.collideWorldBounds = true;
         this.sprite.body.bounce.setTo(1, 1);
+        this.sprite.animations.add("idle",[0,1,2,3,4])
     }
 
     // Damage enemy
@@ -239,7 +237,7 @@ class Tower {
         
         
         // it should change as the type changes
-        this.bullets = game.add.weapon(30,'rock');
+        this.bullets = game.add.weapon(30,'ligntning');
 
         this.bullets.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
         this.bullets.bulletSpeed = 800;
@@ -250,6 +248,7 @@ class Tower {
 
     fire(enemy){
         this.bullets.fireAngle = game.math.angleBetween(this.sprite.x, this.sprite.y, enemy.sprite.x, enemy.sprite.y) * 180 / game.math.PI;
+        console.log(this.bullets.fireAngle);
         this.bullets.fire(); 
         
     }

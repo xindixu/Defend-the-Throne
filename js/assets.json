@@ -2,32 +2,71 @@
     "images": [
         {
             "type": "image",
-            "key": "nest",
-            "url": "assets/nest.png",
+            "key": "lightTower1",
+            "url": "assets/Towers/LightningTower.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "lightTower2",
+            "url": "assets/Towers/LightningTower2.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "outpost1",
+            "url": "assets/Towers/outpost.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "outpost2",
+            "url": "assets/Towers/outpost2.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "outpost3",
+            "url": "assets/Towers/outpost3.png",
+            "overwrite": false
+        },
+        
+        {
+            "type": "image",
+            "key": "chargedLighting",
+            "url": "assets/Projectiles/ChargedLightning.png",
+            "overwrite": false
+        },
+        
+        {
+            "type": "image",
+            "key": "lightning",
+            "url": "assets/Projectiles/Lightning.png",
             "overwrite": false
         },
         {
             "type": "image",
             "key": "troll",
-            "url": "assets/troll.png",
-            "overwrite": false
-        },
-        {
-            "type": "image",
-            "key": "bomb",
-            "url": "assets/bomb.png",
-            "overwrite": false
-        },
-        {
-            "type": "image",
-            "key": "rock",
-            "url": "assets/rock.png",
+            "url": "assets/enemy/troll.png",
             "overwrite": false
         },
         {
             "type": "spritesheet",
-            "key": "baddie",
-            "url": "assets/baddie.png",
+            "key": "shieldKnight",
+            "url": "assets/Monsters/ShieldKnightSpriteSheet.png",
+            "overwrite": false
+        },
+        
+        {
+            "type": "spritesheet",
+            "key": "spearKnight",
+            "url": "assets/Monsters/SpearKnightSpriteSheet.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "rofl",
+            "url": "assets/Monsters/rofl.png",
             "overwrite": false
         }
     ]
