@@ -242,22 +242,25 @@ class Tower {
         this.bullets = game.add.weapon(30,'lightning');
 
         this.bullets.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
-        this.bullets.bulletSpeed = 800;
-        this.bullets.fireRate = 1000;
+        this.bullets.bulletSpeed = 100;
+        this.bullets.fireRate = 100;
         this.bullets.trackSprite(this.sprite);
 
     }
 
     fire(enemy){
-        this.bullets.fireAngle = game.math.angleBetween(this.sprite.x, this.sprite.y, enemy.sprite.x, enemy.sprite.y) * 180 / game.math.PI;
-        console.log(this.bullets.fireAngle);
+        let eX = enemy.sprite.x,
+            eY = enemy.sprite.y,
+            angle = Math.atan2(this.sprite.y - eY, this.sprite.x - eX) * 180 / Math.PI;
+        this.bullets.fireAngle = angle
         this.bullets.fire(); 
         
     }
     // Checks if enemy is in shooting radius
 
     checkEnemy(enemy) {
-        
+        // Could be code golfed as
+        // return Phaser.Math.distance(this.sprite.x, this.sprite.y, enemy.sprite.x, enemy.sprite.y) <= 150;
         
         // Get distance to enemy
         let eX = enemy.sprite.x,
