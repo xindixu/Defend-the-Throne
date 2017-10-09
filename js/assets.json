@@ -61,7 +61,9 @@
             "type": "spritesheet",
             "key": "spearKnight",
             "url": "assets/Monsters/SpearKnightSpriteSheet.png",
-            "overwrite": false
+            "overwrite": false,
+            "frameWidth": 80,
+            "frameHeight": 72
         },
         {
             "type": "image",
