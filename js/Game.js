@@ -7,23 +7,23 @@
 
 // Global variables
 var game = new Phaser.Game(1000, 600, Phaser.AUTO, ''), // Phaser game instances
-lives = 10, // Lives given to user
-coins = 290, // Starting coins for user
-currentWave = 1, // Current wave of monsters
-enemies = [], // List of enemies to update
-towers = [], // List of towers to update
-towerSprites, // Manage tower store
-builtTowers, // Manage user towers
-gameText; // Show user game information
+    lives = 10, // Lives given to user
+    coins = 290, // Starting coins for user
+    currentWave = 1, // Current wave of monsters
+    enemies = [], // List of enemies to update
+    towers = [], // List of towers to update
+    towerSprites, // Manage tower store
+    builtTowers, // Manage user towers
+    gameText; // Show user game information
 
 // Give user a coin every second
-setInterval(function() {
+setInterval(function () {
     coins += 1
 }, 1000)
 
 // Distribute enemies in wave
 enemyIndex = 0
-setInterval(function() {
+setInterval(function () {
     if (enemyIndex < enemies.length) {
         let e = enemies[enemyIndex];
         enemyIndex += 1
@@ -32,7 +32,7 @@ setInterval(function() {
 }, 1000)
 
 // Towers fire every second
-setInterval(function() {
+setInterval(function () {
     // Check to see if enemy in tower range
     for (tIndex in towers) {
         // Check all towers
@@ -55,7 +55,7 @@ setInterval(function() {
 
 // Game state manager
 var gameState = {
-    preload: function() {
+    preload: function () {
         // All image loading
         game.load.pack('images', 'js/assets.json', null, this);
         game.load.tilemap('field1', 'assets/bg/dirtpathTS.json', null, Phaser.Tilemap.TILED_JSON);
@@ -73,7 +73,7 @@ var gameState = {
         game.load.json('enemies', 'js/enemies.json');
     },
 
-    create: function() {
+    create: function () {
         game.physics.startSystem(Phaser.Physics.ARCADE);
         // Add game input
         game.input.mouse.capture = true;
@@ -85,7 +85,7 @@ var gameState = {
         grass = map.createLayer('grass');
         dirtPath = map.createLayer('road');
         game.add.sprite(800, 0, 'sidebar')
-        
+
         // Path for enemy
         bmd = game.add.bitmapData(game.width, game.height);
         var points = {
@@ -150,7 +150,7 @@ var gameState = {
         )
     },
 
-    update: function() {
+    update: function () {
         // Update the tower store
         for (tIndex in towerSprites.children) {
             let tower = towerSprites.children[tIndex];
@@ -182,11 +182,11 @@ var gameState = {
 
 // Enemy class
 class Enemy {
-// Instantiate enemy with given type
+    // Instantiate enemy with given type
     constructor(type) {
         // Get details of enemy type provided
         var enemies = game.cache.getJSON('enemies')
-        enemies = enemies.filter(function(e) {
+        enemies = enemies.filter(function (e) {
             return e.name == type;
         })
         var enemy = enemies[0];
@@ -224,23 +224,23 @@ class Enemy {
         this.sprite.animations.play('idle');
     }
 
+    // Updates enemy velocity based on location
     update() {
+        // Checks to see if in top path
         if (this.sprite.x < 550 && this.sprite.y > 50) {
             this.sprite.body.velocity.x = 100;
             this.sprite.body.velocity.y = 0;
-        }
-        else if (this.sprite.y < 475) {
+        // Checks to see if in right path
+        } else if (this.sprite.y < 475) {
             this.sprite.body.velocity.x = 0;
             this.sprite.body.velocity.y = 100;
-        }
-        else if (this.sprite.x < 800) {
+        // Checks to see if in bottom path
+        } else if (this.sprite.x < 800) {
             this.sprite.body.velocity.x = 100;
             this.sprite.body.velocity.y = 0;
-        }
-        else
-        {
-            this.sprite.kill()
-            this.alive = false
+        // Enemy reached the throne
+        } else {
+            this.damage(this.health)
             lives -= 1
         }
     }
@@ -252,7 +252,7 @@ class Tower {
     constructor(type, x, y) {
         // Get details of tower type provided
         var towers = game.cache.getJSON('towers')
-        towers = towers.filter(function(t) {
+        towers = towers.filter(function (t) {
             return t.name == type;
         })
         var tower = towers[0];
@@ -264,7 +264,7 @@ class Tower {
         // Add weapon to Tower
         this.bullets = game.add.weapon(100, tower.weapon);
         // Scale weapon to be smaller
-        this.bullets.bullets.forEach(function(bullet) {
+        this.bullets.bullets.forEach(function (bullet) {
             bullet.scale.setTo(0.25, 0.25);
         }, this);
 
@@ -314,7 +314,7 @@ class Tower {
 }
 
 // Places tower and resets store
-    function placeTower(towerSprite) {
+function placeTower(towerSprite) {
     // Place tower
     var newTower = new Tower(towerSprite.key, towerSprite.x, towerSprite.y);
     towers.push(newTower)
@@ -328,8 +328,8 @@ class Tower {
 }
 
 // String utility for proper formatting 
-String.prototype.toProperCase = function() {
-    return this.replace(/\w\S*/g, function(txt) {
+String.prototype.toProperCase = function () {
+    return this.replace(/\w\S*/g, function (txt) {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
 };
