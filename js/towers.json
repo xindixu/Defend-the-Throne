@@ -9,6 +9,6 @@
         "name": "Outpost",
         "cost": 200,
         "damage": 15,
-        "weapon": "cannonball"
+        "weapon": "arrow"
     }
 ]

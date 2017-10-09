@@ -51,6 +51,12 @@
             "overwrite": false
         },
         {
+            "type": "image",
+            "key": "arrow",
+            "url": "assets/Projectiles/Arrow1.png",
+            "overwrite": false
+        },
+        {
             "type": "spritesheet",
             "key": "shieldKnight",
             "url": "assets/Monsters/ShieldKnightSpriteSheet.png",

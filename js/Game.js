@@ -165,6 +165,14 @@ var gameState = {
             }
         }
 
+        // Update enemy movement
+        for (eIndex in enemies) {
+            let enemy = enemies[eIndex]
+            if (enemy.alive) {
+                enemy.update()
+            }
+        }
+
         // Update game text
         gameText.text = 'Wave: ' + currentWave.toString() + '\n' +
             'Coins: ' + coins.toString() + '\n' +
@@ -185,7 +193,7 @@ class Enemy {
 
         // Add information to object
         this.health = enemy.health;
-        this.alive = true;
+        this.alive = false;
         this.value = enemy.coinsDropped
 
         // Add sprite to object
@@ -212,8 +220,29 @@ class Enemy {
 
     // Start moving enemy
     start() {
-        this.sprite.body.velocity.x = 100;
+        this.alive = true;
         this.sprite.animations.play('idle');
+    }
+
+    update() {
+        if (this.sprite.x < 550 && this.sprite.y > 50) {
+            this.sprite.body.velocity.x = 100;
+            this.sprite.body.velocity.y = 0;
+        }
+        else if (this.sprite.y < 475) {
+            this.sprite.body.velocity.x = 0;
+            this.sprite.body.velocity.y = 100;
+        }
+        else if (this.sprite.x < 800) {
+            this.sprite.body.velocity.x = 100;
+            this.sprite.body.velocity.y = 0;
+        }
+        else
+        {
+            this.sprite.kill()
+            this.alive = false
+            lives -= 1
+        }
     }
 }
 
@@ -240,8 +269,9 @@ class Tower {
         }, this);
 
         // Remove bullet after it's moved 500px
-        this.bullets.bulletDistance = 150
-        this.bullets.bulletKillType = Phaser.Weapon.KILL_DISTANCE
+        // this.bullets.bulletDistance = 150
+        // this.bullets.bulletKillType = Phaser.Weapon.KILL_DISTANCE
+        this.bullets.bulletKillType = Phaser.Weapon.KILL_NEVER
 
         // Speed at which bullet is fire
         this.bullets.bulletSpeed = 500;
