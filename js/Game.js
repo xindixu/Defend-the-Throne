@@ -43,7 +43,7 @@ var gameState = {
         game.load.image('road','assets/bg/road.png');
         
         // Map and sidebar for game functionality
-        game.load.image('sidebar', 'assets/sidebar.png');
+        game.load.image('sidebar', 'assets/bg/sidebar.png');
 
         // Wave information
         game.load.json('waves', 'js/waves.json');
@@ -239,7 +239,7 @@ class Tower {
         
         
         // it should change as the type changes
-        this.bullets = game.add.weapon(30,'ligntning');
+        this.bullets = game.add.weapon(30,'lightning');
 
         this.bullets.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
         this.bullets.bulletSpeed = 800;
