@@ -4,56 +4,57 @@
  * CS 329E Game Dev
  * Last completed - Sprint 1 hha
  */
-
+// Global variables
 var game = new Phaser.Game(1000, 600, Phaser.AUTO, ''), // Phaser game instances
-    lives = 10, // Lives given to user
-    coins = 290, // Starting coins for user
-    currentWave = 1, // Current wave of monsters
-    enemies = [], // List of enemies to update
-    towers = [], // List of towers to update
-    towerSprites, // Manage tower store
-    builtTowers, // Manage user towers
-    gameText; // Show user game information
+lives = 10, // Lives given to user
+coins = 290, // Starting coins for user
+currentWave = 1, // Current wave of monsters
+enemies = [], // List of enemies to update
+towers = [], // List of towers to update
+towerSprites, // Manage tower store
+builtTowers, // Manage user towers
+gameText; // Show user game information
 
 // Give user a coin every second
-setInterval(function () {
-    coins += 1
-}, 1000)
-
-// Used to distribute enemies in wave
-enemyIndex = 0
-setInterval(function () {
-    if (enemyIndex < enemies.length) {
-        let e = enemies[enemyIndex];
-        enemyIndex += 1
-        e.start();
-    }
-}, 1000)
-
 setInterval(function() {
-        // Check to see if enemy in tower range
-        for (tIndex in towers) {
-            // Check all towers
-            let tower = towers[tIndex];
-            for (eIndex in enemies) {
-                // Check all enemies
-                let enemy = enemies[eIndex];
+coins += 1
+}, 1000)
 
-                // Change tint of enemy for distance visualization
-                if (tower.checkEnemy(enemy)) {
-                    enemy.sprite.tint = 0xd32f2f
-                    tower.fire(enemy);
-                    break
-                } else {
-                    enemy.sprite.tint = 0xffffff
-                }
-            }
+// Distribute enemies in wave
+enemyIndex = 0
+setInterval(function() {
+if (enemyIndex < enemies.length) {
+    let e = enemies[enemyIndex];
+    enemyIndex += 1
+    e.start();
+}
+}, 1000)
+
+// Towers fire every second
+setInterval(function() {
+// Check to see if enemy in tower range
+for (tIndex in towers) {
+    // Check all towers
+    let tower = towers[tIndex];
+    for (eIndex in enemies) {
+        // Check all enemies
+        let enemy = enemies[eIndex];
+
+        // Change tint of enemy for distance visualization
+        if (tower.checkEnemy(enemy)) {
+            enemy.sprite.tint = 0xd32f2f
+            tower.fire(enemy);
+            break
+        } else {
+            enemy.sprite.tint = 0xffffff
         }
+    }
+}
 }, 1000)
 
 // Game state manager
 var gameState = {
-    preload: function () {
+    preload: function() {
         // All image loading
         game.load.pack('images', 'js/assets.json', null, this);
 
@@ -70,13 +71,9 @@ var gameState = {
         // Tower and enemy sprite information
         game.load.json('towers', 'js/towers.json');
         game.load.json('enemies', 'js/enemies.json');
-
-
     },
 
-
-    create: function () {
-
+    create: function() {
         game.physics.startSystem(Phaser.Physics.ARCADE);
         // Add game input
         game.input.mouse.capture = true;
@@ -155,8 +152,7 @@ var gameState = {
         )
     },
 
-    update: function () {
-
+    update: function() {
         // Update the tower store
         for (tIndex in towerSprites.children) {
             let tower = towerSprites.children[tIndex];
@@ -180,11 +176,11 @@ var gameState = {
 
 // Enemy class
 class Enemy {
-    // Instantiate enemy with given type
+// Instantiate enemy with given type
     constructor(type) {
         // Get details of enemy type provided
         var enemies = game.cache.getJSON('enemies')
-        enemies = enemies.filter(function (e) {
+        enemies = enemies.filter(function(e) {
             return e.name == type;
         })
         var enemy = enemies[0];
@@ -229,7 +225,7 @@ class Tower {
     constructor(type, x, y) {
         // Get details of tower type provided
         var towers = game.cache.getJSON('towers')
-        towers = towers.filter(function (t) {
+        towers = towers.filter(function(t) {
             return t.name == type;
         })
         var tower = towers[0];
@@ -243,7 +239,7 @@ class Tower {
         // Add weapon to Tower
         this.bullets = game.add.weapon(100, 'lightning');
         // Scale weapon to be smaller
-        this.bullets.bullets.forEach(function (bullet) {
+        this.bullets.bullets.forEach(function(bullet) {
             bullet.scale.setTo(0.25, 0.25);
         }, this);
 
@@ -292,7 +288,7 @@ class Tower {
 }
 
 // Places tower and resets store
-function placeTower(towerSprite) {
+    function placeTower(towerSprite) {
     // Place tower
     var newTower = new Tower(towerSprite.key, towerSprite.x, towerSprite.y);
     towers.push(newTower)
@@ -306,8 +302,8 @@ function placeTower(towerSprite) {
 }
 
 // String utility for proper formatting 
-String.prototype.toProperCase = function () {
-    return this.replace(/\w\S*/g, function (txt) {
+String.prototype.toProperCase = function() {
+    return this.replace(/\w\S*/g, function(txt) {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
 };
