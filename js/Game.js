@@ -15,6 +15,10 @@ var game = new Phaser.Game(1000, 600, Phaser.AUTO, ''), // Phaser game instances
     towerSprites, // Manage tower store
     builtTowers, // Manage user towers
     BGM, ele1, ele2, // BGM, sound effects
+    
+    
+    tween, logo,// TESTING
+    
     gameText; // Show user game information
 
 // Give user a coin every second
@@ -57,6 +61,8 @@ setInterval(function () {
 // Game state manager
 var gameState = {
     preload: function () {
+        
+        
         // All image loading
         
         game.load.pack('images', 'js/assets.json', null, this);
@@ -76,12 +82,18 @@ var gameState = {
         game.load.json('towers', 'js/towers.json');
         game.load.json('enemies', 'js/enemies.json');
         
+        
+        
     },
 
     create: function () {
         game.physics.startSystem(Phaser.Physics.ARCADE);
         // Add game input
         game.input.mouse.capture = true;
+        
+        
+        
+        
 
         // Add game interface
         map = game.add.tilemap('field1');
@@ -96,7 +108,15 @@ var gameState = {
         
         BGM = game.add.audio("BGM");
         BGM.play();
-       
+        
+        
+        // TESTING =======
+        
+        logo = game.add.sprite(0,0,'lightning');        
+        tween = game.add.tween(logo).to({x:[0,500,500,0],y:[0,0,300,300]},4000,"Sine.easeInOut",true,-1,false);
+                
+    
+        
 
 
         // Tower sprites
