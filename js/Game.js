@@ -25,11 +25,30 @@ enemyIndex = 0
 setInterval(function () {
     if (enemyIndex < enemies.length) {
         let e = enemies[enemyIndex];
-        e.start();
-        e.start();
-        e.start();
         enemyIndex += 1
+        e.start();
     }
+}, 1000)
+
+setInterval(function() {
+        // Check to see if enemy in tower range
+        for (tIndex in towers) {
+            // Check all towers
+            let tower = towers[tIndex];
+            for (eIndex in enemies) {
+                // Check all enemies
+                let enemy = enemies[eIndex];
+
+                // Change tint of enemy for distance visualization
+                if (tower.checkEnemy(enemy)) {
+                    enemy.sprite.tint = 0xd32f2f
+                    tower.fire(enemy);
+                    break
+                } else {
+                    enemy.sprite.tint = 0xffffff
+                }
+            }
+        }
 }, 1000)
 
 // Game state manager
@@ -38,10 +57,10 @@ var gameState = {
         // All image loading
         game.load.pack('images', 'js/assets.json', null, this);
 
-        game.load.tilemap('field1','assets/bg/dirtpathTS.json',null,Phaser.Tilemap.TILED_JSON);
-        game.load.image('grass','assets/bg/grass.png');
-        game.load.image('road','assets/bg/road.png');
-        
+        game.load.tilemap('field1', 'assets/bg/dirtpathTS.json', null, Phaser.Tilemap.TILED_JSON);
+        game.load.image('grass', 'assets/bg/grass.png');
+        game.load.image('road', 'assets/bg/road.png');
+
         // Map and sidebar for game functionality
         game.load.image('sidebar', 'assets/bg/sidebar.png');
 
@@ -51,17 +70,17 @@ var gameState = {
         // Tower and enemy sprite information
         game.load.json('towers', 'js/towers.json');
         game.load.json('enemies', 'js/enemies.json');
-        
-        
+
+
     },
 
-    
+
     create: function () {
-        
+
         game.physics.startSystem(Phaser.Physics.ARCADE);
         // Add game input
         game.input.mouse.capture = true;
-        
+
         // Add game interface
         map = game.add.tilemap('field1');
         map.addTilesetImage('grass');
@@ -69,18 +88,19 @@ var gameState = {
         grass = map.createLayer('grass');
         dirtPath = map.createLayer('road');
         // Add game interface
-      
+
         game.add.sprite(800, 0, 'sidebar')
         // path for enemy
-        bmd = game.add.bitmapData(game.width,game.height);
+        bmd = game.add.bitmapData(game.width, game.height);
         var points = {
             'x': [0, 200, 120, 456, 640],
-            'y': [0, 300, 120, 156, 480]};
-        
-        for(var i = 0; i < 1; i += 1){
-            var px = game.math.linearInterpolation(points.x,i);
-            var py = game.math.linearInterpolation(points.y,i);
-            bmd.rect(px,py,3,3,'rgba(245,0,0,1)');
+            'y': [0, 300, 120, 156, 480]
+        };
+
+        for (var i = 0; i < 1; i += 1) {
+            var px = game.math.linearInterpolation(points.x, i);
+            var py = game.math.linearInterpolation(points.y, i);
+            bmd.rect(px, py, 3, 3, 'rgba(245,0,0,1)');
         };
 
         // Tower sprites
@@ -136,25 +156,6 @@ var gameState = {
     },
 
     update: function () {
-        // Check to see if enemy in tower range
-        for (tIndex in towers) {
-            // Check all towers
-            let tower = towers[tIndex];
-            for (eIndex in enemies) {
-                // Check all enemies
-                let enemy = enemies[eIndex];
-
-                // Change tint of enemy for distance visualization
-                if (tower.checkEnemy(enemy)) {
-                    enemy.sprite.tint = 0xd32f2f
-                    tower.fire(enemy);
-                    enemy.damage(7);
-                } else {
-                    enemy.sprite.tint = 0xffffff
-                }
-            }
-            
-        }
 
         // Update the tower store
         for (tIndex in towerSprites.children) {
@@ -163,13 +164,13 @@ var gameState = {
             if (coins < tower.cost) {
                 tower.inputEnabled = false;
                 tower.tint = 0x32332
-            // Can afford this tower
+                // Can afford this tower
             } else {
                 tower.inputEnabled = true;
-                tower.tint = 16777215
+                tower.tint = 0xffffff
             }
         }
-        
+
         // Update game text
         gameText.text = 'Wave: ' + currentWave.toString() + '\n' +
             'Coins: ' + coins.toString() + '\n' +
@@ -187,12 +188,12 @@ class Enemy {
             return e.name == type;
         })
         var enemy = enemies[0];
-        
+
 
         // Add information to object
-        this.health = 10;
+        this.health = enemy.health;
         this.alive = true;
-        
+
         // Add sprite to object
         this.sprite = game.add.sprite(0, 10, enemy.name);
         this.sprite.anchor.set(0.5, 0.5);
@@ -202,12 +203,13 @@ class Enemy {
         this.sprite.body.immovable = false;
         this.sprite.body.collideWorldBounds = true;
         this.sprite.body.bounce.setTo(1, 1);
-        this.sprite.animations.add("idle",[0,1,2,3,4,5],10,true);
+        this.sprite.animations.add("idle", [0, 1, 2, 3, 4, 5], 10, true);
     }
 
     // Damage enemy
     damage(damageAmount) {
         this.health -= damageAmount
+        console.log(this.health)
         if (this.health <= 0) {
             this.alive = false;
             this.sprite.destroy();
@@ -231,42 +233,55 @@ class Tower {
             return t.name == type;
         })
         var tower = towers[0];
-        
+
         // Load details from tower information and create sprite
         this.damage = tower.damage;
         this.sprite = game.add.sprite(x, y, tower.name);
-        this.position = Phaser.Point(x,y);
-        
-        
-        // it should change as the type changes
-        this.bullets = game.add.weapon(30,'lightning');
+        this.position = Phaser.Point(x, y);
 
-        this.bullets.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
-        this.bullets.bulletSpeed = 100;
-        this.bullets.fireRate = 100;
+
+        // Add weapon to Tower
+        this.bullets = game.add.weapon(100, 'lightning');
+        // Scale weapon to be smaller
+        this.bullets.bullets.forEach(function (bullet) {
+            bullet.scale.setTo(0.25, 0.25);
+        }, this);
+
+        // Remove bullet after it's moved 500px
+        this.bullets.bulletDistance = 150
+        this.bullets.bulletKillType = Phaser.Weapon.KILL_DISTANCE
+
+        // Speed at which bullet is fire
+        this.bullets.bulletSpeed = 500;
+
+        // Bullets come from tower
         this.bullets.trackSprite(this.sprite);
-
     }
 
-    fire(enemy){
+    // Create bullet animation to send at enemy
+    fire(enemy) {
+        // Get angle of enemy
         let eX = enemy.sprite.x,
             eY = enemy.sprite.y,
-            angle = Math.atan2(this.sprite.y - eY, this.sprite.x - eX) * 180 / Math.PI;
+            angle = Math.atan2(eY - this.sprite.y, eX - this.sprite.x) * 180 / Math.PI;
+        // Fires bullet
         this.bullets.fireAngle = angle
-        this.bullets.fire(); 
-        
+        this.bullets.fire();
+        enemy.damage(this.damage)
     }
-    // Checks if enemy is in shooting radius
 
+    // Checks if enemy is in shooting radius
     checkEnemy(enemy) {
         // Could be code golfed as
         // return Phaser.Math.distance(this.sprite.x, this.sprite.y, enemy.sprite.x, enemy.sprite.y) <= 150;
-        
+        if (!enemy.alive) {
+            return false;
+        }
         // Get distance to enemy
         let eX = enemy.sprite.x,
             eY = enemy.sprite.y,
             distance = Phaser.Math.distance(this.sprite.x, this.sprite.y, eX, eY);
-        
+
         // Return if distance in radius
         if (distance <= 150) {
             return true;
