@@ -82,8 +82,8 @@
             "key": "whale",
             "url": "assets/Monsters/Whales.png",
             "overwrite": false,
-            "frameWidth": 138,
-            "frameHeight": 78
+            "frameWidth": 118,
+            "frameHeight": 68
         }
     ]
 }

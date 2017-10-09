@@ -2,19 +2,19 @@
     {
         "name": "spearKnight",
         "coinsDropped": 10,
-        "health": 100,
+        "health": 30,
         "animation": true
     },
     {
         "name": "shieldKnight",
         "coinsDropped": 10,
-        "health": 100,
+        "health": 30,
         "animation": true
     },
     {
         "name": "whale",
         "coinsDropped": 10,
-        "health": 30,
+        "health": 20,
         "animation": false
     }
 ]
