@@ -59,8 +59,8 @@ var gameState = {
         // All image loading
         game.load.pack('images', 'js/assets.json', null, this);
         game.load.tilemap('field1', 'assets/bg/dirtpathTS.json', null, Phaser.Tilemap.TILED_JSON);
-        game.load.image('grass', 'assets/bg/grass.png');
-        game.load.image('road', 'assets/bg/road.png');
+        game.load.image('grass', 'assets/bg/grass1.png');
+        game.load.image('road', 'assets/bg/road2.png');
 
         // Map and sidebar for game functionality
         game.load.image('sidebar', 'assets/bg/sidebar.png');
