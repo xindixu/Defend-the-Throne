@@ -3,11 +3,11 @@
         "wave": 1,
         "enemies": [
             {
-                "name": "spearKnight",
+                "name": "whale",
                 "amount": 5
             },
             {
-                "name": "shieldKnight",
+                "name": "whale",
                 "amount": 10
             }
         ]

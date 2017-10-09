@@ -12,7 +12,7 @@
         "animation": true
     },
     {
-        "name": "rofl",
+        "name": "whale",
         "coinsDropped": 10,
         "health": 30,
         "animation": false

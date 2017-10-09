@@ -26,6 +26,8 @@ setInterval(function () {
     if (enemyIndex < enemies.length) {
         let e = enemies[enemyIndex];
         e.start();
+        e.start();
+        e.start();
         enemyIndex += 1
     }
 }, 1000)
@@ -192,7 +194,7 @@ class Enemy {
         this.alive = true;
         
         // Add sprite to object
-        this.sprite = game.add.sprite(0, 0, enemy.name);
+        this.sprite = game.add.sprite(0, 10, enemy.name);
         this.sprite.anchor.set(0.5, 0.5);
 
         // Add physics to object
@@ -200,7 +202,7 @@ class Enemy {
         this.sprite.body.immovable = false;
         this.sprite.body.collideWorldBounds = true;
         this.sprite.body.bounce.setTo(1, 1);
-        this.sprite.animations.add("idle",[0,1,2,3,4])
+        this.sprite.animations.add("idle",[0,1,2,3,4,5],10,true);
     }
 
     // Damage enemy

@@ -68,6 +68,14 @@
             "key": "rofl",
             "url": "assets/Monsters/rofl.png",
             "overwrite": false
+        },
+        {
+            "type": "spritesheet",
+            "key": "whale",
+            "url": "assets/Monsters/Whales.png",
+            "overwrite": false,
+            "frameWidth": 138,
+            "frameHeight": 78
         }
     ]
 }
