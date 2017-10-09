@@ -2,7 +2,7 @@
     "images": [
         {
             "type": "image",
-            "key": "lightTower1",
+            "key": "Light Tower",
             "url": "assets/Towers/LightningTower.png",
             "overwrite": false
         },
@@ -14,7 +14,7 @@
         },
         {
             "type": "image",
-            "key": "outpost1",
+            "key": "Outpost",
             "url": "assets/Towers/outpost.png",
             "overwrite": false
         },
@@ -42,6 +42,12 @@
             "type": "image",
             "key": "lightning",
             "url": "assets/Projectiles/Lightning.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "cannonball",
+            "url": "assets/Projectiles/CannonBall.png",
             "overwrite": false
         },
         {

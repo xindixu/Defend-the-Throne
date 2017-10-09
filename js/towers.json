@@ -1,12 +1,14 @@
 [
     {
-        "name": "lightTower1",
+        "name": "Light Tower",
         "cost": 100,
-        "damage": 10
+        "damage": 10,
+        "weapon": "lightning"
     },
     {
-        "name": "outpost1",
+        "name": "Outpost",
         "cost": 200,
-        "damage": 15
+        "damage": 15,
+        "weapon": "cannonball"
     }
 ]
