@@ -14,6 +14,7 @@ var game = new Phaser.Game(1000, 600, Phaser.AUTO, ''), // Phaser game instances
     towers = [], // List of towers to update
     towerSprites, // Manage tower store
     builtTowers, // Manage user towers
+    BGM, ele1, ele2, // BGM, sound effects
     gameText; // Show user game information
 
 // Give user a coin every second
@@ -71,6 +72,10 @@ var gameState = {
         // Tower and enemy sprite information
         game.load.json('towers', 'js/towers.json');
         game.load.json('enemies', 'js/enemies.json');
+        
+        // load music
+        game.load.audio("BGM","assets/Sounds/bg_music.mp3");
+        game.load.audio("ele1","assets/Sounds/electricity1.wav");
     },
 
     create: function () {
@@ -84,19 +89,16 @@ var gameState = {
         map.addTilesetImage('road');
         grass = map.createLayer('grass');
         dirtPath = map.createLayer('road');
-        game.add.sprite(800, 0, 'sidebar')
+        game.add.sprite(800, 0, 'sidebar');
+        
+        
+        // music
+        
+        BGM = game.add.audio("BGM");
+        BGM.play();
+        ele1 = game.add.audio("ele1");
+       
 
-        // Path for enemy
-        bmd = game.add.bitmapData(game.width, game.height);
-        var points = {
-            'x': [0, 200, 120, 456, 640],
-            'y': [0, 300, 120, 156, 480]
-        };
-        for (var i = 0; i < 1; i += 1) {
-            var px = game.math.linearInterpolation(points.x, i);
-            var py = game.math.linearInterpolation(points.y, i);
-            bmd.rect(px, py, 3, 3, 'rgba(245,0,0,1)');
-        };
 
         // Tower sprites
         var towers = game.cache.getJSON('towers');
@@ -289,7 +291,8 @@ class Tower {
         // Fires bullet
         this.bullets.fireAngle = angle
         this.bullets.fire();
-        enemy.damage(this.damage)
+        enemy.damage(this.damage);
+        ele1.play();
     }
 
     // Checks if enemy is in shooting radius
@@ -333,6 +336,9 @@ String.prototype.toProperCase = function () {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
 };
+
+
+
 
 // Add and start the game
 game.state.add('gameState', gameState)
