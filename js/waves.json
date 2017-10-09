@@ -4,15 +4,11 @@
         "enemies": [
             {
                 "name": "whale",
-<<<<<<< HEAD
-                "amount": 5
-=======
                 "amount": 8
             },
             {
                 "name": "spearKnight",
                 "amount": 2
->>>>>>> 61dba0069eeeb8261109a1f1a204828b5c2199a3
             }
         ]
     }
