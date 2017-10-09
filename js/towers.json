@@ -3,12 +3,14 @@
         "name": "Light Tower",
         "cost": 100,
         "damage": 10,
-        "weapon": "lightning"
+        "weapon": "lightning",
+        "soundEffect": "ele1"
     },
     {
         "name": "Outpost",
         "cost": 200,
         "damage": 15,
-        "weapon": "arrow"
+        "weapon": "arrow",
+        "soundEffect": "ele2"
     }
 ]

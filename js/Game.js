@@ -58,7 +58,10 @@ setInterval(function () {
 var gameState = {
     preload: function () {
         // All image loading
+        
         game.load.pack('images', 'js/assets.json', null, this);
+        game.load.pack('audios', 'js/assets.json', null, this);
+        
         game.load.tilemap('field1', 'assets/bg/dirtpathTS.json', null, Phaser.Tilemap.TILED_JSON);
         game.load.image('grass', 'assets/bg/grass1.png');
         game.load.image('road', 'assets/bg/road2.png');
@@ -73,9 +76,6 @@ var gameState = {
         game.load.json('towers', 'js/towers.json');
         game.load.json('enemies', 'js/enemies.json');
         
-        // load music
-        game.load.audio("BGM","assets/Sounds/bg_music.mp3");
-        game.load.audio("ele1","assets/Sounds/electricity1.wav");
     },
 
     create: function () {
@@ -96,7 +96,6 @@ var gameState = {
         
         BGM = game.add.audio("BGM");
         BGM.play();
-        ele1 = game.add.audio("ele1");
        
 
 
@@ -283,6 +282,7 @@ class Tower {
 
         // Bullets come from tower
         this.bullets.trackSprite(this.sprite);
+        this.soundEffect = game.add.audio(tower.soundEffect);
     }
 
     // Create bullet animation to send at enemy
@@ -295,7 +295,7 @@ class Tower {
         this.bullets.fireAngle = angle
         this.bullets.fire();
         enemy.damage(this.damage);
-        ele1.play();
+        this.soundEffect.play();
     }
 
     // Checks if enemy is in shooting radius
