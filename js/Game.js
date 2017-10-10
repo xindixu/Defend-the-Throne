@@ -15,6 +15,7 @@ var game = new Phaser.Game(1000, 600, Phaser.AUTO, ''), // Phaser game instances
     towerSprites, // Manage tower store
     builtTowers, // Manage user towers
     BGM, ele1, ele2, // BGM, sound effects
+    monstersAlive=0,
     
     
     tween, logo,// TESTING
@@ -152,15 +153,18 @@ var gameState = {
             towerSprites.add(towerSprite);
         }
         // Load wave details
+        /*
         var waves = game.cache.getJSON('waves'),
             waveObject = waves[currentWave - 1];
         // Add enemies from wave into enemy list
         for (eIndex in waveObject.enemies) {
             let enemy = waveObject.enemies[eIndex];
             for (var enemyNum = 0; enemyNum < waveObject.enemies[eIndex].amount; enemyNum++) {
+                monstersAlive +=1;
                 enemies.push(new Enemy(enemy.name));
             }
-        }
+        }*/
+
 
         // Add game information
         gameText = game.add.text(805, 510,
@@ -198,9 +202,21 @@ var gameState = {
         }
 
         // Update game text
-        gameText.text = 'Wave: ' + currentWave.toString() + '\n' +
+        gameText.text = 'Wave: ' + (currentWave-1).toString() + '\n' +
             'Coins: ' + coins.toString() + '\n' +
             'Lives: ' + lives.toString()
+        if(monstersAlive==0){
+            var waves = game.cache.getJSON('waves'),
+            waveObject = waves[currentWave - 1];
+            for (eIndex in waveObject.enemies) {
+            let enemy = waveObject.enemies[eIndex];
+            for (var enemyNum = 0; enemyNum < waveObject.enemies[eIndex].amount; enemyNum++) {
+                monstersAlive +=1;
+                enemies.push(new Enemy(enemy.name));
+            }
+        }
+            currentWave+=1;
+        }
     }
 }
 
@@ -237,6 +253,7 @@ class Enemy {
     damage(damageAmount) {
         this.health -= damageAmount
         if (this.health <= 0) {
+            monstersAlive-=1;
             this.alive = false;
             this.sprite.destroy();
             coins += this.value;

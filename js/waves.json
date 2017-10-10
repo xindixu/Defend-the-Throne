@@ -7,8 +7,47 @@
                 "amount": 2
             },
             {
+                "name": "whale",
+                "amount": 2
+            }
+        ]
+    },
+    {
+        "wave": 2,
+        "enemies": [
+            {
                 "name": "spearKnight",
                 "amount": 2
+            },
+            {
+                "name": "shieldKnight",
+                "amount": 2
+            }
+        ]
+    },
+    {
+        "wave": 3,
+        "enemies": [
+            {
+                "name": "spearKnight",
+                "amount": 5
+            },
+            {
+                "name": "whale",
+                "amount": 4
+            }
+        ]
+    },
+    {
+        "wave": 4,
+        "enemies": [
+            {
+                "name": "ShieldKnight",
+                "amount": 15
+            },
+            {
+                "name": "whale",
+                "amount": 4
             }
         ]
     }
