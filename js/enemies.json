@@ -15,6 +15,12 @@
         "name": "whale",
         "coinsDropped": 10,
         "health": 20,
-        "animation": false
+        "animation": true
+    },
+    {
+        "name": "ghostBat",
+        "coinsDropped": 20,
+        "health": 15,
+        "animation": true
     }
 ]
