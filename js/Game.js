@@ -69,6 +69,7 @@ var gameState = {
         game.load.pack('audios', 'js/assets.json', null, this);
         
         game.load.tilemap('field1', 'assets/bg/dirtpathTS.json', null, Phaser.Tilemap.TILED_JSON);
+        game.load.json('field1JSON','assets/bg/dirtpathTS.json');
         game.load.image('grass', 'assets/bg/grass1.png');
         game.load.image('road', 'assets/bg/road2.png');
 
@@ -99,8 +100,8 @@ var gameState = {
         map = game.add.tilemap('field1');
         map.addTilesetImage('grass');
         map.addTilesetImage('road');
-        grass = map.createLayer('grass');
-        dirtPath = map.createLayer('road');
+        grass = map.createLayer('bg');
+        dirtPath = map.createLayer('path');
         game.add.sprite(800, 0, 'sidebar');
         
         
@@ -169,6 +170,8 @@ var gameState = {
                 font: '15px Arial',
             }
         )
+        
+        generatePath();
     },
 
     update: function () {
@@ -360,6 +363,27 @@ String.prototype.toProperCase = function () {
     });
 };
 
+// pass in json file for the tilemap
+function generatePath(){
+    
+    var json = game.cache.getJSON('field1JSON');
+    console.log(json.layers[0].data);
+    var array = json.layers[0].data;
+    var index = 0;
+    for(var j = 0; j < 19; j ++ ){
+        for(var i = 0; i < 25; i ++){
+        
+            if(array[index] == 0){
+                game.add.sprite(i*32,j*32,'coin');
+                console.log(i+' '+j);
+            }
+            index += 1;
+        }
+    }
+    
+    
+    
+}
 
 
 

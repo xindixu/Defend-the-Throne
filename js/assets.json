@@ -57,6 +57,12 @@
             "overwrite": false
         },
         {
+            "type": "image",
+            "key": "coin",
+            "url": "assets/Etc/Coin.png",
+            "overwrite": false
+        },
+        {
             "type": "spritesheet",
             "key": "shieldKnight",
             "url": "assets/Monsters/ShieldKnightSpriteSheet.png",
