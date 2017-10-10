@@ -205,16 +205,21 @@ var gameState = {
         gameText.text = 'Wave: ' + (currentWave-1).toString() + '\n' +
             'Coins: ' + coins.toString() + '\n' +
             'Lives: ' + lives.toString()
-        if(monstersAlive==0){
+        
+        
+        if(monstersAlive==0)
+        {
             var waves = game.cache.getJSON('waves'),
             waveObject = waves[currentWave - 1];
-            for (eIndex in waveObject.enemies) {
-            let enemy = waveObject.enemies[eIndex];
-            for (var enemyNum = 0; enemyNum < waveObject.enemies[eIndex].amount; enemyNum++) {
-                monstersAlive +=1;
-                enemies.push(new Enemy(enemy.name));
+            for (eIndex in waveObject.enemies) 
+            {
+                let enemy = waveObject.enemies[eIndex];
+                for (var enemyNum = 0; enemyNum < waveObject.enemies[eIndex].amount; enemyNum++) 
+                {
+                    monstersAlive +=1;
+                    enemies.push(new Enemy(enemy.name));
+                }
             }
-        }
             currentWave+=1;
         }
     }
@@ -238,6 +243,7 @@ class Enemy {
 
         // Add sprite to object
         this.sprite = game.add.sprite(0, 10, enemy.name);
+        this.sprite.alpha = 0;
         this.sprite.anchor.set(0.5, 0.5);
 
         // Add physics to object
@@ -257,12 +263,14 @@ class Enemy {
             this.alive = false;
             this.sprite.destroy();
             coins += this.value;
+            
         }
     }
 
     // Start moving enemy
     start() {
         this.alive = true;
+        this.sprite.alpha =1;
         this.sprite.animations.play('left');
     }
 
