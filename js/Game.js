@@ -363,11 +363,20 @@ String.prototype.toProperCase = function () {
     });
 };
 
+
 // pass in json file for the tilemap
 function generatePath(){
+    var path = {
+        //!!!!! fix it! how to initialize two arrays??? it works this way, but..
+        'x':[0,0],
+        'y':[0,0]
+    };
+    var result = {
+        'x':[0,0],
+        'y':[0,0]
+    }
     
     var json = game.cache.getJSON('field1JSON');
-    console.log(json.layers[0].data);
     var array = json.layers[0].data;
     var index = 0;
     for(var j = 0; j < 19; j ++ ){
@@ -375,13 +384,18 @@ function generatePath(){
         
             if(array[index] == 0){
                 game.add.sprite(i*32,j*32,'coin');
-                console.log(i+' '+j);
+                path.x.push(i*32);
+                path.y.push(j*32); 
             }
             index += 1;
         }
     }
     
-    
+    console.log(path);
+    for(var k = 0; k < path.x.length; k++){
+        var px = path.x.get(k);
+        var py = path.y.get(k);
+    }
     
 }
 
