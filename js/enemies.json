@@ -22,5 +22,11 @@
         "coinsDropped": 20,
         "health": 15,
         "animation": true
+    },
+    {
+        "name": "spikeBall",
+        "coinsDropped": 20,
+        "health": 15,
+        "animation": true
     }
 ]

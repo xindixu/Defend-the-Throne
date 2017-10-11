@@ -3,6 +3,10 @@
         "wave": 1,
         "enemies": [
             {
+                "name": "spikeBall",
+                "amount": 2
+            },
+            {
                 "name": "ghostBat",
                 "amount": 2
             },
