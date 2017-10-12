@@ -109,7 +109,7 @@ var gameState = {
         // music
         
         BGM = game.add.audio("BGM");
-        BGM.play();
+        //BGM.play();
         
         
         // TESTING =======
@@ -152,18 +152,7 @@ var gameState = {
             // Add sprite to group
             towerSprites.add(towerSprite);
         }
-        // Load wave details
-        /*
-        var waves = game.cache.getJSON('waves'),
-            waveObject = waves[currentWave - 1];
-        // Add enemies from wave into enemy list
-        for (eIndex in waveObject.enemies) {
-            let enemy = waveObject.enemies[eIndex];
-            for (var enemyNum = 0; enemyNum < waveObject.enemies[eIndex].amount; enemyNum++) {
-                monstersAlive +=1;
-                enemies.push(new Enemy(enemy.name));
-            }
-        }*/
+
 
 
         // Add game information
@@ -229,6 +218,7 @@ var gameState = {
 
 // Enemy class
 class Enemy {
+    
     // Instantiate enemy with given type
     constructor(type) {
         // Get details of enemy type provided
@@ -255,6 +245,8 @@ class Enemy {
         this.sprite.body.bounce.setTo(1, 1);
         this.sprite.animations.add("left", [0, 1, 2, 3, 4, 5], 10, true);
         this.sprite.animations.add("right",[6,7,8,9,10,11],10,true);
+
+
     }
 
     // Damage enemy
@@ -274,6 +266,10 @@ class Enemy {
         this.alive = true;
         this.sprite.alpha =1;
         this.sprite.animations.play('left');
+        game.load.image("health", "assets/Etc/healthBar.png");
+        var health = game.add.sprite(-20,30,"health");
+        this.sprite.addChild(health);
+        
     }
 
     // Updates enemy velocity based on location
@@ -297,6 +293,13 @@ class Enemy {
             this.damage(this.health)
             lives -= 1
         }
+    }
+}
+class healthBar extends Enemy{
+    constructor(){
+        game.load.image("health", "assets/Etc/healthBar.png");
+        game.add.sprite(0,0,"health");
+        
     }
 }
 

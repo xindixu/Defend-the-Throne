@@ -63,6 +63,12 @@
             "overwrite": false
         },
         {
+            "type": "image",
+            "key": "health",
+            "url": "assets/Etc/healthBar.png",
+            "overwrite": false
+        },
+        {
             "type": "spritesheet",
             "key": "shieldKnight",
             "url": "assets/Monsters/ShieldKnightSpriteSheet.png",
