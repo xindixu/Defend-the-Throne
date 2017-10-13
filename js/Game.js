@@ -283,7 +283,7 @@ class Enemy {
     update() {
         // Checks to see if in top path
         if (this.sprite.x < 575 && this.sprite.y > 50) {
-            this.sprite.body.velocity.x = 10;
+            this.sprite.body.velocity.x = 100;
             this.sprite.body.velocity.y = 0;
         // Checks to see if in right path
         } else if (this.sprite.y < 475 && this.sprite.x>=575) {
@@ -292,7 +292,7 @@ class Enemy {
             this.sprite.animations.play('right');
         // Checks to see if in bottom path
         } else if (this.sprite.x < 800) {
-            this.sprite.body.velocity.x = 10;
+            this.sprite.body.velocity.x = 100;
             this.sprite.body.velocity.y = 0;
             this.sprite.animations.play('left');
         // Enemy reached the throne

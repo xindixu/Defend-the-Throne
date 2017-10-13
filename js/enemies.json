@@ -26,7 +26,7 @@
     {
         "name": "spikeBall",
         "coinsDropped": 20,
-        "health": 150,
+        "health": 15,
         "animation": true
     }
 ]
