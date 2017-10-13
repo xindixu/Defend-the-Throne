@@ -230,6 +230,7 @@ class Enemy {
 
         // Add information to object
         this.health = enemy.health;
+        this.maxhealth= enemy.health;
         this.alive = false;
         this.value = enemy.coinsDropped
 
@@ -245,19 +246,27 @@ class Enemy {
         this.sprite.body.bounce.setTo(1, 1);
         this.sprite.animations.add("left", [0, 1, 2, 3, 4, 5], 10, true);
         this.sprite.animations.add("right",[6,7,8,9,10,11],10,true);
-
+        
+        game.load.image("health", "assets/Etc/healthBar.png");
+        var health = game.add.sprite(-20,30,"health");
+        health.cropEnabled = true;
+        this.sprite.addChild(health);
 
     }
 
     // Damage enemy
     damage(damageAmount) {
         this.health -= damageAmount
+        var remain = (this.health/this.maxhealth)*40;
+        console.log(remain)
+        this.widthLife = new Phaser.Rectangle(0, 0, remain, this.sprite.children[0].height);
+        this.sprite.children[0].crop(this.widthLife);
+        this.sprite.children[0].updateCrop();
         if (this.health <= 0) {
             monstersAlive-=1;
             this.alive = false;
             this.sprite.destroy();
             coins += this.value;
-            
         }
     }
 
@@ -266,9 +275,7 @@ class Enemy {
         this.alive = true;
         this.sprite.alpha =1;
         this.sprite.animations.play('left');
-        game.load.image("health", "assets/Etc/healthBar.png");
-        var health = game.add.sprite(-20,30,"health");
-        this.sprite.addChild(health);
+        
         
     }
 
@@ -276,7 +283,7 @@ class Enemy {
     update() {
         // Checks to see if in top path
         if (this.sprite.x < 575 && this.sprite.y > 50) {
-            this.sprite.body.velocity.x = 100;
+            this.sprite.body.velocity.x = 10;
             this.sprite.body.velocity.y = 0;
         // Checks to see if in right path
         } else if (this.sprite.y < 475 && this.sprite.x>=575) {
@@ -285,7 +292,7 @@ class Enemy {
             this.sprite.animations.play('right');
         // Checks to see if in bottom path
         } else if (this.sprite.x < 800) {
-            this.sprite.body.velocity.x = 100;
+            this.sprite.body.velocity.x = 10;
             this.sprite.body.velocity.y = 0;
             this.sprite.animations.play('left');
         // Enemy reached the throne
