@@ -4,7 +4,15 @@
         "enemies": [
             {
                 "name": "spikeBall",
-                "amount": 1
+                "amount": 2
+            },
+            {
+                "name": "ghostBat",
+                "amount": 2
+            },
+            {
+                "name": "whale",
+                "amount": 2
             }
         ]
     },

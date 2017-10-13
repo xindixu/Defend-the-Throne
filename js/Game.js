@@ -83,6 +83,9 @@ var gameState = {
         // Tower and enemy sprite information
         game.load.json('towers', 'js/towers.json');
         game.load.json('enemies', 'js/enemies.json');
+        game.load.image('health', 'assets/Etc/healthBar.png');
+        game.load.image('progress1', 'assets/bg/ProgressBarRed.png');
+        game.load.image('progress2', 'assets/bg/ProgressBarYellow.png')
         
         
         
@@ -106,6 +109,7 @@ var gameState = {
         game.add.sprite(800, 0, 'sidebar');
         
         
+        game.add.sprite(800, 400, 'progress1')
         // music
         
         BGM = game.add.audio("BGM");
@@ -168,6 +172,7 @@ var gameState = {
     },
 
     update: function () {
+    
         // Update the tower store
         for (tIndex in towerSprites.children) {
             let tower = towerSprites.children[tIndex];
@@ -200,12 +205,14 @@ var gameState = {
         {
             var waves = game.cache.getJSON('waves'),
             waveObject = waves[currentWave - 1];
+
             for (eIndex in waveObject.enemies) 
             {
                 let enemy = waveObject.enemies[eIndex];
                 for (var enemyNum = 0; enemyNum < waveObject.enemies[eIndex].amount; enemyNum++) 
                 {
                     monstersAlive +=1;
+                    console.log(monstersAlive)
                     enemies.push(new Enemy(enemy.name));
                 }
             }
@@ -247,7 +254,7 @@ class Enemy {
         this.sprite.animations.add("left", [0, 1, 2, 3, 4, 5], 10, true);
         this.sprite.animations.add("right",[6,7,8,9,10,11],10,true);
         
-        game.load.image("health", "assets/Etc/healthBar.png");
+        
         var health = game.add.sprite(-20,30,"health");
         health.cropEnabled = true;
         this.sprite.addChild(health);
@@ -257,10 +264,11 @@ class Enemy {
     // Damage enemy
     damage(damageAmount) {
         this.health -= damageAmount
-        var remain = (this.health/this.maxhealth)*40;
-        console.log(remain)
-        this.widthLife = new Phaser.Rectangle(0, 0, remain, this.sprite.children[0].height);
-        this.sprite.children[0].crop(this.widthLife);
+        
+        //When Damaged, crop the health bar.
+        var remain = (this.health/this.maxhealth)*40; // This 40 is the length of the health bar!!
+        this.lifeRemaining = new Phaser.Rectangle(0, 0, remain, this.sprite.children[0].height);
+        this.sprite.children[0].crop(this.lifeRemaining);
         this.sprite.children[0].updateCrop();
         if (this.health <= 0) {
             monstersAlive-=1;
@@ -302,6 +310,8 @@ class Enemy {
         }
     }
 }
+
+//Health Bar class, child class of enemy
 class healthBar extends Enemy{
     constructor(){
         game.load.image("health", "assets/Etc/healthBar.png");
