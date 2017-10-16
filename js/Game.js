@@ -15,6 +15,7 @@ var game = new Phaser.Game(1000, 600, Phaser.AUTO, ''), // Phaser game instances
     towerSprites, // Manage tower store
     builtTowers, // Manage user towers
     BGM, ele1, ele2, // BGM, sound effects
+    monstersAlive=0,
     
     path,
     
@@ -83,6 +84,9 @@ var gameState = {
         // Tower and enemy sprite information
         game.load.json('towers', 'js/towers.json');
         game.load.json('enemies', 'js/enemies.json');
+        game.load.image('health', 'assets/Etc/healthBar.png');
+        game.load.image('progress1', 'assets/bg/ProgressBarRed.png');
+        game.load.image('progress2', 'assets/bg/ProgressBarYellow.png')
         
         
         
@@ -106,10 +110,11 @@ var gameState = {
         game.add.sprite(800, 0, 'sidebar');
         
         
+        game.add.sprite(800, 400, 'progress1')
         // music
         
         BGM = game.add.audio("BGM");
-        BGM.play();
+        //BGM.play();
         
         
         // TESTING =======
@@ -157,16 +162,8 @@ var gameState = {
             // Add sprite to group
             towerSprites.add(towerSprite);
         }
-        // Load wave details
-        var waves = game.cache.getJSON('waves'),
-            waveObject = waves[currentWave - 1];
-        // Add enemies from wave into enemy list
-        for (eIndex in waveObject.enemies) {
-            let enemy = waveObject.enemies[eIndex];
-            for (var enemyNum = 0; enemyNum < waveObject.enemies[eIndex].amount; enemyNum++) {
-                enemies.push(new Enemy(enemy.name));
-            }
-        }
+
+
 
         // Add game information
         gameText = game.add.text(805, 510,
@@ -180,6 +177,7 @@ var gameState = {
     },
 
     update: function () {
+    
         // Update the tower store
         for (tIndex in towerSprites.children) {
             let tower = towerSprites.children[tIndex];
@@ -203,14 +201,36 @@ var gameState = {
         }
 
         // Update game text
-        gameText.text = 'Wave: ' + currentWave.toString() + '\n' +
+        gameText.text = 'Wave: ' + (currentWave-1).toString() + '\n' +
             'Coins: ' + coins.toString() + '\n' +
             'Lives: ' + lives.toString()
+        
+        
+        if(monstersAlive==0)
+        {
+            var waves = game.cache.getJSON('waves'),
+            waveObject = waves[currentWave - 1];
+
+            for (eIndex in waveObject.enemies) 
+            {
+                let enemy = waveObject.enemies[eIndex];
+                for (var enemyNum = 0; enemyNum < waveObject.enemies[eIndex].amount; enemyNum++) 
+                {
+                    monstersAlive +=1;
+                    console.log(monstersAlive)
+                    enemies.push(new Enemy(enemy.name));
+                }
+            }
+            currentWave+=1;
+        }
+        
+        
     }
 }
 
 // Enemy class
 class Enemy {
+    
     // Instantiate enemy with given type
     constructor(type) {
         // Get details of enemy type provided
@@ -222,11 +242,13 @@ class Enemy {
 
         // Add information to object
         this.health = enemy.health;
+        this.maxhealth= enemy.health;
         this.alive = false;
         this.value = enemy.coinsDropped
 
         // Add sprite to object
         this.sprite = game.add.sprite(0, 10, enemy.name);
+        this.sprite.alpha = 0;
         this.sprite.anchor.set(0.5, 0.5);
 
         // Add physics to object
@@ -236,12 +258,25 @@ class Enemy {
         this.sprite.body.bounce.setTo(1, 1);
         this.sprite.animations.add("left", [0, 1, 2, 3, 4, 5], 10, true);
         this.sprite.animations.add("right",[6,7,8,9,10,11],10,true);
+        
+        
+        var health = game.add.sprite(-20,30,"health");
+        health.cropEnabled = true;
+        this.sprite.addChild(health);
+
     }
 
     // Damage enemy
     damage(damageAmount) {
         this.health -= damageAmount
+        
+        //When Damaged, crop the health bar.
+        var remain = (this.health/this.maxhealth)*40; // This 40 is the length of the health bar!!
+        this.lifeRemaining = new Phaser.Rectangle(0, 0, remain, this.sprite.children[0].height);
+        this.sprite.children[0].crop(this.lifeRemaining);
+        this.sprite.children[0].updateCrop();
         if (this.health <= 0) {
+            monstersAlive-=1;
             this.alive = false;
             this.sprite.destroy();
             coins += this.value;
@@ -251,7 +286,10 @@ class Enemy {
     // Start moving enemy
     start() {
         this.alive = true;
+        this.sprite.alpha =1;
         this.sprite.animations.play('left');
+        
+        
     }
 
     // Updates enemy velocity based on location
@@ -282,6 +320,15 @@ class Enemy {
             this.damage(this.health)
             lives -= 1
         }
+    }
+}
+
+//Health Bar class, child class of enemy
+class healthBar extends Enemy{
+    constructor(){
+        game.load.image("health", "assets/Etc/healthBar.png");
+        game.add.sprite(0,0,"health");
+        
     }
 }
 

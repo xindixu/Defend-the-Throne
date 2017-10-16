@@ -63,10 +63,18 @@
             "overwrite": false
         },
         {
+            "type": "image",
+            "key": "health",
+            "url": "assets/Etc/healthBar.png",
+            "overwrite": false
+        },
+        {
             "type": "spritesheet",
             "key": "shieldKnight",
             "url": "assets/Monsters/ShieldKnightSpriteSheet.png",
-            "overwrite": false
+            "overwrite": false,
+            "frameWidth": 80,
+            "frameHeight": 72
         },
         
         {
@@ -86,10 +94,26 @@
         {
             "type": "spritesheet",
             "key": "whale",
-            "url": "assets/Monsters/Whales.png",
+            "url": "assets/Monsters/WhalesSpriteSheet.png",
             "overwrite": false,
             "frameWidth": 118,
             "frameHeight": 68
+        },
+        {
+            "type": "spritesheet",
+            "key": "ghostBat",
+            "url": "assets/Monsters/GhostBatSpriteSheet.png",
+            "overwrite": false,
+            "frameWidth": 115,
+            "frameHeight": 60
+        },
+        {
+            "type":"spritesheet",
+            "key": "spikeBall",
+            "url": "assets/Monsters/SpikeBallSpriteSheet.png",
+            "overwrite": false,
+            "frameWidth": 85,
+            "frameHeight": 87
         }
     ],
     
