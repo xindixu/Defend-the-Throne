@@ -12,7 +12,7 @@ class Enemy {
 
         // Add information to object
         this.health = enemy.health;
-        this.maxhealth= enemy.health;
+        this.maxhealth = enemy.health;
         this.alive = false;
         this.value = enemy.coinsDropped
 
@@ -58,18 +58,10 @@ class Enemy {
         this.alive = true;
         this.sprite.alpha =1;
         this.sprite.animations.play('left');
-        
-        
     }
 
     // Updates enemy velocity based on location
     update() {
-        
-        
-        // testing
-        
-        
-        
         
         // Checks to see if in top path
         if (this.sprite.x < 575 && this.sprite.y > 50) {

@@ -1,6 +1,7 @@
-var lives = 10, // Lives given to user
-    coins = 290, // Starting coins for user
+var lives = 1, // Lives given to user
+    coins = 300, // Starting coins for user
     currentWave = 1, // Current wave of monsters
+    waves,
     enemies = [], // List of enemies to update
     towers = [], // List of towers to update
     towerSprites, // Manage tower store
@@ -10,6 +11,18 @@ var lives = 10, // Lives given to user
     path,
     tween, logo,// TESTING
     gameText; // Show user game information
+
+
+function restart(){
+    lives = 1;
+    coins = 300;
+    currentWave = 1;
+    enemies = [];
+    towers = [];
+    monstersAlive = 0;
+    towerSprites = game.add.group();
+    enemyIndex = 0;
+}
 
 enemyIndex = 0;
 setInterval(function () {
@@ -81,11 +94,7 @@ var playState = {
         game.physics.startSystem(Phaser.Physics.ARCADE);
         // Add game input
         game.input.mouse.capture = true;
-        
-        
-        
-        
-
+                
         // Add game interface
         map = game.add.tilemap('field1');
         map.addTilesetImage('grass');
@@ -112,9 +121,6 @@ var playState = {
         
         // ===============
                 
-    
-        
-
 
         // Tower sprites
         var towers = game.cache.getJSON('towers');
@@ -148,6 +154,8 @@ var playState = {
             towerSprites.add(towerSprite);
         }
 
+
+        waves = game.cache.getJSON('waves');
 
 
         // Add game information
@@ -188,21 +196,23 @@ var playState = {
         // Update game text
         gameText.text = 'Wave: ' + (currentWave-1).toString() + '\n' +
             'Coins: ' + coins.toString() + '\n' +
-            'Lives: ' + lives.toString()
+            'Lives: ' + lives.toString();
         
-        
-        if(monstersAlive==0)
-        {
-            var waves = game.cache.getJSON('waves'),
-            waveObject = waves[currentWave - 1];
-
+        // lose
+        if(lives < 0){
+            game.state.start('lose');
+        }
+        else if(currentWave >= waves.length){
+            game.state.start('win');
+        }
+        else if(monstersAlive == 0){
+            var waveObject = waves[currentWave-1];
             for (eIndex in waveObject.enemies) 
             {
                 let enemy = waveObject.enemies[eIndex];
                 for (var enemyNum = 0; enemyNum < waveObject.enemies[eIndex].amount; enemyNum++) 
                 {
                     monstersAlive +=1;
-                    console.log(monstersAlive)
                     enemies.push(new Enemy(enemy.name));
                 }
             }
