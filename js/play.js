@@ -113,11 +113,11 @@ var playState = {
         
         // TESTING =======
         
-        logo = game.add.sprite(0,0,'lightning');        
-        tween = game.add.tween(logo).to({x:[0,500,500,0],y:[0,0,300,300]},4000,"Sine.easeInOut",true,-1,false);
+        //logo = game.add.sprite(0,0,'lightning');        
+        //tween = game.add.tween(logo).to({x:[0,500,500,0],y:[0,0,300,300]},4000,"Sine.easeInOut",true,-1,false);
         
         
-        generatePath();
+        //generatePath();
         
         // ===============
                 
