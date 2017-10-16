@@ -16,6 +16,7 @@ var game = new Phaser.Game(1000, 600, Phaser.AUTO, ''), // Phaser game instances
     builtTowers, // Manage user towers
     BGM, ele1, ele2, // BGM, sound effects
     
+    path,
     
     tween, logo,// TESTING
     
@@ -115,6 +116,11 @@ var gameState = {
         
         logo = game.add.sprite(0,0,'lightning');        
         tween = game.add.tween(logo).to({x:[0,500,500,0],y:[0,0,300,300]},4000,"Sine.easeInOut",true,-1,false);
+        
+        
+        generatePath();
+        
+        // ===============
                 
     
         
@@ -171,7 +177,6 @@ var gameState = {
             }
         )
         
-        generatePath();
     },
 
     update: function () {
@@ -251,6 +256,13 @@ class Enemy {
 
     // Updates enemy velocity based on location
     update() {
+        
+        
+        // testing
+        
+        
+        
+        
         // Checks to see if in top path
         if (this.sprite.x < 575 && this.sprite.y > 50) {
             this.sprite.body.velocity.x = 100;
@@ -306,6 +318,8 @@ class Tower {
         // Bullets come from tower
         this.bullets.trackSprite(this.sprite);
         this.soundEffect = game.add.audio(tower.soundEffect);
+        
+        
     }
 
     // Create bullet animation to send at enemy
@@ -366,7 +380,7 @@ String.prototype.toProperCase = function () {
 
 // pass in json file for the tilemap
 function generatePath(){
-    var path = {
+    path = {
         //!!!!! fix it! how to initialize two arrays??? it works this way, but..
         'x':[0,0],
         'y':[0,0]
@@ -393,8 +407,9 @@ function generatePath(){
     
     console.log(path);
     for(var k = 0; k < path.x.length; k++){
-        var px = path.x.get(k);
-        var py = path.y.get(k);
+        var px = path.x[k];
+        var py = path.y[k];
+        console.log(px+" "+py);
     }
     
 }
