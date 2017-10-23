@@ -9,7 +9,21 @@
     {
         "name": "Outpost",
         "cost": 200,
-        "damage": 15,
+        "damage": 12,
+        "weapon": "arrow",
+        "soundEffect": "ele2"
+    },
+    {
+        "name": "Cannon",
+        "cost": 300,
+        "damage": 14,
+        "weapon": "cannonball",
+        "soundEffect": "ele1"
+    },
+    {
+        "name": "Bank",
+        "cost": 400,
+        "damage": 18,
         "weapon": "arrow",
         "soundEffect": "ele2"
     }

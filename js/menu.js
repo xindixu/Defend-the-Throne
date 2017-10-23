@@ -1,15 +1,14 @@
 var menuState = {
-    
+    preload: function(){
+        game.load.pack('GUIs', 'js/assets.json', null, this);
+    },
+
     create: function(){
         
-        var name = game.add.text(80,80,"Defend the Throne",{font: '50 px Arial', fill: '#FFFFFF'});
+        var name = game.add.text(80,80,"Defend the Throne",{font: '100px Arial', fill: '#FFFFFF'});
         
-        var start = game.add.text(80,500,"press S to start",{font: '25 px Arial', fill: '#FFFFFF'});
+        var button = game.add.button(game.world.centerX - 30, 400, 'start', this.start, this, 0,1,0);
         
-        
-        var sKey = game.input.keyboard.addKey(Phaser.Keyboard.S);
-        
-        sKey.onDown.addOnce(this.start, this);
     },
     
     start: function(){
@@ -17,3 +16,4 @@ var menuState = {
     }
     
 }
+

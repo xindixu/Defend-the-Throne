@@ -61,8 +61,6 @@ setInterval(function () {
 
 var playState = {
     preload: function () {
-        
-        
         // All image loading
         
         game.load.pack('images', 'js/assets.json', null, this);
@@ -84,9 +82,7 @@ var playState = {
         game.load.json('enemies', 'js/enemies.json');
         game.load.image('health', 'assets/Etc/healthBar.png');
         game.load.image('progress1', 'assets/bg/ProgressBarRed.png');
-        game.load.image('progress2', 'assets/bg/ProgressBarYellow.png')
-        
-        
+        game.load.image('progress2', 'assets/bg/ProgressBarYellow.png');
         
     },
 
@@ -108,7 +104,7 @@ var playState = {
         // music
         
         BGM = game.add.audio("BGM");
-        //BGM.play();
+        BGM.play();
         
         
         // TESTING =======

@@ -8,29 +8,46 @@
         },
         {
             "type": "image",
-            "key": "lightTower2",
+            "key": "Light Tower2",
             "url": "assets/Towers/LightningTower2.png",
             "overwrite": false
         },
         {
             "type": "image",
             "key": "Outpost",
-            "url": "assets/Towers/outpost.png",
+            "url": "assets/Towers/Outpost.png",
             "overwrite": false
         },
         {
             "type": "image",
-            "key": "outpost2",
-            "url": "assets/Towers/outpost2.png",
+            "key": "Outpost2",
+            "url": "assets/Towers/Outpost2.png",
             "overwrite": false
         },
         {
             "type": "image",
-            "key": "outpost3",
-            "url": "assets/Towers/outpost3.png",
+            "key": "Outpost3",
+            "url": "assets/Towers/Outpost3.png",
             "overwrite": false
         },
-        
+        {
+            "type": "image",
+            "key": "Bank",
+            "url": "assets/Towers/Bank.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "Cannon",
+            "url": "assets/Towers/Cannon1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "Cannon2",
+            "url": "assets/Towers/Cannon2.png",
+            "overwrite": false
+        },
         {
             "type": "image",
             "key": "chargedLighting",
@@ -54,6 +71,12 @@
             "type": "image",
             "key": "arrow",
             "url": "assets/Projectiles/Arrow1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "arrow2",
+            "url": "assets/Projectiles/Arrow2.png",
             "overwrite": false
         },
         {
@@ -115,6 +138,7 @@
             "frameWidth": 85,
             "frameHeight": 87
         }
+        
     ],
     
     "audios":[
@@ -137,5 +161,16 @@
             "autoDecode": true  
         }
         
+    ],
+    
+    "GUIs":[
+        {
+            "type": "image",
+            "key": "start",
+            "url": "assets/GUI/Button/Start.png",
+            "overwrite": false
+        }
+        
     ]
+    
 }
