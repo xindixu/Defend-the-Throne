@@ -8,7 +8,7 @@ var lives = 1, // Lives given to user
     builtTowers, // Manage user towers
     BGM, ele1, ele2, // BGM, sound effects
     monstersAlive=0,
-    path,
+    path, 
     tween, logo,// TESTING
     gameText; // Show user game information
 
