@@ -52,6 +52,12 @@ class Enemy {
             this.sprite.destroy();
             coins += this.value;
         }
+        
+        
+        
+        // coin animation 
+        var c = new Coin(this.value,this.sprite.x,this.sprite.y);
+        c.generate();
     }
 
     // Start moving enemy
