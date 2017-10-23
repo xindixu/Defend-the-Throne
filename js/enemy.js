@@ -48,6 +48,9 @@ class Enemy {
         if (this.health <= 0) {
             monstersAlive-=1;
             this.alive = false;
+            var sprite = this.sprite.game.add.sprite(this.sprite.x-30,this.sprite.y-30,this.sprite.key);
+            sprite.frame =1;
+            game.add.tween(sprite).to( { alpha: 0 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);
             this.sprite.destroy();
             coins += this.value;
         }
