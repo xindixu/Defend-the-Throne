@@ -102,8 +102,8 @@ class Enemy {
 //Health Bar class, child class of enemy
 class healthBar extends Enemy{
     constructor(){
-        game.load.image("health", "assets/Etc/healthBar.png");
-        game.add.sprite(0,0,"health");
+        var health = game.add.sprite(-20,30,"health");
+        health.cropEnabled = true;
         
     }
 }

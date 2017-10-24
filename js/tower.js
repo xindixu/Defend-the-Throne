@@ -38,6 +38,7 @@ class Tower {
         
     }
 
+
     // Create bullet animation to send at enemy
     fire(enemy) {
         // Get angle of enemy

@@ -4,7 +4,8 @@
         "cost": 100,
         "damage": 10,
         "weapon": "lightning",
-        "soundEffect": "ele1"
+        "soundEffect": "ele1",
+        "inputEnabled": "true"
     },
     {
         "name": "Outpost",
