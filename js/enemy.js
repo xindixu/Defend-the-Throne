@@ -48,16 +48,22 @@ class Enemy {
         if (this.health <= 0) {
             monstersAlive-=1;
             this.alive = false;
-            this.death()
+
+            // coin animation 
+            //var c = new Coin(this.value,this.sprite.x,this.sprite.y);
+            //c.generate();
+            //game.time.events.add(1000,c.destroyEmitter,this);
+            
+            var sprite = this.sprite.game.add.sprite(this.sprite.x-30,this.sprite.y-30,this.sprite.key);            
+            sprite.frame =1;
+            game.add.tween(sprite).to( { alpha: 0 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);     
+
+            this.death();
             this.sprite.destroy();
+            
             coins += this.value;
+            
         }
-        
-        
-        
-        // coin animation 
-        var c = new Coin(this.value,this.sprite.x,this.sprite.y);
-        c.generate();
     }
 
     // Start moving enemy
