@@ -137,6 +137,14 @@
             "overwrite": false,
             "frameWidth": 85,
             "frameHeight": 87
+        },
+        {
+            "type":"spritesheet",
+            "key": "robedSkeleton",
+            "url": "assets/Monsters/RobedSkeleton.png",
+            "overwrite": false,
+            "frameWidth": 65,
+            "frameHeight": 55
         }
         
     ],

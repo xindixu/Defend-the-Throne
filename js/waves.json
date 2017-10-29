@@ -13,6 +13,11 @@
             {
                 "name": "whale",
                 "amount": 2
+            },
+            {
+                "name": "robedSkeleton",
+                "amount": 2
+                
             }
         ]
     },

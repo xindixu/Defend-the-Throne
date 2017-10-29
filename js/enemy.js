@@ -26,8 +26,8 @@ class Enemy {
         this.sprite.body.immovable = false;
         this.sprite.body.collideWorldBounds = true;
         this.sprite.body.bounce.setTo(1, 1);
-        this.sprite.animations.add("left", [0, 1, 2, 3, 4, 5], 10, true);
-        this.sprite.animations.add("right",[6,7,8,9,10,11],10,true);
+        this.sprite.animations.add("left", [0, 1, 2, 3, 4, 5, 4, 3, 2, 1], 10, true);
+        this.sprite.animations.add("right",[6,7,8,9,10,11,10,9,8,7],10,true);
         
         
         var health = game.add.sprite(-20,30,"health");
