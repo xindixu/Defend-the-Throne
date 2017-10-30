@@ -25,6 +25,7 @@ function restart(){
 }
 
 enemyIndex = 0;
+
 setInterval(function () {
     // Give user a coin every second
     coins += 1;
@@ -166,7 +167,7 @@ var playState = {
     },
 
     update: function () {
-    
+        
         // Update the tower store
         for (tIndex in towerSprites.children) {
             let tower = towerSprites.children[tIndex];
@@ -188,6 +189,8 @@ var playState = {
                 enemy.update()
             }
         }
+        
+        
 
         // Update game text
         gameText.text = 'Wave: ' + (currentWave-1).toString() + '\n' +
@@ -278,4 +281,3 @@ function generatePath(){
     }
     
 }
-

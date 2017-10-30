@@ -4,14 +4,13 @@ class Coin{
         this.value = value;
         this.x = x;
         this.y = y;
-        this.emitter = game.add.emitter(this.x,this.y,200);
-        this.emitter.makeParticles('coin');
-        this.emitter.gravity = 200;
+        this.sprite = game.add.sprite('coin',x,y);
+        this.sprite.alpha = 100;
+        this.sprite.anchor.set(0.5, 0.5);
     }
     
     generate(){
-        this.emitter.start(false,200,2);
-        game.time.events(2000,this.destoryEmitter,this);
+        this.sprite.alpha = 0;
         
     }
     
