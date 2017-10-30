@@ -47,13 +47,12 @@ setInterval(function () {
 
             // Change tint of enemy for distance visualization
             if (tower.checkEnemy(enemy)) {
-                enemy.sprite.tint = 0xd32f2f
-                
-                // Towers fire every second
+                enemy.sprite.tint = 0xd32f2f;
                 tower.fire(enemy);
-                break
-            } else {
-                enemy.sprite.tint = 0xffffff
+                break;
+            } 
+            else {
+                enemy.sprite.tint = 0xffffff;
             }
         }
     }

@@ -49,16 +49,7 @@ class Enemy {
         if (this.health <= 0) {
             monstersAlive-=1;
             this.alive = false;
-<<<<<<< HEAD
-=======
 
-            // coin animation 
-            //var c = new Coin(this.value,this.sprite.x,this.sprite.y);
-            //c.generate();
-            //game.time.events.add(1000,c.destroyEmitter,this);
-            
-            
->>>>>>> 3cc282fe5bfb371c7a810f3cad9d77c8f8dfaa4f
             this.death();
             this.sprite.destroy();
             coins += this.value;
