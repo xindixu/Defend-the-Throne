@@ -28,5 +28,12 @@
         "coinsDropped": 20,
         "health": 15,
         "animation": true
+    },
+    {
+        "name": "robedSkeleton",
+        "coinsDropped": 20,
+        "health": 15,
+        "animation": true
+        
     }
 ]
