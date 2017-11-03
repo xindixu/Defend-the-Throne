@@ -1,5 +1,5 @@
 var lives = 1, // Lives given to user
-    coins = 300, // Starting coins for user
+    coins = 800.0, // Starting coins for user
     currentWave = 1, // Current wave of monsters
     waves,
     enemies = [], // List of enemies to update
@@ -15,7 +15,7 @@ var lives = 1, // Lives given to user
 
 function restart(){
     lives = 1;
-    coins = 300;
+    coins = 800.0;
     currentWave = 1;
     enemies = [];
     towers = [];
@@ -44,16 +44,23 @@ setInterval(function () {
         for (eIndex in enemies) {
             // Check all enemies
             let enemy = enemies[eIndex];
-
+            
+            if(tower.name != 'Bank'){
             // Change tint of enemy for distance visualization
-            if (tower.checkEnemy(enemy)) {
-                enemy.sprite.tint = 0xd32f2f;
-                tower.fire(enemy);
-                break;
-            } 
-            else {
+                if (tower.checkEnemy(enemy)) {
+                    enemy.sprite.tint = 0xd32f2f;
+                    tower.fire(enemy);
+                    break;
+                } 
+                else {
                 enemy.sprite.tint = 0xffffff;
+                }
             }
+            else{
+                coins += 0.05
+            }
+            
+            
         }
     }
 }, 1000)
@@ -193,14 +200,14 @@ var playState = {
 
         // Update game text
         gameText.text = 'Wave: ' + (currentWave-1).toString() + '\n' +
-            'Coins: ' + coins.toString() + '\n' +
+            'Coins: ' + Phaser.Math.floorTo(coins,0).toString() + '\n' +
             'Lives: ' + lives.toString();
         
         // lose
-        if(lives < 0){
+        if(lives < 1){
             game.state.start('lose');
         }
-        else if(currentWave >= waves.length){
+        else if(currentWave > waves.length+1){
             game.state.start('win');
         }
         else if(monstersAlive == 0){

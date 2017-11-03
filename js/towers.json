@@ -25,7 +25,8 @@
         "name": "Bank",
         "cost": 400,
         "damage": 18,
-        "weapon": "arrow",
+        "weapon": "coin",
         "soundEffect": "ele2"
     }
+    
 ]

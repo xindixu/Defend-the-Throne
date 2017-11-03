@@ -9,8 +9,9 @@ class Tower {
             return t.name == type;
         })
         
+        this.name = type
+        
         var tower = towers[0];
-        console.log(tower.name);
 
         // Load details from tower information and create sprite
         this.damage = tower.damage;
@@ -41,6 +42,7 @@ class Tower {
 
     // Create bullet animation to send at enemy
     fire(enemy) {
+        
         // Get angle of enemy
         let eX = enemy.sprite.x,
             eY = enemy.sprite.y,
