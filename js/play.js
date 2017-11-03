@@ -203,12 +203,8 @@ var playState = {
             'Coins: ' + Phaser.Math.floorTo(coins,0).toString() + '\n' +
             'Lives: ' + lives.toString();
         
-        // lose
         if(lives < 1){
             game.state.start('lose');
-        }
-        else if(currentWave > waves.length+1){
-            game.state.start('win');
         }
         else if(monstersAlive == 0 && currentWave <= 4){
             var waveObject = waves[currentWave-1];
@@ -222,6 +218,10 @@ var playState = {
                 }
             }
             currentWave+=1;
+        }
+        
+        if(currentWave == 4){
+            game.state.start('win');
         }
         
         
