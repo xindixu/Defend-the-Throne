@@ -92,6 +92,13 @@
             "overwrite": false
         },
         {
+            "type": "image",
+            "key": "throne",
+            "url": "assets/Etc/throne.png",
+            "overwrite": false
+        },
+        
+        {
             "type": "spritesheet",
             "key": "shieldKnight",
             "url": "assets/Monsters/ShieldKnightSpriteSheet.png",

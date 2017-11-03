@@ -6,7 +6,7 @@
  */
 
 // Global variables
-var game = new Phaser.Game(1000, 600, Phaser.AUTO, '') // Phaser game instances
+var game = new Phaser.Game(800, 700, Phaser.AUTO, '') // Phaser game instances
 
 
 game.state.add('menu', menuState);

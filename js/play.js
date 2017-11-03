@@ -79,7 +79,7 @@ var playState = {
         game.load.image('road', 'assets/bg/road2.png');
 
         // Map and sidebar for game functionality
-        game.load.image('sidebar', 'assets/bg/sidebar.png');
+        game.load.image('bar', 'assets/bg/bar.png');
 
         // Wave information
         game.load.json('waves', 'js/waves.json');
@@ -104,10 +104,11 @@ var playState = {
         map.addTilesetImage('road');
         grass = map.createLayer('bg');
         dirtPath = map.createLayer('path');
-        game.add.sprite(800, 0, 'sidebar');
+        game.add.sprite(0,600, 'bar');
         
         
-        game.add.sprite(800, 400, 'progress1')
+        game.add.sprite(800, 400, 'progress1');
+        game.add.sprite(700,600,'throne');  
         // music
         
         BGM = game.add.audio("BGM");
@@ -133,9 +134,9 @@ var playState = {
             let tower = towers[tIndex];
 
             // Create the sprite for the towers
-            var towerSprite = game.add.sprite(800, 40 + tIndex * 75, tower.name);
-            towerSprite.defaultX = 800
-            towerSprite.defaultY = 40 + tIndex * 75
+            var towerSprite = game.add.sprite(40 + tIndex * 120, 500, tower.name);
+            towerSprite.defaultX = 40 + tIndex * 100
+            towerSprite.defaultY = 480
 
             // Add tower cost to the sprite object
             towerSprite.cost = tower.cost
@@ -148,10 +149,10 @@ var playState = {
 
             // Add information about the tower to the sidebar
             towerStyle = {
-                font: "20px Arial"
+                font: "15px Arial"
             }
-            game.add.text(towerSprite.x + 75, towerSprite.y, tower.name.toProperCase(), towerStyle)
-            game.add.text(towerSprite.x + 75, towerSprite.y + 25, "Cost: " + tower.cost.toString(), towerStyle)
+            game.add.text(towerSprite.x, towerSprite.y + 75, tower.name.toProperCase(), towerStyle)
+            game.add.text(towerSprite.x, towerSprite.y + 100, "Cost: " + tower.cost.toString(), towerStyle)
 
             // Add sprite to group
             towerSprites.add(towerSprite);
@@ -252,7 +253,7 @@ String.prototype.toProperCase = function () {
     });
 };
 
-
+/*
 // pass in json file for the tilemap
 function generatePath(){
     path = {
@@ -287,3 +288,4 @@ function generatePath(){
     }
     
 }
+*/
