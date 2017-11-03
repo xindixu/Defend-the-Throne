@@ -210,7 +210,7 @@ var playState = {
         else if(currentWave > waves.length+1){
             game.state.start('win');
         }
-        else if(monstersAlive == 0){
+        else if(monstersAlive == 0 && currentWave <= 4){
             var waveObject = waves[currentWave-1];
             for (eIndex in waveObject.enemies) 
             {

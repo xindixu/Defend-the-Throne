@@ -51,7 +51,7 @@
         "wave": 4,
         "enemies": [
             {
-                "name": "ShieldKnight",
+                "name": "shieldKnight",
                 "amount": 15
             },
             {
