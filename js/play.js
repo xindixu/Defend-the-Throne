@@ -104,11 +104,11 @@ var playState = {
         map.addTilesetImage('road');
         grass = map.createLayer('bg');
         dirtPath = map.createLayer('path');
-        game.add.sprite(0,600, 'bar');
+        game.add.sprite(0,580, 'bar');
         
         
         game.add.sprite(800, 400, 'progress1');
-        game.add.sprite(700,600,'throne');  
+        game.add.sprite(720,400,'throne');  
         // music
         
         BGM = game.add.audio("BGM");
@@ -134,9 +134,9 @@ var playState = {
             let tower = towers[tIndex];
 
             // Create the sprite for the towers
-            var towerSprite = game.add.sprite(40 + tIndex * 120, 500, tower.name);
-            towerSprite.defaultX = 40 + tIndex * 100
-            towerSprite.defaultY = 480
+            var towerSprite = game.add.sprite(40 + tIndex * 120, 590, tower.name);
+            towerSprite.defaultX = 40 + tIndex * 120
+            towerSprite.defaultY = 590
 
             // Add tower cost to the sprite object
             towerSprite.cost = tower.cost
@@ -151,8 +151,8 @@ var playState = {
             towerStyle = {
                 font: "15px Arial"
             }
-            game.add.text(towerSprite.x, towerSprite.y + 75, tower.name.toProperCase(), towerStyle)
-            game.add.text(towerSprite.x, towerSprite.y + 100, "Cost: " + tower.cost.toString(), towerStyle)
+            game.add.text(towerSprite.x, towerSprite.y + 65, tower.name.toProperCase(), towerStyle)
+            game.add.text(towerSprite.x, towerSprite.y + 80, "Cost: " + tower.cost.toString(), towerStyle)
 
             // Add sprite to group
             towerSprites.add(towerSprite);
@@ -163,7 +163,7 @@ var playState = {
 
 
         // Add game information
-        gameText = game.add.text(805, 510,
+        gameText = game.add.text(10, 500,
             'Wave: ' + currentWave.toString() + '\n' +
             'Coins: ' + coins.toString() + '\n' +
             'Lives: ' + lives.toString(), {

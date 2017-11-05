@@ -82,8 +82,8 @@ class Enemy {
             this.sprite.body.velocity.x = 0;
             this.sprite.body.velocity.y = 100;
             this.sprite.animations.play('right');
-        // Checks to see if in bottom path
-        } else if (this.sprite.x < 800) {
+        // Checks to see if in bottom paths
+        } else if (this.sprite.x < 720) {
             this.sprite.body.velocity.x = 100;
             this.sprite.body.velocity.y = 0;
             this.sprite.animations.play('left');
