@@ -74,6 +74,7 @@ class Tower {
     }
     
     upgrade() {
+        // https://phaser.io/examples/v2/misc/pause-menu
         console.log("Upgrade!")
         // Get current towers
         let name = this.name
@@ -103,13 +104,28 @@ class Tower {
         menu.beginFill(0x7C4610, 1);
         menu.drawRect(75, 25, 150, 25 + (upgrades.length * 25));
 
-        // Add text to menu
-        game.add.text(this.sprite.x + 80, this.sprite.y + 30, "Upgrades", {font: "14px Arial", fill: "#ffffff"})
+        // Add title text to menu and create texts array for future deletion
+        var texts = []
+        let upgradeStyle = {font: "14px Arial", fill: "#ffffff"};
+        let title = game.add.text(this.sprite.x + 80, this.sprite.y + 30, "Upgrades", upgradeStyle)
+        texts.push(title)
+
+        // Add all texts for upgrade
         for (var uIndex = 0; uIndex < upgrades.length; uIndex++) {
             let upgrade = upgrades[uIndex]
-            game.add.text(this.sprite.x + 80, this.sprite.y + 30 + ((uIndex + 1) * 25), upgrade.name + " (" + upgrade.cost + ")", {font: "14px Arial", fill: "#ffffff"})
+            let text = game.add.text(this.sprite.x + 80, this.sprite.y + 30 + ((uIndex + 1) * 25), upgrade.name + " (" + upgrade.cost + ")", upgradeStyle)
+            texts.push(text)
         }
 
-        // https://phaser.io/examples/v2/misc/pause-menu
+        // Remove menu on other input
+        //TODO: Currently not functional
+        menu.events.onInputUp.add(function() {
+            console.log("Input Out")
+            menu.destroy();
+            for (var textIndex = 0; textIndex < texts.length; textIndex++) {
+                texts[textIndex].destroy();
+            }
+        }, menu)
+        console.log(menu, menu.events, menu.events.onInputUp)
     }
 }
