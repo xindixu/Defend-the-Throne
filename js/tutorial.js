@@ -10,8 +10,12 @@ var lives = 99, // Lives given to user
     monstersAlive=0,
     path, 
     tween, logo,// TESTING
-    gameText; // Show user game information
-    paused=true;
+    gameText, // Show user game information
+    tutorialPage = 1,
+    paused=true,
+    scroll,
+    label,
+    button;
 
 
 function restart(){
@@ -92,6 +96,7 @@ var tutorialState = {
         game.load.image('progress1', 'assets/bg/ProgressBarRed.png');
         game.load.image('progress2', 'assets/bg/ProgressBarYellow.png');
         game.load.image('scroll', 'assets/Etc/scroll.png');
+        game.load.pack('GUIs', 'js/assets.json', null, this);
         
     },
 
@@ -172,15 +177,37 @@ var tutorialState = {
                 font: '15px Arial',
             }
         )
-        game.add.sprite(250,100,'scroll');
-        game.add.text(game.world.centerX - 100,175,"Welcome To The Tutorial",{font: '20px Arial', fill: '#000000'});
-        
+        scroll =game.add.sprite(250,100,'scroll');
+        label = game.add.text(game.world.centerX - 100,175,"Welcome To The Tutorial \nThe objective this game \nis to prevent enemies \n from reaching the throne.",{font: '20px Arial', fill: '#000000'});
+        button = game.add.button(game.world.centerX +50 , 400, 'start', this.next, this, 0,1,0);
+    },
+    next:function(){
+        tutorialPage +=1;
+        if (tutorialPage ==2){
+            label.destroy();
+            label = game.add.text(game.world.centerX - 100,175,"The enemies will come\nwill walk along this path.\n\nYou must defend the throne\nwith towers!",{font: '20px Arial', fill: '#000000'});
+        }
+        if(tutorialPage ==3){
+            label.destroy();
+            label = game.add.text(game.world.centerX - 100,175,"Your towers are located at \nthe bottom of the screen.\n\n Click and drag one onto the \nfield!",{font: '20px Arial', fill: '#000000'});
+            
+        }
+        if(tutorialPage ==4){
+            label.destroy();
+            label = game.add.text(game.world.centerX - 100,175,"Your towers will automatically\nfire at the enemy!\n",{font: '20px Arial', fill: '#000000'});
+        }
+        if(tutorialPage==5){
+            label.destroy();
+            button.destroy();
+            scroll.destroy();
+            paused=false;
+        }
     },
 
     update: function () {
         
         
-        while(!paused){
+        if(!paused){
         // Update the tower store
         for (tIndex in towerSprites.children) {
             let tower = towerSprites.children[tIndex];
