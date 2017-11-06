@@ -20,7 +20,7 @@
         },
         {
             "type": "image",
-            "key": "Outpost2",
+            "key": "Outpost 2",
             "url": "assets/Towers/Outpost2.png",
             "overwrite": false
         },
@@ -44,7 +44,7 @@
         },
         {
             "type": "image",
-            "key": "Cannon2",
+            "key": "Cannon 2",
             "url": "assets/Towers/Cannon2.png",
             "overwrite": false
         },

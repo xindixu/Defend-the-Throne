@@ -109,5 +109,7 @@ class Tower {
             let upgrade = upgrades[uIndex]
             game.add.text(this.sprite.x + 80, this.sprite.y + 30 + ((uIndex + 1) * 25), upgrade.name + " (" + upgrade.cost + ")", {font: "14px Arial", fill: "#ffffff"})
         }
+
+        // https://phaser.io/examples/v2/misc/pause-menu
     }
 }

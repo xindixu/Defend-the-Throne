@@ -19,14 +19,33 @@
         "cost": 200,
         "damage": 12,
         "weapon": "arrow",
-        "soundEffect": "ele2"
+        "soundEffect": "ele2",
+        "upgrades": [
+            {
+                "name": "Outpost 2",
+                "damageIncrease": 20,
+                "cost": 100
+            },
+            {
+                "name": "Outpost 3",
+                "damageIncrease": 30,
+                "cost": 200
+            }
+        ]
     },
     {
         "name": "Cannon",
         "cost": 300,
         "damage": 14,
         "weapon": "cannonball",
-        "soundEffect": "ele1"
+        "soundEffect": "ele1",
+        "upgrades": [
+            {
+                "name": "Cannon 2",
+                "damageIncrease": 10,
+                "cost": 50
+            }
+        ]
     },
     {
         "name": "Bank",
