@@ -99,22 +99,22 @@ class Tower {
         }
 
         // Draw menu object
-        var menu = game.add.graphics(this.sprite.x, this.sprite.y);
-        menu.lineStyle(2, 0xFEC221, 0.8);
-        menu.beginFill(0x7C4610, 1);
-        menu.drawRect(75, 25, 150, 25 + (upgrades.length * 25));
+        this.menu = game.add.graphics(this.sprite.x, this.sprite.y);
+        this.menu.lineStyle(2, 0xFEC221, 0.8);
+        this.menu.beginFill(0x7C4610, 1);
+        this.menu.drawRect(75, 25, 150, 25 + (upgrades.length * 25));
 
         // Add title text to menu and create texts array for future deletion
-        var texts = []
+        this.texts = []
         let upgradeStyle = {font: "14px Arial", fill: "#ffffff"};
         let title = game.add.text(this.sprite.x + 80, this.sprite.y + 30, "Upgrades", upgradeStyle)
-        texts.push(title)
+        this.texts.push(title)
 
         // Add all texts for upgrade
         for (var uIndex = 0; uIndex < upgrades.length; uIndex++) {
             let upgrade = upgrades[uIndex]
             let text = game.add.text(this.sprite.x + 80, this.sprite.y + 30 + ((uIndex + 1) * 25), upgrade.name + " (" + upgrade.cost + ")", upgradeStyle)
-            texts.push(text)
+            this.texts.push(text)
         }
 
         // Remove menu on other input
@@ -123,13 +123,26 @@ class Tower {
         // Solution: Create a destroyMenu function that does the stuff below, and add all menus a global variable
         // Then add input Listener to the game and on any input outside of the menu, remove all menus
         // Add input listener above for text that will purchase upgrade on click
-        menu.events.onInputDown.add(function() {
+        
+        // I added a button for this, i think it will be easier to use button. we can change the image for the button.
+        this.menu.events.onInputDown.add(function() {
             console.log("Input Out")
-            menu.destroy();
+            this.menu.destroy();
             for (var textIndex = 0; textIndex < texts.length; textIndex++) {
                 texts[textIndex].destroy();
             }
-        }, menu)
-        console.log(menu, menu.events, menu.events.onInputUp)
+        }, this.menu)
+        //console.log(menu, menu.events, menu.events.onInputUp)
+        
+        this.upgradeBtn = game.add.button(this.sprite.x + 10, this.sprite.y - 50,'start', this.actionOnClick, this, 2, 1, 0);
+    }
+    
+    actionOnClick(){
+        console.log('up');
+        // upgrade
+        this.menu.visible = false;
+        //game.remove.text(this.texts);
+        this.upgradeBtn.visible = false;
+        
     }
 }

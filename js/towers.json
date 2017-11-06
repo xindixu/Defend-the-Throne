@@ -10,6 +10,7 @@
             {
                 "name": "Light Tower 2",
                 "damageIncrease": 10,
+                "damage": 20,
                 "cost": 50
             }
         ]
@@ -24,11 +25,13 @@
             {
                 "name": "Outpost 2",
                 "damageIncrease": 20,
+                "damage": 20,
                 "cost": 100
             },
             {
                 "name": "Outpost 3",
                 "damageIncrease": 30,
+                "damage": 30,
                 "cost": 200
             }
         ]
@@ -43,6 +46,7 @@
             {
                 "name": "Cannon 2",
                 "damageIncrease": 10,
+                "damage": 24,
                 "cost": 50
             }
         ]
