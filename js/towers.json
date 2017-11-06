@@ -5,7 +5,14 @@
         "damage": 10,
         "weapon": "lightning",
         "soundEffect": "ele1",
-        "inputEnabled": "true"
+        "inputEnabled": "true",
+        "upgrades": [
+            {
+                "name": "Light Tower 2",
+                "damageIncrease": 10,
+                "cost": 50
+            }
+        ]
     },
     {
         "name": "Outpost",

@@ -138,7 +138,7 @@ var playState = {
             towerSprite.defaultX = 40 + tIndex * 120
             towerSprite.defaultY = 590
 
-            // Add tower cost to the sprite object
+            // Add default properties to sprites
             towerSprite.cost = tower.cost
 
             // Enable drag and drop on the towers
