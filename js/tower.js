@@ -119,7 +119,11 @@ class Tower {
 
         // Remove menu on other input
         //TODO: Currently not functional
-        menu.events.onInputUp.add(function() {
+        // Issue is that it's only tracking input within the menu object, which is overlayed with text
+        // Solution: Create a destroyMenu function that does the stuff below, and add all menus a global variable
+        // Then add input Listener to the game and on any input outside of the menu, remove all menus
+        // Add input listener above for text that will purchase upgrade on click
+        menu.events.onInputDown.add(function() {
             console.log("Input Out")
             menu.destroy();
             for (var textIndex = 0; textIndex < texts.length; textIndex++) {
