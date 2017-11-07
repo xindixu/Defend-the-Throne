@@ -97,7 +97,12 @@
             "url": "assets/Etc/throne.png",
             "overwrite": false
         },
-        
+        {
+            "type": "image",
+            "key": "range",
+            "url": "assets/Etc/range.png",
+            "overwrite": false
+        },
         {
             "type": "spritesheet",
             "key": "shieldKnight",

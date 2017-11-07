@@ -134,9 +134,13 @@ var playState = {
             let tower = towers[tIndex];
 
             // Create the sprite for the towers
-            var towerSprite = game.add.sprite(40 + tIndex * 120, 590, tower.name);
-            towerSprite.defaultX = 40 + tIndex * 120
-            towerSprite.defaultY = 590
+            var towerSprite = game.add.sprite(60 + tIndex * 120, 600, tower.name);
+            towerSprite.defaultX = 60 + tIndex * 120
+            towerSprite.defaultY = 600
+            towerSprite.anchor.set(0.5,0.5);
+            towerSprite.bulletRange = game.add.sprite(towerSprite.x, towerSprite.y,'range');
+            towerSprite.bulletRange.alpha = 0;
+            towerSprite.bulletRange.anchor.set(0.5, 0.5);
 
             // Add default properties to sprites
             towerSprite.cost = tower.cost
@@ -145,8 +149,12 @@ var playState = {
             towerSprite.inputEnabled = true;
             towerSprite.input.enableDrag();
             towerSprite.input.enableSnap(32, 32, true, true);
-            towerSprite.events.onDragStop.add(placeTower, this) // New Tower() objects are created in placeTower()
-
+            towerSprite.events.onDragStop.add(placeTower, this); // New Tower() objects are created in placeTower()
+            
+            towerSprite.events.onDragStart.add(drawCircle,this);
+            towerSprite.events.onDragUpdate.add(updateCircle,this);
+            towerSprite.events.onDragStop.add(destoryCircle,this);
+            
             // Add information about the tower to the sidebar
             towerStyle = {
                 font: "15px Arial"
@@ -209,7 +217,7 @@ var playState = {
         }
         else if(monstersAlive == 0){
             if(currentWave < 5){
-                console.log(currentWave)
+                console.log(currentWave);
                 var waveObject = waves[currentWave-1];
                 for (eIndex in waveObject.enemies) 
                 {
@@ -227,8 +235,6 @@ var playState = {
             }
         }
         
-        
-        
     }
 }
 
@@ -240,7 +246,7 @@ function placeTower(towerSprite) {
     // Place tower
     var newTower = new Tower(towerSprite.key, towerSprite.x, towerSprite.y);
     towers.push(newTower)
-
+    
     // Reset store sprite location
     towerSprite.x = towerSprite.defaultX
     towerSprite.y = towerSprite.defaultY
@@ -249,12 +255,31 @@ function placeTower(towerSprite) {
     coins -= towerSprite.cost
 }
 
+ 
+function drawCircle(towerSprite){
+    console.log("drawing!");
+    towerSprite.bulletRange.alpha = 1; 
+}
+function updateCircle(towerSprite){
+    console.log(towerSprite.x, towerSprite.y);
+    
+    console.log(towerSprite.bulletRange.x, towerSprite.bulletRange.y);
+    
+    towerSprite.bulletRange.x = towerSprite.x;
+    towerSprite.bulletRange.y = towerSprite.y;
+}
+function destoryCircle(towerSprite){
+    towerSprite.bulletRange.alpha = 0;
+}
+
+
 // String utility for proper formatting 
 String.prototype.toProperCase = function () {
     return this.replace(/\w\S*/g, function (txt) {
         return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
     });
 };
+
 
 /*
 // pass in json file for the tilemap

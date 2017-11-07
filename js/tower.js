@@ -14,6 +14,7 @@ class Tower {
         // Load details from tower information and create sprite
         this.damage = tower.damage;
         this.sprite = game.add.sprite(x, y, tower.name);
+        this.sprite.anchor.set(0.5,0.5);
 
         // Add weapon to Tower
         this.bullets = game.add.weapon(100, tower.weapon);
@@ -37,7 +38,8 @@ class Tower {
         // Call upgrade function on clicking tower by enabling input, adding a click event, and
         // calling the upgrade method
         this.sprite.inputEnabled = true;        
-        this.sprite.events.onInputDown.add(this.upgrade, this)
+        
+        this.sprite.events.onInputDown.add(this.upgrade, this);
     }
 
     // Create bullet animation to send at enemy
