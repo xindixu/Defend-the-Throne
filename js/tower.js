@@ -136,13 +136,24 @@ class Tower {
         
         this.upgradeBtn = game.add.button(this.sprite.x + 10, this.sprite.y - 50,'start', this.actionOnClick, this, 2, 1, 0);
     }
-    
+     
     actionOnClick(){
         console.log('up');
         // upgrade
         this.menu.visible = false;
         //game.remove.text(this.texts);
         this.upgradeBtn.visible = false;
-        
+        this.upgradeTower(this.type)
+    }
+    
+    upgradeTower(type){
+        console.log(type+'1');
+        var towers = game.cache.getJSON('towers')
+        towers = towers.filter(function (t) {
+            return t.name == type;
+        })
+        this.name = type
+        this.damage = tower.damage;
+        this.sprite = game.add.sprite(x, y, tower.name);
     }
 }

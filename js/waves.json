@@ -3,21 +3,16 @@
         "wave": 1,
         "enemies": [
             {
-                "name": "spikeBall",
-                "amount": 2
-            },
-            {
-                "name": "ghostBat",
-                "amount": 2
-            },
-            {
                 "name": "whale",
+                "amount": 5
+            },
+            {
+                "name": "spearKnight",
                 "amount": 2
             },
             {
-                "name": "robedSkeleton",
+                "name": "shieldKnight",
                 "amount": 2
-                
             }
         ]
     },
@@ -30,7 +25,7 @@
             },
             {
                 "name": "shieldKnight",
-                "amount": 2
+                "amount": 7
             }
         ]
     },

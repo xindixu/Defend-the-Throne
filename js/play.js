@@ -1,5 +1,5 @@
 var lives = 1, // Lives given to user
-    coins = 800.0, // Starting coins for user
+    coins = 400.0, // Starting coins for user
     currentWave = 1, // Current wave of monsters
     waves,
     enemies = [], // List of enemies to update
@@ -15,7 +15,7 @@ var lives = 1, // Lives given to user
 
 function restart(){
     lives = 1;
-    coins = 800.0;
+    coins = 400.0;
     currentWave = 1;
     enemies = [];
     towers = [];
@@ -207,23 +207,26 @@ var playState = {
         if(lives < 1){
             game.state.start('lose');
         }
-        else if(monstersAlive == 0 && currentWave <= 4){
-            var waveObject = waves[currentWave-1];
-            for (eIndex in waveObject.enemies) 
-            {
-                let enemy = waveObject.enemies[eIndex];
-                for (var enemyNum = 0; enemyNum < waveObject.enemies[eIndex].amount; enemyNum++) 
+        else if(monstersAlive == 0){
+            if(currentWave < 5){
+                console.log(currentWave)
+                var waveObject = waves[currentWave-1];
+                for (eIndex in waveObject.enemies) 
                 {
-                    monstersAlive +=1;
-                    enemies.push(new Enemy(enemy.name));
+                    let enemy = waveObject.enemies[eIndex];
+                    for (var enemyNum = 0; enemyNum < waveObject.enemies[eIndex].amount; enemyNum++) 
+                    {
+                        monstersAlive +=1;
+                        enemies.push(new Enemy(enemy.name));
+                    }
                 }
+                currentWave += 1;
             }
-            currentWave+=1;
+            else{
+                game.state.start('win');
+            }
         }
         
-        if(currentWave == 4){
-            game.state.start('win');
-        }
         
         
     }
