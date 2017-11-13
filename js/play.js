@@ -7,7 +7,7 @@ var lives = 1, // Lives given to user
     towerSprites, // Manage tower store
     builtTowers, // Manage user towers
     BGM, ele1, ele2, // BGM, sound effects
-    monstersAlive=0,
+    monstersAlive = 0,
     path, 
     tween, logo,// TESTING
     gameText; // Show user game information
@@ -134,9 +134,9 @@ var playState = {
             let tower = towers[tIndex];
 
             // Create the sprite for the towers
-            var towerSprite = game.add.sprite(60 + tIndex * 120, 600, tower.name);
-            towerSprite.defaultX = 60 + tIndex * 120
-            towerSprite.defaultY = 600
+            var towerSprite = game.add.sprite(80 + tIndex * 120, 620, tower.name);
+            towerSprite.defaultX = 80 + tIndex * 120
+            towerSprite.defaultY = 620
             towerSprite.anchor.set(0.5,0.5);
             towerSprite.bulletRange = game.add.sprite(towerSprite.x, towerSprite.y,'range');
             towerSprite.bulletRange.alpha = 0;
@@ -159,8 +159,8 @@ var playState = {
             towerStyle = {
                 font: "15px Arial"
             }
-            game.add.text(towerSprite.x, towerSprite.y + 65, tower.name.toProperCase(), towerStyle)
-            game.add.text(towerSprite.x, towerSprite.y + 80, "Cost: " + tower.cost.toString(), towerStyle)
+            game.add.text(towerSprite.x-30, towerSprite.y + 25, tower.name.toProperCase(), towerStyle)
+            game.add.text(towerSprite.x-30, towerSprite.y + 40, "Cost: " + tower.cost.toString(), towerStyle)
 
             // Add sprite to group
             towerSprites.add(towerSprite);
