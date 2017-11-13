@@ -32,16 +32,12 @@ function restart(){
 enemyIndex = 0;
 
 setInterval(function () {
-    // Give user a coin every second
-    coins += 1;
-    
     // Distribute enemies in wave
     if (enemyIndex < enemies.length) {
         let e = enemies[enemyIndex];
         enemyIndex += 1
         e.start();
-    }
-    
+    }    
     // Check to see if enemy in tower range
     for (tIndex in towers) {
         // Check all towers
@@ -61,10 +57,6 @@ setInterval(function () {
                 enemy.sprite.tint = 0xffffff;
                 }
             }
-            else{
-                coins += 0.05
-            }
-            
             
         }
     }
@@ -87,7 +79,7 @@ var tutorialState = {
         game.load.image('bar', 'assets/bg/bar.png');
 
         // Wave information
-        game.load.json('waves', 'js/waves.json');
+        game.load.json('waves', 'js/tutorialwaves.json');
 
         // Tower and enemy sprite information
         game.load.json('towers', 'js/towers.json');
@@ -178,27 +170,46 @@ var tutorialState = {
             }
         )
         scroll =game.add.sprite(250,100,'scroll');
-        label = game.add.text(game.world.centerX - 100,175,"Welcome To The Tutorial \nThe objective this game \nis to prevent enemies \n from reaching the throne.",{font: '20px Arial', fill: '#000000'});
-        button = game.add.button(game.world.centerX +50 , 400, 'start', this.next, this, 0,1,0);
+        label = game.add.text(game.world.centerX - 100,175,"Welcome To The Tutorial \nThe objective this game \nis to prevent enemies \nfrom reaching the throne.",{font: '20px Arial', fill: '#000000'});
+        button = game.add.button(game.world.centerX +70 , 400, 'start', this.next, this, 0,1,0);
+        button1=game.add.button(100000000,1000000,'back',this.next,this,0,1,0);
+        
+    },
+    previous:function(){
+        tutorialPage -=2;
+        this.next()
     },
     next:function(){
         tutorialPage +=1;
+
+        if (tutorialPage ==1){
+            button1.destroy();
+            label.destroy();
+            label = game.add.text(game.world.centerX - 100,175,"Welcome To The Tutorial \nThe objective this game \nis to prevent enemies \n from reaching the throne.",{font: '20px Arial', fill: '#000000'});
+            button1.destroy();
+        }
         if (tutorialPage ==2){
+            button1.destroy();
             label.destroy();
             label = game.add.text(game.world.centerX - 100,175,"The enemies will come\nwill walk along this path.\n\nYou must defend the throne\nwith towers!",{font: '20px Arial', fill: '#000000'});
+            button1 = game.add.button(game.world.centerX, 400, 'back', this.previous, this, 0,1,0);
         }
         if(tutorialPage ==3){
+            button1.destroy();
             label.destroy();
             label = game.add.text(game.world.centerX - 100,175,"Your towers are located at \nthe bottom of the screen.\n\n Click and drag one onto the \nfield!",{font: '20px Arial', fill: '#000000'});
-            
+            button1 = game.add.button(game.world.centerX, 400, 'back', this.previous, this, 0,1,0);
         }
         if(tutorialPage ==4){
+            button1.destroy();
             label.destroy();
             label = game.add.text(game.world.centerX - 100,175,"Your towers will automatically\nfire at the enemy!\n",{font: '20px Arial', fill: '#000000'});
+            button1 = game.add.button(game.world.centerX, 400, 'back', this.previous, this, 0,1,0);
         }
         if(tutorialPage==5){
             label.destroy();
             button.destroy();
+            button1.destroy();
             scroll.destroy();
             paused=false;
         }
@@ -236,30 +247,42 @@ var tutorialState = {
         gameText.text = 'Wave: ' + (currentWave-1).toString() + '\n' +
             'Coins: ' + Phaser.Math.floorTo(coins,0).toString() + '\n' +
             'Lives: ' + lives.toString();
-        
+            
         if(lives < 1){
             game.state.start('lose');
         }
-        else if(monstersAlive == 0 && currentWave <= 4){
-            var waveObject = waves[currentWave-1];
-            for (eIndex in waveObject.enemies) 
-            {
-                let enemy = waveObject.enemies[eIndex];
-                for (var enemyNum = 0; enemyNum < waveObject.enemies[eIndex].amount; enemyNum++) 
+        else if(monstersAlive == 0){
+            if(currentWave ==1){
+                var waveObject = waves[currentWave-1];
+                for (eIndex in waveObject.enemies) 
                 {
-                    monstersAlive +=1;
-                    enemies.push(new Enemy(enemy.name));
+                    let enemy = waveObject.enemies[eIndex];
+                    for (var enemyNum = 0; enemyNum < waveObject.enemies[eIndex].amount; enemyNum++) 
+                    {
+                        monstersAlive +=1;
+                        enemies.push(new Enemy(enemy.name));
+                    }
                 }
+                currentWave += 1;
             }
-            currentWave+=1;
+            else{
+                this.win();
+            }
         }
-        
-        if(currentWave == 4){
-            game.state.start('win');
+
         }
-        }
+
         
         
+    },
+    win:function(){
+        scroll =game.add.sprite(250,100,'scroll');
+        label = game.add.text(game.world.centerX - 100,175,"Congratulations!\nPress next to return to\nthe menu!",{font: '20px Arial', fill: '#000000'});
+        button = game.add.button(game.world.centerX +70 , 400, 'start', this.finish, this, 0,1,0);
+        
+    },
+    finish:function(){
+        game.state.start("menu");
     }
 }
 

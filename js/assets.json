@@ -189,6 +189,12 @@
             "key": "start",
             "url": "assets/GUI/Button/Start.png",
             "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "back",
+            "url": "assets/GUI/Button/Back.png",
+            "overwrite": false
         }
         
     ]
