@@ -1,0 +1,9 @@
+[
+    {
+        "level": 1,
+        "mapName": "field1",
+        "mapJson": "field1JSON",
+        "bottomImage": "grass",
+        "topImage": "road"
+    }
+]

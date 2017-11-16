@@ -197,6 +197,33 @@
             "overwrite": false
         }
         
-    ]
+    ],
     
+    "maps": [
+        {
+            "type": "image",
+            "key": "grass",
+            "url": "assets/bg/grass1.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "road",
+            "url": "assets/bg/road2.png",
+            "overwrite": false
+        },
+        {
+            "type": "json",
+            "key": "field1JSON",
+            "url": "assets/bg/dirtpathTS.json",
+            "overwrite": false  
+        },
+        {
+            "type": "tilemap",
+            "key": "field1",
+            "url": "assets/bg/dirtpathTS.json",
+            "data": null,
+            "format": "TILED_JSON"
+        }
+    ]    
 }

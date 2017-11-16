@@ -59,8 +59,6 @@ setInterval(function () {
             else{
                 coins += 0.05
             }
-            
-            
         }
     }
 }, 1000)
@@ -72,11 +70,14 @@ var playState = {
         
         game.load.pack('images', 'js/assets.json', null, this);
         game.load.pack('audios', 'js/assets.json', null, this);
+        game.load.pack('maps','js/assets.json',null, this);
         
+        /*
         game.load.tilemap('field1', 'assets/bg/dirtpathTS.json', null, Phaser.Tilemap.TILED_JSON);
         game.load.json('field1JSON','assets/bg/dirtpathTS.json');
         game.load.image('grass', 'assets/bg/grass1.png');
-        game.load.image('road', 'assets/bg/road2.png');
+        game.load.image('road', 'assets/bg/zroad2.png');
+        */
 
         // Map and sidebar for game functionality
         game.load.image('bar', 'assets/bg/bar.png');
@@ -84,9 +85,11 @@ var playState = {
         // Wave information
         game.load.json('waves', 'js/waves.json');
 
-        // Tower and enemy sprite information
+        // Tower, enemy sprite, level information
         game.load.json('towers', 'js/towers.json');
         game.load.json('enemies', 'js/enemies.json');
+        game.load.json('levels','js/levels.json');
+        
         game.load.image('health', 'assets/Etc/healthBar.png');
         game.load.image('progress1', 'assets/bg/ProgressBarRed.png');
         game.load.image('progress2', 'assets/bg/ProgressBarYellow.png');
@@ -97,13 +100,18 @@ var playState = {
         game.physics.startSystem(Phaser.Physics.ARCADE);
         // Add game input
         game.input.mouse.capture = true;
-                
+        
+        /*
         // Add game interface
         map = game.add.tilemap('field1');
         map.addTilesetImage('grass');
         map.addTilesetImage('road');
         grass = map.createLayer('bg');
         dirtPath = map.createLayer('path');
+        */
+        
+        level = new Level(1);
+        
         game.add.sprite(0,580, 'bar');
         
         
