@@ -5,5 +5,12 @@
         "mapJson": "field1JSON",
         "bottomImage": "grass",
         "topImage": "road"
+    },
+    {
+        "level": 2,
+        "mapName": "field2",
+        "mapJson": "field2JSON",
+        "bottomImage": "ocean",
+        "topImage": "bridge"
     }
 ]

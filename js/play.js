@@ -110,7 +110,7 @@ var playState = {
         dirtPath = map.createLayer('path');
         */
         
-        level = new Level(1);
+        level = new Level(2);
         
         game.add.sprite(0,580, 'bar');
         
