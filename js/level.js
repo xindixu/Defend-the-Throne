@@ -21,11 +21,7 @@ class Level {
     
     // pass in json file for the tilemap 
     generatePath(){
-        this.path = {
-            //!!!!! fix it! how to initialize two arrays??? it works this way, but..
-            'x':[],
-            'y':[]
-        };
+        this.path = [];
 
         var array = this.levelJson.layers[1].data;
         var index = 0;
@@ -33,8 +29,7 @@ class Level {
             for(var i = 0; i < 16; i ++){
                 if(array[index] != 0){
                     game.add.sprite(i*64,j*64,'coin');
-                    this.path.x.push(i*64);
-                    this.path.y.push(j*64); 
+                    this.path.push([i*64,j*64])
                 }
                 index += 1;
             }
