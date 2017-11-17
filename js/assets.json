@@ -215,13 +215,13 @@
         {
             "type": "json",
             "key": "field1JSON",
-            "url": "assets/bg/dirtpathTS.json",
+            "url": "assets/bg/level1.json",
             "overwrite": false  
         },
         {
             "type": "tilemap",
             "key": "field1",
-            "url": "assets/bg/dirtpathTS.json",
+            "url": "assets/bg/level1.json",
             "data": null,
             "format": "TILED_JSON"
         },
@@ -240,13 +240,13 @@
         {
             "type": "json",
             "key": "field2JSON",
-            "url": "assets/bg/waterpathTS.json",
+            "url": "assets/bg/level2.json",
             "overwrite": false  
         },
         {
             "type": "tilemap",
             "key": "field2",
-            "url": "assets/bg/waterpathTS.json",
+            "url": "assets/bg/level2.json",
             "data": null,
             "format": "TILED_JSON"
         }

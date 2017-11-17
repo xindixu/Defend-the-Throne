@@ -111,27 +111,21 @@ var playState = {
         */
         
         level = new Level(2);
+        level.generatePath();
         
-        game.add.sprite(0,580, 'bar');
+        game.add.sprite(0,600, 'bar');
         
         
-        game.add.sprite(800, 400, 'progress1');
-        game.add.sprite(720,400,'throne');  
+        //game.add.sprite(800, 400, 'progress1');
+        game.add.sprite(15*64,7*64,'throne');  
         // music
         
         BGM = game.add.audio("BGM");
         BGM.play();
         
-        
-        // TESTING =======
-        
-        //logo = game.add.sprite(0,0,'lightning');        
-        //tween = game.add.tween(logo).to({x:[0,500,500,0],y:[0,0,300,300]},4000,"Sine.easeInOut",true,-1,false);
-        
-        
+ 
         //generatePath();
         
-        // ===============
                 
 
         // Tower sprites
@@ -142,9 +136,9 @@ var playState = {
             let tower = towers[tIndex];
 
             // Create the sprite for the towers
-            var towerSprite = game.add.sprite(80 + tIndex * 120, 620, tower.name);
+            var towerSprite = game.add.sprite(80 + tIndex * 120, 640, tower.name);
             towerSprite.defaultX = 80 + tIndex * 120
-            towerSprite.defaultY = 620
+            towerSprite.defaultY = 640
             towerSprite.anchor.set(0.5,0.5);
             towerSprite.bulletRange = game.add.sprite(towerSprite.x, towerSprite.y,'range');
             towerSprite.bulletRange.alpha = 0;
@@ -268,6 +262,7 @@ function drawCircle(towerSprite){
     console.log("drawing!");
     towerSprite.bulletRange.alpha = 1; 
 }
+
 function updateCircle(towerSprite){
     console.log(towerSprite.x, towerSprite.y);
     
@@ -276,6 +271,7 @@ function updateCircle(towerSprite){
     towerSprite.bulletRange.x = towerSprite.x;
     towerSprite.bulletRange.y = towerSprite.y;
 }
+
 function destoryCircle(towerSprite){
     towerSprite.bulletRange.alpha = 0;
 }
@@ -289,39 +285,3 @@ String.prototype.toProperCase = function () {
 };
 
 
-/*
-// pass in json file for the tilemap
-function generatePath(){
-    path = {
-        //!!!!! fix it! how to initialize two arrays??? it works this way, but..
-        'x':[0,0],
-        'y':[0,0]
-    };
-    var result = {
-        'x':[0,0],
-        'y':[0,0]
-    }
-    
-    var json = game.cache.getJSON('field1JSON');
-    var array = json.layers[0].data;
-    var index = 0;
-    for(var j = 0; j < 19; j ++ ){
-        for(var i = 0; i < 25; i ++){
-        
-            if(array[index] == 0){
-                game.add.sprite(i*32,j*32,'coin');
-                path.x.push(i*32);
-                path.y.push(j*32); 
-            }
-            index += 1;
-        }
-    }
-
-    for(var k = 0; k < path.x.length; k++){
-        var px = path.x[k];
-        var py = path.y[k];
-        //console.log(px+" "+py);
-    }
-    
-}
-*/
