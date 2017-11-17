@@ -17,7 +17,7 @@ class Enemy {
         this.value = enemy.coinsDropped
 
         // Add sprite to object
-        this.sprite = game.add.sprite(0, 10, enemy.name);
+        this.sprite = game.add.sprite(0, 64, enemy.name);
         this.sprite.alpha = 0;
         this.sprite.anchor.set(0.5, 0.5);
 
@@ -33,6 +33,8 @@ class Enemy {
         var health = game.add.sprite(-20,30,"health");
         health.cropEnabled = true;
         this.sprite.addChild(health);
+        this.direction = "right";
+        this.index = 0;
 
     }
 
@@ -60,7 +62,7 @@ class Enemy {
     start() {
         this.alive = true;
         this.sprite.alpha =1;
-        this.sprite.animations.play('left');
+        this.sprite.animations.play('left');        
     }
     
     // Tween to fade out enemies on death
@@ -71,8 +73,48 @@ class Enemy {
     }
 
     // Updates enemy velocity based on location
-    update() {
+    update(turning) {
+        /*
+        this.turning = {
+            path:[[0,1]],
+            direction:["right"]
+        }
+        */
+        console.log(this.direction);
         
+        if(this.index < turning.path.length-1){
+            if(Math.abs(this.sprite.x - turning.path[this.index+1][0]*64) < 10 && Math.abs(this.sprite.y - turning.path[this.index+1][1]*64) < 10){
+                this.index += 1;
+                this.direction = turning.direction[this.index];
+                
+            }
+        }
+        else{
+            if(this.sprite.x > 15*64){
+                this.damage(this.health);
+                lives -= 1
+                return
+            }
+        }
+        
+        if(this.direction == "right"){
+            this.sprite.body.velocity.x = 100;
+            this.sprite.body.velocity.y = 0;
+        }
+        else if(this.direction == "left"){
+            this.sprite.body.velocity.x = -100;
+            this.sprite.body.velocity.y = 0;
+        }
+        else if(this.direction == "up"){
+            this.sprite.body.velocity.x = 0;
+            this.sprite.body.velocity.y = -100;
+        }
+        else{
+            this.sprite.body.velocity.x = 0;
+            this.sprite.body.velocity.y = 100;
+        }
+        
+        /*
         // Checks to see if in top path
         if (this.sprite.x < 575 && this.sprite.y > 50) {
             this.sprite.body.velocity.x = 100;
@@ -92,6 +134,7 @@ class Enemy {
             this.damage(this.health)
             lives -= 1
         }
+        */
     }
 }
 

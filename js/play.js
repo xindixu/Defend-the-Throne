@@ -1,17 +1,14 @@
 var lives = 1, // Lives given to user
     coins = 400.0, // Starting coins for user
     currentWave = 1, // Current wave of monsters
-    waves,
+    waves,currentLevel = 1,
     enemies = [], // List of enemies to update
     towers = [], // List of towers to update
     towerSprites, // Manage tower store
     builtTowers, // Manage user towers
     BGM, ele1, ele2, // BGM, sound effects
     monstersAlive = 0,
-    path, 
-    tween, logo,// TESTING
     gameText; // Show user game information
-
 
 function restart(){
     lives = 1;
@@ -24,7 +21,7 @@ function restart(){
     enemyIndex = 0;
 }
 
-enemyIndex = 0;
+var enemyIndex = 0;
 
 setInterval(function () {
     // Give user a coin every second
@@ -101,32 +98,18 @@ var playState = {
         // Add game input
         game.input.mouse.capture = true;
         
-        /*
-        // Add game interface
-        map = game.add.tilemap('field1');
-        map.addTilesetImage('grass');
-        map.addTilesetImage('road');
-        grass = map.createLayer('bg');
-        dirtPath = map.createLayer('path');
-        */
-        
-        level = new Level(2);
-        level.generatePath();
+        gameLevel = new Level(currentLevel);
+        gameLevel.generatePath();
         
         game.add.sprite(0,600, 'bar');
         
         
         //game.add.sprite(800, 400, 'progress1');
-        game.add.sprite(15*64,7*64,'throne');  
+        game.add.sprite(15*64,7*64-32,'throne');  
         // music
         
         BGM = game.add.audio("BGM");
-        BGM.play();
-        
- 
-        //generatePath();
-        
-                
+        BGM.play();      
 
         // Tower sprites
         var towers = game.cache.getJSON('towers');
@@ -203,7 +186,7 @@ var playState = {
         for (eIndex in enemies) {
             let enemy = enemies[eIndex]
             if (enemy.alive) {
-                enemy.update()
+                enemy.update(gameLevel.turning)
             }
         }
         
@@ -232,6 +215,10 @@ var playState = {
                 }
                 currentWave += 1;
             }
+            else if (currentLevel == 1){
+                currentLevel = 2;
+                gameLevel = new Level(2);
+            }
             else{
                 game.state.start('win');
             }
@@ -259,7 +246,6 @@ function placeTower(towerSprite) {
 
  
 function drawCircle(towerSprite){
-    console.log("drawing!");
     towerSprite.bulletRange.alpha = 1; 
 }
 

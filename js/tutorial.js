@@ -1,5 +1,5 @@
-var lives = 99, // Lives given to user
-    coins = 800.0, // Starting coins for user
+var lives = 4, // Lives given to user
+    coins = 400.0, // Starting coins for user
     currentWave = 1, // Current wave of monsters
     waves,
     enemies = [], // List of enemies to update
@@ -12,15 +12,15 @@ var lives = 99, // Lives given to user
     tween, logo,// TESTING
     gameText, // Show user game information
     tutorialPage = 1,
-    paused=true,
+    paused = true,
     scroll,
     label,
     button;
 
 
 function restart(){
-    lives = 99;
-    coins = 800.0;
+    lives = 4;
+    coins = 400.0;
     currentWave = 1;
     enemies = [];
     towers = [];
@@ -211,7 +211,7 @@ var tutorialState = {
             button.destroy();
             button1.destroy();
             scroll.destroy();
-            paused=false;
+            paused = false;
         }
     },
 

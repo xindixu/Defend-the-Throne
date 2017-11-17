@@ -7,7 +7,6 @@ var loseState = {
     
     start: function(){
         // BUG: need to reload everything in playState
-        
         restart();
         game.state.start("play");
     }
