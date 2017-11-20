@@ -8,7 +8,9 @@ var lives = 1, // Lives given to user
     builtTowers, // Manage user towers
     BGM, ele1, ele2, // BGM, sound effects
     monstersAlive = 0,
-    gameText; // Show user game information
+    gameText,
+    pausedd = false,
+    button1;// Show user game information
 
 function restart(){
     lives = 1;
@@ -22,6 +24,7 @@ function restart(){
 }
 
 var enemyIndex = 0;
+
 
 setInterval(function () {
     // Give user a coin every second
@@ -163,11 +166,23 @@ var playState = {
                 font: '15px Arial',
             }
         )
+        button1 = game.add.button(100 , 500, 'pause', this.pausePlay, this, 0,1,0);
         
     },
 
     update: function () {
+        if (pausedd){
+            for (eIndex in enemies){
+                let enemy = enemies[eIndex];
+                if (enemy.alive){
+                    enemy.sprite.body.velocity.x=0;
+                    enemy.sprite.body.velocity.y=0;
+                    //enemy.animation.stop(null,true);
+                }
+            }
+        }
         
+        if(!pausedd){
         // Update the tower store
         for (tIndex in towerSprites.children) {
             let tower = towerSprites.children[tIndex];
@@ -225,7 +240,26 @@ var playState = {
         }
         
     }
+    },
+    pausePlay: function(){
+        
+        pausedd = !pausedd;
+        if (pausedd ==true){
+            button1.destroy();
+            button1 = game.add.button(100 , 500, 'start', this.pausePlay, this, 0,1,0);
+        }
+        else{
+            button1.destroy();
+            button1 = game.add.button(100, 500,'pause', this.pausePlay,this,0,1,0)
+            
+        }
+        
+        
+    }
+    
 }
+    
+
 
 
 

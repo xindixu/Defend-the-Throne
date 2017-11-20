@@ -195,6 +195,13 @@
             "key": "back",
             "url": "assets/GUI/Button/Back.png",
             "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pause",
+            "url": "assets/GUI/Button/Pause.png",
+            "overwrite": false
+            
         }
         
     ],
