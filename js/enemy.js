@@ -51,7 +51,6 @@ class Enemy {
         if (this.health <= 0) {
             monstersAlive-=1;
             this.alive = false;
-
             this.death();
             this.sprite.destroy();
             coins += this.value;
@@ -67,9 +66,18 @@ class Enemy {
     
     // Tween to fade out enemies on death
     death(){
+        game.load.image('coin', 'assets/Etc/Coin.png');
         var sprite = this.sprite.game.add.sprite(this.sprite.x-this.sprite.width/2,this.sprite.y-this.sprite.height/2,this.sprite.key);
         sprite.frame =this.sprite.frame;
         game.add.tween(sprite).to( { alpha: 0 }, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);
+        var text = game.add.text(this.sprite.x,this.sprite.y-this.sprite.height/2,"+" + this.value,{font: '20px Arial', fill: '#ffff00'});
+        var coin = game.add.sprite(this.sprite.x+33, this.sprite.y-this.sprite.height/2-2,'coin');
+        game.add.tween(text).to({alpha: 0, y:this.sprite.y-70}, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);
+        game.add.tween(coin).to({alpha: 0, y:this.sprite.y-70}, 2000, Phaser.Easing.Linear.None, true, 0, 0, false);
+        if (text.alpha == 0){
+            text.destroy();
+            coin.destroy();
+        }
     }
 
     // Updates enemy velocity based on location
@@ -80,7 +88,7 @@ class Enemy {
             direction:["right"]
         }
         */
-        console.log(this.direction);
+        //console.log(this.direction);
         
         if(this.index < turning.path.length-1){
             if(Math.abs(this.sprite.x - turning.path[this.index+1][0]*64) < 10 && Math.abs(this.sprite.y - turning.path[this.index+1][1]*64) < 10){

@@ -217,7 +217,7 @@ var playState = {
         }
         else if(monstersAlive == 0){
             if(currentWave < 5){
-                console.log(currentWave);
+               // console.log(currentWave);
                 var waveObject = waves[currentWave-1];
                 for (eIndex in waveObject.enemies) 
                 {
@@ -284,9 +284,9 @@ function drawCircle(towerSprite){
 }
 
 function updateCircle(towerSprite){
-    console.log(towerSprite.x, towerSprite.y);
+    //console.log(towerSprite.x, towerSprite.y);
     
-    console.log(towerSprite.bulletRange.x, towerSprite.bulletRange.y);
+    //console.log(towerSprite.bulletRange.x, towerSprite.bulletRange.y);
     
     towerSprite.bulletRange.x = towerSprite.x;
     towerSprite.bulletRange.y = towerSprite.y;

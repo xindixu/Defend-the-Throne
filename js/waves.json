@@ -8,11 +8,7 @@
             },
             {
                 "name": "spearKnight",
-                "amount": 5
-            },
-            {
-                "name": "shieldKnight",
-                "amount": 5
+                "amount": 3
             }
         ]
     },
