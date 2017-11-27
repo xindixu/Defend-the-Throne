@@ -129,19 +129,24 @@ class Tower {
     }
 
     upgrade(text, pointer, values) {
+        // Add new tower information
         this.cost = values.cost
         this.damage += values.damage
         this.name = values.name
 
+        // Replace sprite
         this.sprite.destroy()
         this.sprite = game.add.sprite(this.x, this.y, this.name)
         this.sprite.anchor.set(0.5, 0.5)
 
+        // Close the menu
         this.destroyMenu()
     }
 
     destroyMenu() {
+        // Remove background
         this.menu.destroy();
+        // Remove all text
         for (var textIndex = 0; textIndex < this.texts.length; textIndex++) {
             this.texts[textIndex].destroy();
         }
