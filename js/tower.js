@@ -101,61 +101,31 @@ class Tower {
         }
 
         // Draw menu object
-        this.menu = game.add.graphics(this.sprite.x, this.sprite.y);
-        this.menu.lineStyle(2, 0xFEC221, 0.8);
-        this.menu.beginFill(0x7C4610, 1);
-        this.menu.drawRect(75, 25, 150, 25 + (upgrades.length * 25));
+        let menu = game.add.graphics(this.sprite.x, this.sprite.y);
+        menu.lineStyle(2, 0xFEC221, 0.8);
+        menu.beginFill(0x7C4610, 1);
+        menu.drawRect(20, 15, 150, 25 + (upgrades.length * 25));
 
         // Add title text to menu and create texts array for future deletion
-        this.texts = []
+        let texts = []
         let upgradeStyle = {font: "14px Arial", fill: "#ffffff"};
-        let title = game.add.text(this.sprite.x + 80, this.sprite.y + 30, "Upgrades", upgradeStyle)
-        this.texts.push(title)
-
-        // Add all texts for upgrade
-        for (var uIndex = 0; uIndex < upgrades.length; uIndex++) {
-            let upgrade = upgrades[uIndex]
-            let text = game.add.text(this.sprite.x + 80, this.sprite.y + 30 + ((uIndex + 1) * 25), upgrade.name + " (" + upgrade.cost + ")", upgradeStyle)
-            this.texts.push(text)
-        }
-
-        // Remove menu on other input
-        //TODO: Currently not functional
-        // Issue is that it's only tracking input within the menu object, which is overlayed with text
-        // Solution: Create a destroyMenu function that does the stuff below, and add all menus a global variable
-        // Then add input Listener to the game and on any input outside of the menu, remove all menus
-        // Add input listener above for text that will purchase upgrade on click
-        
-        // I added a button for this, i think it will be easier to use button. we can change the image for the button.
-        this.menu.events.onInputDown.add(function() {
+        let title = game.add.text(this.sprite.x + 30, this.sprite.y + 20, "Close Upgrades", upgradeStyle)
+        title.inputEnabled = true
+        title.events.onInputDown.add(function() {
             console.log("Input Out")
-            this.menu.destroy();
+            menu.destroy();
             for (var textIndex = 0; textIndex < texts.length; textIndex++) {
                 texts[textIndex].destroy();
             }
-        }, this.menu)
-        //console.log(menu, menu.events, menu.events.onInputUp)
+        }, menu)
         
-        this.upgradeBtn = game.add.button(this.sprite.x + 10, this.sprite.y - 50,'start', this.actionOnClick, this, 2, 1, 0);
-    }
-     
-    actionOnClick(){
-        console.log('up');
-        // upgrade
-        this.menu.visible = false;
-        //game.remove.text(this.texts);
-        this.upgradeBtn.visible = false;
-        this.upgradeTower(this.type)
-    }
-    
-    upgradeTower(type){
-        console.log(type+'1');
-        var towers = game.cache.getJSON('towers')
-        towers = towers.filter(function (t) {
-            return t.name == type;
-        })
-        this.name = type
-        this.damage = tower.damage;
-        this.sprite = game.add.sprite(x, y, tower.name);
+        texts.push(title)
+        // Add all texts for upgrade
+        // TODO: Turn these into buttons
+        for (var uIndex = 0; uIndex < upgrades.length; uIndex++) {
+            let upgrade = upgrades[uIndex]
+            let text = game.add.text(this.sprite.x + 30, this.sprite.y + 20 + ((uIndex + 1) * 25), upgrade.name + " (" + upgrade.cost + ")", upgradeStyle)
+            texts.push(text)
+        }
     }
 }
