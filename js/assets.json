@@ -157,6 +157,14 @@
             "overwrite": false,
             "frameWidth": 65,
             "frameHeight": 55
+        },
+        {
+            "type":"spritesheet",
+            "key": "civilian",
+            "url": "assets/Monsters/Civilian.png",
+            "overwrite": false,
+            "frameWidth": 65,
+            "frameHeight": 55
         }
         
     ],

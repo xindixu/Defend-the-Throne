@@ -35,5 +35,12 @@
         "health": 15,
         "animation": true
         
+    },
+    {
+        "name": "civilian",
+        "coinsDropped": 20,
+        "health": 15,
+        "animation": true
+        
     }
 ]

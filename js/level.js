@@ -48,8 +48,8 @@ class Level {
     
     // pass in json file for the tilemap 
     generatePath(){
-        this.testSprite = game.add.sprite(0,0,'throne');
-        this.testSprite.anchor.set(0.5,0.5);
+        //this.testSprite = game.add.sprite(0,0,'throne');
+        //this.testSprite.anchor.set(0.5,0.5);
         
         var point = [0,1];
         var direction = "right";
@@ -96,7 +96,7 @@ class Level {
                 this.turning.direction.push(direction);
             }
         }
-        console.log(this.turning);
+        //console.log(this.turning);
         
         
         /*

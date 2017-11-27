@@ -3,7 +3,7 @@
         "wave": 1,
         "enemies": [
             {
-                "name": "whale",
+                "name": "civilian",
                 "amount": 4
             },
             {
