@@ -1,7 +1,6 @@
 class Level {
     
     constructor(level){
-        
         var levels = game.cache.getJSON('levels');
         levels = levels.filter(function (l) {
             return l.level == level;
@@ -48,8 +47,6 @@ class Level {
     
     // pass in json file for the tilemap 
     generatePath(){
-        this.testSprite = game.add.sprite(0,0,'throne');
-        this.testSprite.anchor.set(0.5,0.5);
         
         var point = [0,1];
         var direction = "right";
@@ -97,78 +94,6 @@ class Level {
             }
         }
         console.log(this.turning);
-        
-        
-        /*
-        this.path1 = {
-            x:[],
-            y:[]
-        };
-        this.path2 = [];
-
-        this.turnningPoints = {
-            position: [],
-            turnTo:""
-        }
-        
-        var index = 0;
-        
-        var direction = "right";
-        
-        for(var j = 0; j < 10; j ++ ){
-            for(var i = 0; i < 16; i ++){
-                // mark positions of path
-                if(array[index] != 0){
-                    game.add.sprite(i,j,'coin');
-                    this.path2.push([i,j])
-                    this.path1.x.push(i);
-                    this.path1.y.push(j);
-                }
-                index += 1;
-            }
-            
-        }
-        
-        console.log(this.path1);
-        console.log(this.path2);
-        
-       
-        
-        var x = 0;
-        var y = 0;
-        var currentPos = [x,y];
-        while true {
-            if direction == "right" {
-                
-            }
-        }
-        
-        
-        
-        
-        
-        
-        var direction = "right"
-        for(var point in this.path2) {
-            // find the next point based on the current point & direction
-            var nextPoint = [];
-            if(direction == "right"){
-                nextPoint = [point.x+1,point.y];
-            }
-            else if(direction == "left"){
-                nextPoint = [point.x-1,point.y];
-            }
-            else if(direction == "up"){
-                nextPoint = [point.x,point.y-1];
-            }
-            else{
-                nextPoint = [point.x,point.y+1]
-            }
-            
-            
-            
-        }
-        */
         
     }
     
