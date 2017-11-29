@@ -46,8 +46,7 @@ class Level {
     }
     
     // pass in json file for the tilemap 
-    generatePath(){
-        
+    generatePath(){        
         var point = [0,1];
         var direction = "right";
         // "right","left","up","down"
@@ -93,7 +92,7 @@ class Level {
                 this.turning.direction.push(direction);
             }
         }
-        console.log(this.turning);
+        //console.log(this.turning);
         
     }
     

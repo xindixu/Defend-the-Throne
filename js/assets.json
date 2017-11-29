@@ -157,6 +157,14 @@
             "overwrite": false,
             "frameWidth": 65,
             "frameHeight": 55
+        },
+        {
+            "type":"spritesheet",
+            "key": "civilian",
+            "url": "assets/Monsters/Civilian.png",
+            "overwrite": false,
+            "frameWidth": 65,
+            "frameHeight": 55
         }
         
     ],
@@ -195,6 +203,13 @@
             "key": "back",
             "url": "assets/GUI/Button/Back.png",
             "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "pause",
+            "url": "assets/GUI/Button/Pause.png",
+            "overwrite": false
+            
         }
         
     ],

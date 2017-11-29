@@ -21,7 +21,7 @@ var menuState = {
     },
     
     tutorial: function(){
-        game.state.start("tutorial");
+        game.state.start("tutorial1");
     
     }
     

@@ -3,16 +3,12 @@
         "wave": 1,
         "enemies": [
             {
-                "name": "whale",
+                "name": "civilian",
                 "amount": 4
             },
             {
                 "name": "spearKnight",
-                "amount": 5
-            },
-            {
-                "name": "shieldKnight",
-                "amount": 5
+                "amount": 3
             }
         ]
     },

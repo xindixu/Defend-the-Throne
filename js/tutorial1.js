@@ -8,9 +8,12 @@ var lives = 1, // Lives given to user
     builtTowers, // Manage user towers
     BGM, ele1, ele2, // BGM, sound effects
     monstersAlive = 0,
-    gameText,
-    pausedd = false,
-    button1;// Show user game information
+    gameText, // Show user game information
+    tutorialPage = 1,
+    paused = true,
+    scroll,
+    label,
+    button;
 
 function restart(){
     lives = 1;
@@ -24,7 +27,6 @@ function restart(){
 }
 
 var enemyIndex = 0;
-
 
 setInterval(function () {
     // Give user a coin every second
@@ -64,7 +66,7 @@ setInterval(function () {
 }, 1000)
 
 
-var playState = {
+var tutorial1State = {
     preload: function () {
         // All image loading
         
@@ -83,7 +85,7 @@ var playState = {
         game.load.image('bar', 'assets/bg/bar.png');
 
         // Wave information
-        game.load.json('waves', 'js/waves.json');
+        game.load.json('waves', 'js/tutorialwaves.json');
 
         // Tower, enemy sprite, level information
         game.load.json('towers', 'js/towers.json');
@@ -93,6 +95,8 @@ var playState = {
         game.load.image('health', 'assets/Etc/healthBar.png');
         game.load.image('progress1', 'assets/bg/ProgressBarRed.png');
         game.load.image('progress2', 'assets/bg/ProgressBarYellow.png');
+        game.load.image('scroll', 'assets/Etc/scroll.png');
+        game.load.pack('GUIs', 'js/assets.json', null, this);
         
     },
 
@@ -166,24 +170,56 @@ var playState = {
                 font: '15px Arial',
             }
         )
-        button1 = game.add.button(100 , 500, 'pause', this.pausePlay, this, 0,1,0);
+           scroll =game.add.sprite(350,100,'scroll');
+        label = game.add.text(game.world.centerX - 100,175,"Welcome To The Tutorial \nThe objective this game \nis to prevent enemies \nfrom reaching the throne.",{font: '20px Arial', fill: '#000000'});
+        button = game.add.button(game.world.centerX +70 , 400, 'start', this.next, this, 0,1,0);
+        button1=game.add.button(100000000,1000000,'back',this.next,this,0,1,0);
         
+    },
+    previous:function(){
+        tutorialPage -=2;
+        this.next()
+    },
+    next:function(){
+        tutorialPage +=1;
+
+        if (tutorialPage ==1){
+            button1.destroy();
+            label.destroy();
+            label = game.add.text(game.world.centerX - 100,175,"Welcome To The Tutorial \nThe objective this game \nis to prevent enemies \n from reaching the throne.",{font: '20px Arial', fill: '#000000'});
+            button1.destroy();
+        }
+        if (tutorialPage ==2){
+            button1.destroy();
+            label.destroy();
+            label = game.add.text(game.world.centerX - 100,175,"The enemies will come\nwill walk along this path.\n\nYou must defend the throne\nwith towers!",{font: '20px Arial', fill: '#000000'});
+            button1 = game.add.button(game.world.centerX, 400, 'back', this.previous, this, 0,1,0);
+        }
+        if(tutorialPage ==3){
+            button1.destroy();
+            label.destroy();
+            label = game.add.text(game.world.centerX - 100,175,"Your towers are located at \nthe bottom of the screen.\n\n Click and drag one onto the \nfield!",{font: '20px Arial', fill: '#000000'});
+            button1 = game.add.button(game.world.centerX, 400, 'back', this.previous, this, 0,1,0);
+        }
+        if(tutorialPage ==4){
+            button1.destroy();
+            label.destroy();
+            label = game.add.text(game.world.centerX - 100,175,"Your towers will automatically\nfire at the enemy!\n",{font: '20px Arial', fill: '#000000'});
+            button1 = game.add.button(game.world.centerX, 400, 'back', this.previous, this, 0,1,0);
+        }
+        if(tutorialPage==5){
+            label.destroy();
+            button.destroy();
+            button1.destroy();
+            scroll.destroy();
+            paused = false;
+        }
     },
 
     update: function () {
-        if (pausedd){
-            for (eIndex in enemies){
-                let enemy = enemies[eIndex];
-                if (enemy.alive){
-                    enemy.sprite.body.velocity.x=0;
-                    enemy.sprite.body.velocity.y=0;
-                    //enemy.animation.stop(null,true);
-                }
-            }
-        }
         
-        if(!pausedd){
-        // Update the tower store
+        
+        if(!paused){        // Update the tower store
         for (tIndex in towerSprites.children) {
             let tower = towerSprites.children[tIndex];
             // Can't afford this tower
@@ -216,8 +252,8 @@ var playState = {
             game.state.start('lose');
         }
         else if(monstersAlive == 0){
-            if(currentWave < 5){
-               // console.log(currentWave);
+            if(currentWave ==1){
+                //console.log(currentWave);
                 var waveObject = waves[currentWave-1];
                 for (eIndex in waveObject.enemies) 
                 {
@@ -228,38 +264,27 @@ var playState = {
                         enemies.push(new Enemy(enemy.name));
                     }
                 }
-                currentWave += 1;
+            currentWave +=1;
             }
-            else if (currentLevel == 1){
-                currentLevel = 2;
-                gameLevel = new Level(2);
-            }
-            else{
-                game.state.start('win');
+            else if (currentWave >= 2){
+                this.win()
             }
         }
-        
-    }
-    },
-    pausePlay: function(){
-        
-        pausedd = !pausedd;
-        if (pausedd ==true){
-            button1.destroy();
-            button1 = game.add.button(100 , 500, 'start', this.pausePlay, this, 0,1,0);
         }
-        else{
-            button1.destroy();
-            button1 = game.add.button(100, 500,'pause', this.pausePlay,this,0,1,0)
-            
-        }
-        
-        
-    }
-    
-}
-    
 
+        
+        
+    },
+    win:function(){
+        scroll =game.add.sprite(350,100,'scroll');
+        label = game.add.text(game.world.centerX - 100,175,"Congratulations!\nPress next to return to\nthe menu!",{font: '20px Arial', fill: '#000000'});
+        button = game.add.button(game.world.centerX +70 , 400, 'start', this.finish, this, 0,1,0);
+        
+    },
+    finish:function(){
+        game.state.start("menu");
+    }
+}
 
 
 

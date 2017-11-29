@@ -13,6 +13,8 @@ class Tower {
 
         // Load details from tower information and create sprite
         this.damage = tower.damage;
+        this.x = x
+        this.y = y
         this.sprite = game.add.sprite(x, y, tower.name);
         this.sprite.anchor.set(0.5,0.5);
 
@@ -39,7 +41,7 @@ class Tower {
         // calling the upgrade method
         this.sprite.inputEnabled = true;        
         
-        this.sprite.events.onInputDown.add(this.upgrade, this);
+        this.sprite.events.onInputDown.add(this.upgradeMenu, this);
     }
 
     // Create bullet animation to send at enemy
@@ -75,7 +77,7 @@ class Tower {
         }
     }
     
-    upgrade() {
+    upgradeMenu() {
         // https://phaser.io/examples/v2/misc/pause-menu
         console.log("Upgrade!")
         // Get current towers
@@ -104,58 +106,49 @@ class Tower {
         this.menu = game.add.graphics(this.sprite.x, this.sprite.y);
         this.menu.lineStyle(2, 0xFEC221, 0.8);
         this.menu.beginFill(0x7C4610, 1);
-        this.menu.drawRect(75, 25, 150, 25 + (upgrades.length * 25));
+        this.menu.drawRect(20, 15, 150, 25 + (upgrades.length * 25));
 
         // Add title text to menu and create texts array for future deletion
         this.texts = []
         let upgradeStyle = {font: "14px Arial", fill: "#ffffff"};
-        let title = game.add.text(this.sprite.x + 80, this.sprite.y + 30, "Upgrades", upgradeStyle)
-        this.texts.push(title)
+        let title = game.add.text(this.sprite.x + 30, this.sprite.y + 20, "[x] Upgrades", upgradeStyle)
+        title.inputEnabled = true
 
-        // Add all texts for upgrade
+        // Add listener to delete menu on close
+        title.events.onInputDown.add(this.destroyMenu, this.menu)
+        this.texts.push(title)
+        
+        // Add labels for all upgrades to towers
         for (var uIndex = 0; uIndex < upgrades.length; uIndex++) {
-            let upgrade = upgrades[uIndex]
-            let text = game.add.text(this.sprite.x + 80, this.sprite.y + 30 + ((uIndex + 1) * 25), upgrade.name + " (" + upgrade.cost + ")", upgradeStyle)
+            let upgradeObj = upgrades[uIndex]
+            let text = game.add.text(this.sprite.x + 30, this.sprite.y + 20 + ((uIndex + 1) * 25), upgradeObj.name + " (" + upgradeObj.cost + ")", upgradeStyle)
+            text.inputEnabled = true
+            text.events.onInputDown.add(this.upgrade, this, 0, upgradeObj)
             this.texts.push(text)
         }
+    }
 
-        // Remove menu on other input
-        //TODO: Currently not functional
-        // Issue is that it's only tracking input within the menu object, which is overlayed with text
-        // Solution: Create a destroyMenu function that does the stuff below, and add all menus a global variable
-        // Then add input Listener to the game and on any input outside of the menu, remove all menus
-        // Add input listener above for text that will purchase upgrade on click
-        
-        // I added a button for this, i think it will be easier to use button. we can change the image for the button.
-        this.menu.events.onInputDown.add(function() {
-            console.log("Input Out")
-            this.menu.destroy();
-            for (var textIndex = 0; textIndex < texts.length; textIndex++) {
-                texts[textIndex].destroy();
-            }
-        }, this.menu)
-        //console.log(menu, menu.events, menu.events.onInputUp)
-        
-        this.upgradeBtn = game.add.button(this.sprite.x + 10, this.sprite.y - 50,'start', this.actionOnClick, this, 2, 1, 0);
+    upgrade(text, pointer, values) {
+        // Add new tower information
+        this.cost = values.cost
+        this.damage += values.damage
+        this.name = values.name
+
+        // Replace sprite
+        this.sprite.destroy()
+        this.sprite = game.add.sprite(this.x, this.y, this.name)
+        this.sprite.anchor.set(0.5, 0.5)
+
+        // Close the menu
+        this.destroyMenu()
     }
-     
-    actionOnClick(){
-        console.log('up');
-        // upgrade
-        this.menu.visible = false;
-        //game.remove.text(this.texts);
-        this.upgradeBtn.visible = false;
-        this.upgradeTower(this.type)
-    }
-    
-    upgradeTower(type){
-        console.log(type+'1');
-        var towers = game.cache.getJSON('towers')
-        towers = towers.filter(function (t) {
-            return t.name == type;
-        })
-        this.name = type
-        this.damage = tower.damage;
-        this.sprite = game.add.sprite(x, y, tower.name);
+
+    destroyMenu() {
+        // Remove background
+        this.menu.destroy();
+        // Remove all text
+        for (var textIndex = 0; textIndex < this.texts.length; textIndex++) {
+            this.texts[textIndex].destroy();
+        }
     }
 }
