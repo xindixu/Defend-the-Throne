@@ -91,10 +91,9 @@ class Enemy {
         //console.log(this.direction);
         
         if(this.index < turning.path.length-1){
-            if(Math.abs(this.sprite.x - turning.path[this.index+1][0]*64) < 10 && Math.abs(this.sprite.y - turning.path[this.index+1][1]*64) < 10){
+            if(Math.abs(this.sprite.x-40 - turning.path[this.index+1][0]*64) < 10 && Math.abs(this.sprite.y - turning.path[this.index+1][1]*64) < 10){
                 this.index += 1;
                 this.direction = turning.direction[this.index];
-                
             }
         }
         else{
