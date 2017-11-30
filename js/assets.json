@@ -206,6 +206,18 @@
         },
         {
             "type": "image",
+            "key": "restart",
+            "url": "assets/GUI/Button/Restart.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
+            "key": "mute",
+            "url": "assets/GUI/Button/Mute.png",
+            "overwrite": false
+        },
+        {
+            "type": "image",
             "key": "pause",
             "url": "assets/GUI/Button/Pause.png",
             "overwrite": false
