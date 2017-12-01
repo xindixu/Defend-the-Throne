@@ -1,9 +1,9 @@
 var winState = {
     create: function(){
-        var congrats = game.add.text(80,80,"You win!",{font: '100px Arial', fill: '#FFFFFF'});
         
-        
+        game.add.sprite(0,0,'win');
         var button = game.add.button(game.world.centerX - 30, 400, 'start', this.start, this, 0,1,0);
+        var label = game.add.text(game.world.centerX - 30,500,"Next Level",{font: '20px Times', fill: '#FFFFFF'});
     },
     
     start: function(){

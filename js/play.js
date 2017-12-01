@@ -145,7 +145,7 @@ var playState = {
             
             // Add information about the tower to the sidebar
             towerStyle = {
-                font: "15px Arial"
+                font: '15px Times', fill:'#FFFFFF'
             }
             game.add.text(towerSprite.x-30, towerSprite.y + 25, tower.name.toProperCase(), towerStyle)
             game.add.text(towerSprite.x-30, towerSprite.y + 40, "Cost: " + tower.cost.toString(), towerStyle)
@@ -159,14 +159,14 @@ var playState = {
 
 
         // Add game information
-        gameText = game.add.text(10, 500,
+        gameText = game.add.text(900, 620,
             'Wave: ' + currentWave.toString() + '\n' +
             'Coins: ' + coins.toString() + '\n' +
             'Lives: ' + lives.toString(), {
-                font: '15px Arial',
+                font: '15px Times', fill:'#FFFFFF'
             }
         )
-        button1 = game.add.button(100 , 500, 'pause', this.pausePlay, this, 0,1,0);
+        button1 = game.add.button(100, 500, 'pause', this.pausePlay, this, 0,1,0);
         
     },
 
@@ -183,25 +183,26 @@ var playState = {
         }
         
         if(!pausedd){
-        // Update the tower store
-        for (tIndex in towerSprites.children) {
-            let tower = towerSprites.children[tIndex];
-            // Can't afford this tower
-            if (coins < tower.cost) {
-                tower.inputEnabled = false;
-                tower.tint = 0x32332
-                // Can afford this tower
-            } else {
-                tower.inputEnabled = true;
-                tower.tint = 0xffffff
+            // Update the tower store
+            for (tIndex in towerSprites.children) {
+                let tower = towerSprites.children[tIndex];
+                // Can't afford this tower
+                if (coins < tower.cost) {
+                    tower.inputEnabled = false;
+                    tower.tint = 0x32332
+                    // Can afford this tower
+                } else {
+                    tower.inputEnabled = true;
+                    tower.tint = 0xffffff
+                }
             }
-        }
 
-        // Update enemy movement
-        for (eIndex in enemies) {
-            let enemy = enemies[eIndex]
-            if (enemy.alive) {
-                enemy.update(gameLevel.turning)
+            // Update enemy movement
+            for (eIndex in enemies) {
+                let enemy = enemies[eIndex]
+                if (enemy.alive) {
+                    enemy.update(gameLevel.turning)
+                }
             }
         }
         
@@ -238,9 +239,8 @@ var playState = {
                 game.state.start('win');
             }
         }
-        
-    }
     },
+        
     pausePlay: function(){
         
         pausedd = !pausedd;
@@ -250,11 +250,8 @@ var playState = {
         }
         else{
             button1.destroy();
-            button1 = game.add.button(100, 500,'pause', this.pausePlay,this,0,1,0)
-            
+            button1 = game.add.button(100, 500,'pause', this.pausePlay,this,0,1,0);
         }
-        
-        
     }
     
 }

@@ -222,6 +222,26 @@
             "url": "assets/GUI/Button/Pause.png",
             "overwrite": false
             
+        },
+        {
+            "type": "image",
+            "key": "win",
+            "url": "assets/bg/win.png",
+            "overwrite": false
+            
+        },
+        {
+            "type": "image",
+            "key": "lose",
+            "url": "assets/bg/lose.png",
+            "overwrite": false
+            
+        },
+        {
+            "type": "image",
+            "key": "menu",
+            "url": "assets/bg/menu.png",
+            "overwrite": false
         }
         
     ],
