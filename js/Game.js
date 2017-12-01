@@ -13,7 +13,6 @@ game.state.add('menu', menuState);
 game.state.add('play', playState);
 game.state.add('win', winState);
 game.state.add('lose', loseState);
-game.state.add('tutorial', tutorialState);
 game.state.add('tutorial1', tutorial1State);
 game.state.start('menu');
 

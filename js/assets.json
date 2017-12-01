@@ -225,6 +225,13 @@
         },
         {
             "type": "image",
+            "key": "tutorial",
+            "url": "assets/GUI/Button/Tutorial.png",
+            "overwrite": false
+            
+        },
+        {
+            "type": "image",
             "key": "win",
             "url": "assets/bg/win.png",
             "overwrite": false

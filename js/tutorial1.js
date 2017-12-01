@@ -149,7 +149,7 @@ var tutorial1State = {
             
             // Add information about the tower to the sidebar
             towerStyle = {
-                font: "15px Arial"
+                font: '15px Times', fill:'#FFFFFF'
             }
             game.add.text(towerSprite.x-30, towerSprite.y + 25, tower.name.toProperCase(), towerStyle)
             game.add.text(towerSprite.x-30, towerSprite.y + 40, "Cost: " + tower.cost.toString(), towerStyle)
@@ -163,11 +163,11 @@ var tutorial1State = {
 
 
         // Add game information
-        gameText = game.add.text(10, 500,
+        gameText = game.add.text(900, 620,
             'Wave: ' + currentWave.toString() + '\n' +
             'Coins: ' + coins.toString() + '\n' +
             'Lives: ' + lives.toString(), {
-                font: '15px Arial',
+                font: '15px Times', fill:'#FFFFFF'
             }
         )
            scroll =game.add.sprite(350,100,'scroll');
