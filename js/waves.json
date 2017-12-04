@@ -4,10 +4,6 @@
         "enemies": [
             {
                 "name": "civilian",
-                "amount": 4
-            },
-            {
-                "name": "spearKnight",
                 "amount": 3
             }
         ]
@@ -17,12 +13,12 @@
         "wave": 2,
         "enemies": [
             {
-                "name": "spearKnight",
-                "amount": 2
+                "name": "civilian",
+                "amount": 3
             },
             {
                 "name": "shieldKnight",
-                "amount": 7
+                "amount": 2
             }
         ]
     },
@@ -31,11 +27,11 @@
         "wave": 3,
         "enemies": [
             {
-                "name": "spearKnight",
+                "name": "civilian",
                 "amount": 5
             },
             {
-                "name": "whale",
+                "name": "ghostBat",
                 "amount": 4
             }
         ]
@@ -45,13 +41,122 @@
         "enemies": [
             {
                 "name": "shieldKnight",
-                "amount": 15
+                "amount": 7
             },
             {
                 "name": "whale",
                 "amount": 4
             }
         ]
+    },
+    {
+        "wave": 5,
+        "enemies": [
+            {
+                "name": "shieldKnight",
+                "amount": 7
+            },
+            {
+                "name": "whale",
+                "amount": 3
+            }
+        ]
+    },
+    {
+        "wave": 6,
+        "enemies": [
+            {
+                "name": "shieldKnight",
+                "amount": 5
+            },
+            {
+                "name": "whale",
+                "amount": 10
+            }
+        ]
+    },
+    {
+        "wave": 7,
+        "enemies": [
+            {
+                "name": "shieldKnight",
+                "amount": 7
+            },
+            {
+                "name": "spearKnight",
+                "amount": 3
+            }
+        ]
+    },
+    {
+        "wave": 8,
+        "enemies": [
+            {
+                "name": "shieldKnight",
+                "amount": 13
+            },
+            {
+                "name": "spearKnight",
+                "amount": 6
+            }
+        ]
+    },
+    {
+        "wave": 9,
+        "enemies": [
+            {
+                "name": "spearKnight",
+                "amount": 7
+            },
+            {
+                "name": "spikedBall",
+                "amount": 2
+            }
+        ]
+    },
+    {
+        "wave": 10,
+        "enemies": [
+            {
+                "name": "spearKnight",
+                "amount": 8
+            },
+            {
+                "name": "spikedBall",
+                "amount": 3
+            }
+        ]
+    },
+    {
+        "wave": 11,
+        "enemies": [
+            {
+                "name": "spearKnight",
+                "amount": 10
+            },
+            {
+                "name": "spikedBall",
+                "amount": 3
+            }
+        ]
+    },
+    {
+        "wave": 12,
+        "enemies": [
+            {
+                "name": "spearKnight",
+                "amount": 10
+            },
+            {
+                "name": "spikedBall",
+                "amount": 3
+            },
+            {
+                "name": "civilian",
+                "amount": 20
+            }
+        ]
     }
+
     
 ]

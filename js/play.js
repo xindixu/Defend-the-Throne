@@ -217,7 +217,7 @@ var playState = {
             game.state.start('lose');
         }
         else if(monstersAlive == 0){
-            if(currentWave < 5){
+            if(currentWave < 13){
                // console.log(currentWave);
                 var waveObject = waves[currentWave-1];
                 for (eIndex in waveObject.enemies) 

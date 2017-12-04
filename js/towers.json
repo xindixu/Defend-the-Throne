@@ -1,7 +1,7 @@
 [
     {
         "name": "Light Tower",
-        "cost": 100,
+        "cost": 150,
         "damage": 10,
         "weapon": "lightning",
         "soundEffect": "ele1",
@@ -18,7 +18,7 @@
     {
         "name": "Outpost",
         "cost": 200,
-        "damage": 12,
+        "damage": 15,
         "weapon": "arrow",
         "soundEffect": "ele2",
         "upgrades": [

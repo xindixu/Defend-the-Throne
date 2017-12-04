@@ -165,6 +165,14 @@
             "overwrite": false,
             "frameWidth": 65,
             "frameHeight": 55
+        },
+        {
+            "type":"spritesheet",
+            "key": "female",
+            "url": "assets/Monsters/FemaleChampion.png",
+            "overwrite": false,
+            "frameWidth": 65,
+            "frameHeight": 55
         }
         
     ],

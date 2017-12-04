@@ -1,45 +1,52 @@
 [
     {
         "name": "spearKnight",
-        "coinsDropped": 10,
-        "health": 30,
+        "coinsDropped": 15,
+        "health": 150,
         "animation": true
     },
     {
         "name": "shieldKnight",
         "coinsDropped": 10,
-        "health": 30,
+        "health": 50,
         "animation": true
     },
     {
         "name": "whale",
-        "coinsDropped": 10,
-        "health": 20,
+        "coinsDropped": 20,
+        "health": 75,
         "animation": true
     },
     {
         "name": "ghostBat",
-        "coinsDropped": 20,
-        "health": 15,
+        "coinsDropped": 2,
+        "health": 10,
         "animation": true
     },
     {
         "name": "spikeBall",
-        "coinsDropped": 20,
-        "health": 15,
+        "coinsDropped": 55,
+        "health": 150,
         "animation": true
     },
     {
         "name": "robedSkeleton",
-        "coinsDropped": 20,
-        "health": 15,
+        "coinsDropped": 70,
+        "health": 300,
         "animation": true
         
     },
     {
         "name": "civilian",
-        "coinsDropped": 20,
+        "coinsDropped": 2,
         "health": 15,
+        "animation": true
+        
+    },
+    {
+        "name": "female",
+        "coinsDropped": 35,
+        "health": 150,
         "animation": true
         
     }
